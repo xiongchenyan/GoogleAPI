@@ -18,9 +18,9 @@ from TopicAPI import *
 
 
 def UnitRunQuery(query):
-    print "start search [%s]"
+    print "start search [%s]" %(query)
     lFbObj = SearchFreebase(query)
-    print "[%d] results:\n%s" %('\n'.join([json.dumps(obj.hBase) for obj in lFbObj]))
+    print "[%d] results:\n%s" %(len(lFbObj),'\n'.join([json.dumps(obj.hBase) for obj in lFbObj]))
     
     print "fetch topics for first 2"
     lFbObj = lFbObj[:2]
