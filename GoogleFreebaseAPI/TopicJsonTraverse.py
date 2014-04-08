@@ -55,7 +55,7 @@ def InitNamePath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','string'}    
+    node.hMustHaveNeighbor = {'valuetype':'string'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
@@ -74,7 +74,7 @@ def InitDespPath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','string'}    
+    node.hMustHaveNeighbor = {'valuetype':'string'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
@@ -92,7 +92,7 @@ def InitNotableTypePath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','object'}    
+    node.hMustHaveNeighbor = {'valuetype':'object'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
@@ -111,7 +111,7 @@ def InitAliasPath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','string'}    
+    node.hMustHaveNeighbor = {'valuetype':'string'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
@@ -129,7 +129,7 @@ def InitTypePath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','object'}    
+    node.hMustHaveNeighbor = {'valuetype':'object'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
@@ -148,7 +148,7 @@ def InitNeighborPath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','object'}    
+    node.hMustHaveNeighbor = {'valuetype':'object'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
@@ -167,7 +167,7 @@ def InitNeighborCompoundPath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','compound'}    
+    node.hMustHaveNeighbor = {'valuetype':'compound'}    
     lPathConstrain.append(node)
     
     
@@ -184,7 +184,7 @@ def InitNeighborCompoundPath():
     
     node = PathConstrainC()
     node.hTargetEdge = {'values':1}
-    node.hMustHaveNeighbor = {'valuetype','object'}    
+    node.hMustHaveNeighbor = {'valuetype':'object'}    
     lPathConstrain.append(node)
     
     node = PathConstrainC()
