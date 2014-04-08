@@ -23,7 +23,7 @@ def FetchFreebaseTopic(FbApiObj):
     if "" == Mid:
         return FbApiObj
     
-    url = TopicUrl +  Mid + "?" + urllib.urlencode(CreateTopicPara)
+    url = TopicUrl +  Mid + "?" + urllib.urlencode(CreateTopicPara())
     topic = json.loads(urllib.urlopen(url).read())
     if 'property' in topic:
         FbApiObj.hTopic = dict(FbApiObj.hTopic.items() + topic['property'].items())
