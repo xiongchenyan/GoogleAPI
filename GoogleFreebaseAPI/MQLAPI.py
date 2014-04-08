@@ -32,6 +32,7 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
         CursorStr = ""
         if CursorIndex != "":
             CursorStr = "=" + CursorIndex
+        print "mql api url [%s]" %(url)
         response = json.loads(urllib.urlopen(url + "&cursor" + CursorStr).read())
 #         print "mql res:\n%s" %(json.dumps(response))
         for result in response['result']:

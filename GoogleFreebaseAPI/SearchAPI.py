@@ -20,6 +20,7 @@ def SearchFreebase(query):
     params['query'] = query
     
     url = SearchUrl + "?" + urllib.urlencode(params)
+    print "search api url [%s]" %(url)
     response = json.loads(urllib.urlopen(url).read())
     if not 'OK' in response['status']:
         print "search freebase failed, check your quota"
