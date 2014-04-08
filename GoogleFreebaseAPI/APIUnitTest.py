@@ -39,7 +39,8 @@ def UnitRunQuery(query):
     for obj in lFbObj:
         print "obj [%s]" %(obj.GetName())
         for Neighbor in obj.GetNeighbor():
-            print "edge:%s\nobj%s" %(json.dumps(Neighbor[0]), Neighbor[1].GetName())
+            print "edge:%s\nobj:[%s][%s]" %(json.dumps(Neighbor[0]), Neighbor[1].GetName(),
+                                            Neighbor[1].GetId())
     return True
 
 
