@@ -22,18 +22,24 @@ def UnitRunQuery(query):
     lFbObj = SearchFreebase(query)
     print "[%d] results:\n%s" %(len(lFbObj),'\n'.join([json.dumps(obj.hBase) for obj in lFbObj]))
     
-    print "fetch topics for first 2"
-    lFbObj = lFbObj[:2]
+    print "fetch topics for first 1"
+    lFbObj = lFbObj[:1]
     for obj in lFbObj:
         obj = FetchFreebaseTopic(obj)
         print "obj [%s] topic:\n%s" %(obj.GetName(),json.dumps(obj.hTopic,indent=1))
         
-    print "get co type objects"
+#     print "get co type objects"
+#     for obj in lFbObj:
+#         print "obj [%s] notable [%s]" %(obj.GetName(),obj.GetNotableType())
+#         lCoTypeObj = FetchTypeInstance(obj.GetNotableType(),10)
+#         print "cotype obj:\n%s" %('\n'.join(lCoTypeObj))
+    
+    
+    print "neighbors"
     for obj in lFbObj:
-        print "obj [%s] notable [%s]" %(obj.GetName(),obj.GetNotableType())
-        lCoTypeObj = FetchTypeInstance(obj.GetNotableType(),10)
-        print "cotype obj:\n%s" %('\n'.join(lCoTypeObj))
-        
+        print "obj [%s]" %(obj.GetName())
+        for Neighbor in obj.GetNeighbor():
+            print "edge:%s\nobj%s" %(json.dumps(Neighbor[0]), Neighbor[1].GetName())
     return True
 
 
