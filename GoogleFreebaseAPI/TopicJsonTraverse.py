@@ -142,7 +142,7 @@ def InitNeighborPath():
     lPathConstrain = []
     node = PathConstrainC()
     node.AllEdge = True
-    node.hFilterPath = dict(zip(['/common','/type'],range(2)))
+    node.hFilterPath = dict(zip(['common','type'],range(2)))
     
     lPathConstrain.append(node)
     
@@ -161,7 +161,7 @@ def InitNeighborCompoundPath():
     lPathConstrain = []
     node = PathConstrainC()
     node.AllEdge = True
-    node.hFilterPath = dict(zip(['/common','/type'],range(2)))
+    node.hFilterPath = dict(zip(['common','type'],range(2)))
     
     lPathConstrain.append(node)
     
@@ -177,7 +177,7 @@ def InitNeighborCompoundPath():
     
     node = PathConstrainC()
     node.AllEdge = True
-    node.hFilterPath = dict(zip(['/common','/type'],range(2)))
+    node.hFilterPath = dict(zip(['common','type'],range(2)))
     
     lPathConstrain.append(node)
     
@@ -194,6 +194,20 @@ def InitNeighborCompoundPath():
     
     return lPathConstrain
 
+
+def SegOntologyEdge(edge):
+    #input "/a/b/a" output: ['a','b','a']
+    return edge.strip('/').split('/')
+
+def IsFilterEdge(edge,hFilter):
+    #filter by level 0 domain here
+    lLvlName = SegOntologyEdge(edge)
+    if lLvlName == []:
+        return False
+    if lLvlName[0] in hFilter:
+        return True
+    return False
+    
 
 
 
@@ -237,7 +251,7 @@ def FreebaseTopicApiJsonDfs(hCurrentTopicDict,lPathConstrain,lCurrentPath=[],lev
     for item in hCurrentTopicDict:
         if (not item in CurrentConstrain.hTargetEdge) &(not CurrentConstrain.AllEdge):
             continue
-        if item in CurrentConstrain.hFilterPath:
+        if IsFilterEdge(item,CurrentConstrain.hFilterPath):
             continue
         NextData = hCurrentTopicDict[item]
         if type(NextData) == dict:
