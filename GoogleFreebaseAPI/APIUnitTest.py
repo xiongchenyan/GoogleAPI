@@ -2,6 +2,12 @@
 Created on Apr 8, 2014
 
 @author: cx
+
+
+4/8 5.00 mostly test.
+tbd: different get fields
+and traverse in compound neighbor (need another object)
+
 '''
 
 import site

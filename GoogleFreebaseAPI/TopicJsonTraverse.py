@@ -200,6 +200,7 @@ def SegOntologyEdge(edge):
     return edge.strip('/').split('/')
 
 def IsFilterEdge(edge,hFilter):
+    return False
     #filter by level 0 domain here
     lLvlName = SegOntologyEdge(edge)
     if lLvlName == []:
