@@ -33,8 +33,7 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
         if CursorIndex != "":
             CursorStr = "=" + CursorIndex
         response = json.loads(urllib.urlopen(url + "&cursor" + CursorStr).read())
-        if not 'result' in response:
-            print "mql res:\n%s" %(json.dumps(response))
+        print "mql res:\n%s" %(json.dumps(response))
         for result in response['result']:
             if 'id' in result:
                 lInstanceId.append(result['id'])

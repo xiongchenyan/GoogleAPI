@@ -32,7 +32,7 @@ def UnitRunQuery(query):
     for obj in lFbObj:
         print "obj [%s] notable [%s]" %(obj.GetName(),obj.GetNotableType())
         lCoTypeObj = FetchTypeInstance(obj.GetNotableType(),10)
-        print "cotype obj:\n%s" %('\n'.join([Obj.GetName() for Obj in lCoTypeObj]))
+        print "cotype obj:\n%s" %('\n'.join(lCoTypeObj))
         
     return True
 
