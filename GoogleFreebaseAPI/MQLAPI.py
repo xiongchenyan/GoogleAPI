@@ -14,8 +14,7 @@ MqlUrl = 'https://www.googleapis.com/freebase/v1/mqlread'
 
 
 def CreateMqlPara():
-    return {'key':random.choice(APIKey),
-            'lang':'en'
+    return {'key':random.choice(APIKey)
             }
     
     
