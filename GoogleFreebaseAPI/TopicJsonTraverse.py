@@ -189,7 +189,7 @@ def InitNeighborCompoundPath():
     
     node = PathConstrainC()
     node.hEnd = {'id':"",'text':''}
-    node.hMustHaveNeighbor={'lang','en'}
+    node.hMustHaveNeighbor={'lang':'en'}
     lPathConstrain.append(node)
     
     return lPathConstrain
