@@ -29,7 +29,7 @@ def UnitRunQuery(query):
 #     print "[%d] results:\n%s" %(len(lFbObj),'\n'.join([json.dumps(obj.hBase) for obj in lFbObj]))
     
 #     print "fetch topics for first 1"
-    lFbObj = lFbObj[:1]
+    lFbObj = lFbObj[:3]
     for obj in lFbObj:
         obj = FetchFreebaseTopic(obj)
         print "obj [%s] topic:\n%s" %(obj.GetName(),json.dumps(obj.hTopic,indent=1))
@@ -41,12 +41,15 @@ def UnitRunQuery(query):
 #         print "cotype obj:\n%s" %('\n'.join(lCoTypeObj))
     
     
-    print "neighbors"
     for obj in lFbObj:
 #         print "obj [%s]" %(obj.GetName())
         for Neighbor in obj.GetNeighbor():
             print "edge:%s\nobj:[%s][%s]" %(json.dumps(Neighbor[0]), Neighbor[1].GetName(),
                                             Neighbor[1].GetId())
+        print "alias [%s]" %(json.dumps(obj.GetAlias()))
+        print "name topic [%s]" %(obj.GetNameViaTopic())
+        print "type [%s]" %(json.dumps(obj.GetType()))
+        
     return True
 
 
