@@ -73,7 +73,7 @@ class FbApiObjectC(object):
     def GetBaseField(self,Field):
         if not Field in self.hBase:
             return ""
-        return repr(self.hBase[Field])
+        return self.hBase[Field]
         
     
     
