@@ -60,7 +60,7 @@ def InitNamePath():
     
     node = PathConstrainC()
     node.hEnd = {'value':""}
-    node.hMustHaveNeighbor={'lang','en'}    
+    node.hMustHaveNeighbor={'lang':'en'}    
     lPathConstrain.append(node)
     return lPathConstrain
 
@@ -79,7 +79,7 @@ def InitDespPath():
     
     node = PathConstrainC()
     node.hEnd = {'value':""}
-    node.hMustHaveNeighbor={'lang','en'}    
+    node.hMustHaveNeighbor={'lang':'en'}    
     lPathConstrain.append(node)
     return lPathConstrain
 
@@ -97,7 +97,7 @@ def InitNotableTypePath():
     
     node = PathConstrainC()
     node.hEnd = {'id':""}
-    node.hMustHaveNeighbor={'lang','en'}    
+    node.hMustHaveNeighbor={'lang':'en'}    
     lPathConstrain.append(node)
     return lPathConstrain  
 
@@ -116,7 +116,7 @@ def InitAliasPath():
     
     node = PathConstrainC()
     node.hEnd = {'value':""}
-    node.hMustHaveNeighbor={'lang','en'}    
+    node.hMustHaveNeighbor={'lang':'en'}    
     lPathConstrain.append(node)
     return lPathConstrain  
 
@@ -134,7 +134,7 @@ def InitTypePath():
     
     node = PathConstrainC()
     node.hEnd = {'id':""}
-    node.hMustHaveNeighbor={'lang','en'}    
+    node.hMustHaveNeighbor={'lang':'en'}    
     lPathConstrain.append(node)
     return lPathConstrain  
 
@@ -153,7 +153,7 @@ def InitNeighborPath():
     
     node = PathConstrainC()
     node.hEnd = {'id':"",'text':''}
-    node.hMustHaveNeighbor={'lang','en'}
+    node.hMustHaveNeighbor={'lang':'en'}
     lPathConstrain.append(node)
     return lPathConstrain
 
