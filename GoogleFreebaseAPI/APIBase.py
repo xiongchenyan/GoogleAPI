@@ -34,7 +34,7 @@ class FbApiObjectC(object):
     def __init__(self,Id="",name=""):
         self.Init()
         self.hBase['name'] = name
-        self.hBase['id'] = Id
+        self.hBase['mid'] = Id
         
         
     def __deepcopy__(self,memo):

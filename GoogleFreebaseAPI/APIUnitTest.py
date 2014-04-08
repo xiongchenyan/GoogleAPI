@@ -20,9 +20,9 @@ from TopicAPI import *
 def UnitRunQuery(query):
     print "start search [%s]" %(query)
     lFbObj = SearchFreebase(query)
-    print "[%d] results:\n%s" %(len(lFbObj),'\n'.join([json.dumps(obj.hBase) for obj in lFbObj]))
+#     print "[%d] results:\n%s" %(len(lFbObj),'\n'.join([json.dumps(obj.hBase) for obj in lFbObj]))
     
-    print "fetch topics for first 1"
+#     print "fetch topics for first 1"
     lFbObj = lFbObj[:1]
     for obj in lFbObj:
         obj = FetchFreebaseTopic(obj)
@@ -37,7 +37,7 @@ def UnitRunQuery(query):
     
     print "neighbors"
     for obj in lFbObj:
-        print "obj [%s]" %(obj.GetName())
+#         print "obj [%s]" %(obj.GetName())
         for Neighbor in obj.GetNeighbor():
             print "edge:%s\nobj:[%s][%s]" %(json.dumps(Neighbor[0]), Neighbor[1].GetName(),
                                             Neighbor[1].GetId())
