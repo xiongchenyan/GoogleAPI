@@ -44,7 +44,7 @@ class FbApiObjectC(object):
         APIObj.NotableType = deepcopy(self.NotableType,memo)
         APIObj.lLinkedObj = deepcopy(self.lLinkedObj,memo)
         APIObj.Desp = deepcopy(self.Desp,memo)
-        APIObj.lAlias = deepcopy(self.lAlias.memo)
+        APIObj.lAlias = deepcopy(self.lAlias,memo)
         APIObj.lType = deepcopy(self.lType,memo)
         return APIObj
         
