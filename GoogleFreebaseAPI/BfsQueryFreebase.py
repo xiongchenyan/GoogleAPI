@@ -223,7 +223,7 @@ class BfsQueryFreebaseC(cxBaseC):
             print 'add [%d] node from neighbor\nadd [%d] node from co type' %(len(lNeighborObj),len(lCoTypeObj))
             BFSQue.extend(lToAdd)          
             print 'bfs que size [%d] at [%d]' %(len(BFSQue),p)
-        
+        print "bfs finished, total meet [%d] objects" %(len(BFSQue))
         return True
     
     def ProcessPerObj(self,lPath,FbObj):
