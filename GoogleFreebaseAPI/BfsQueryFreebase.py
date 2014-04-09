@@ -176,7 +176,7 @@ class BfsQueryFreebaseC(cxBaseC):
             #constract cotype obj from id
             #add cotype_typename,cotype id to hedge
             lCoTypeId = FetchTypeInstance(NotableType,self.MaxCoTypeExp)
-            lCoTypeObj = [['',FbApiObjectC(objid,'')] for objid in lCoTypeId]
+            lCoTypeObj = [['cotype/'+NotableType,FbApiObjectC(objid,'')] for objid in lCoTypeId]
             self.hEdges[NotableType] = [['cotype/'+NotableType,ObjId] for ObjId in lCoTypeId]
             
         lCoTypeObj = [[item[0],self.FillObj(item[1])] for item in lCoTypeObj]   
