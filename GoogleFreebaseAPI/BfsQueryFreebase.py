@@ -263,7 +263,7 @@ def FormEnumeratePhraseQuery(query):
     LenSt = 2
     LenEd = len(lTerm)
     for CurLen in range(LenSt,LenEd + 1):
-        for st in range(len(lTerm)):
+        for st in range(len(lTerm) - CurLen + 1):
             ThisQ = ' '.join(lTerm[st:st + CurLen])
             if not ThisQ in lSubQ:
                 lSubQ.append(ThisQ)
