@@ -59,7 +59,8 @@ class BfsQueryFreebaseC(cxBaseC):
         conf = cxConf(ConfIn)
         self.WorkDir = conf.GetConf('workdir')
         self.ObjectCashDir = self.WorkDir + "/obj"
-        os.makedirs(self.ObjectCashDir)
+        if not os.path.isdir(self.ObjectCashDir):
+            os.makedirs(self.ObjectCashDir)
         
         self.BFSLvl = int(conf.GetConf('bfslvl',self.BFSLvl))
         self.MaxSearchRes = int(conf.GetConf('maxsearchres',self.MaxSearchRes))
