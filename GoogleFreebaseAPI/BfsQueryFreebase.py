@@ -185,7 +185,7 @@ class BfsQueryFreebaseC(cxBaseC):
             p += 1
             self.ProcessPerObj(CurrentObj[0],CurrentObj[1])
             
-            if len(CurrentObj[0]) >= self.BFSLvl:
+            if len(CurrentObj[0]) > self.BFSLvl:
                 continue
             lNeighborObj = self.ExpandObjNeighbor(CurrentObj)
             lCoTypeObj = self.ExpandTypeNeighbor(CurrentObj)
