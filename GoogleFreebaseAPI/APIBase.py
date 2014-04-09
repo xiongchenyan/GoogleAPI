@@ -108,7 +108,7 @@ class FbApiObjectC(object):
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,lConstrainPath)
         
         for res in lDfsRes:
-            self.lAlias.append(res.hEnd['value'].encode('ascii','ignore'))
+            self.lAlias.append(res.hEnd['value'].encode('ascii','replace'))
         return self.lAlias
     
     def GetDesp(self):
@@ -116,7 +116,7 @@ class FbApiObjectC(object):
             return self.Desp
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitDespPath())
         for res in lDfsRes:
-            self.Desp = res.hEnd['value'].encode('ascii','ignore')
+            self.Desp = res.hEnd['value'].encode('ascii','replace')
         return self.Desp
     
     def GetNotableType(self):
@@ -124,7 +124,7 @@ class FbApiObjectC(object):
             return self.NotableType
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNotableTypePath())
         for res in lDfsRes:
-            self.NotableType = res.hEnd['id'].encode('ascii','ignore')
+            self.NotableType = res.hEnd['id'].encode('ascii','replace')
         return self.NotableType
     
     def GetType(self):
@@ -132,7 +132,7 @@ class FbApiObjectC(object):
             return self.lType
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitTypePath())
         for res in lDfsRes:
-            self.lType.append(res.hEnd['id'].encode('ascii','ignore'))
+            self.lType.append(res.hEnd['id'].encode('ascii','replace'))
         return self.lType
     
     def GetNeighbor(self):
