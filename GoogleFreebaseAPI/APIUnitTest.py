@@ -8,6 +8,9 @@ Created on Apr 8, 2014
 tbd: different get fields
 and traverse in compound neighbor (need another object)
 
+6:30
+test done
+next to test the BFS directly
 '''
 
 import site
