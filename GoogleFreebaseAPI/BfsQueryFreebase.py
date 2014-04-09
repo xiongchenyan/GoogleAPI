@@ -195,7 +195,15 @@ class BfsQueryFreebaseC(cxBaseC):
         
         print "working on query [%s]" %(query)
         
-        lSearchObj = self.SearchQueryForInitObj(query)
+        lSearchObj = []
+        if True:
+            lSubQ = FormEnumeratePhraseQuery(query)
+            print "to query sub queries [%s]" %(json.dumps(lSubQ))
+            for q in lSubQ:
+                lSearchObj.extend(self.SearchQueryForInitObj(q))
+        
+        else:
+            lSearchObj = self.SearchQueryForInitObj(query)
         BFSQue = [[[item[0]],item[1]] for item in lSearchObj]
         
         print "start nodes [%d]:" %(len(BFSQue)) 
@@ -244,4 +252,19 @@ def BfsQueryFreebaseUnitRun(ConfIn):
     return True
         
         
+
+def FormEnumeratePhraseQuery(query):
+    lSubQ = []
+    lTerm = query.split()
+    if len(lTerm) == 1:
+        return [query]
+    
+    LenSt = 2
+    LenEd = len(lTerm)
+    for CurLen in range(LenSt,LenEd + 1):
+        for st in range(len(lTerm)):
+            ThisQ = ' '.join(lTerm[st:st + CurLen])
+            if not ThisQ in lSubQ:
+                lSubQ.append(ThisQ)
+    return lSubQ
 
