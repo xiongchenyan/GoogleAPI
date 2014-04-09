@@ -200,19 +200,19 @@ class BfsQueryFreebaseC(cxBaseC):
         
         p = 0
         while p < len(BFSQue):
-            CurrentObj = BFSQue[p]
-            print 'now obj [%s] - [%s][%s]' %(json.dumps(CurrentObj[0]),
-                                              CurrentObj[1].GetId().encode('utf-8','ignore'),
-                                       CurrentObj[1].GetName().encode('utf-8','ignore'))
+            edge,CurrentObj = BFSQue[p]
+            print 'now obj [%s] - [%s][%s]' %(json.dumps(edge),
+                                              CurrentObj.GetId().encode('utf-8','ignore'),
+                                       CurrentObj.GetName().encode('utf-8','ignore'))
             p += 1
-            self.ProcessPerObj(CurrentObj[0],CurrentObj[1])
+            self.ProcessPerObj(edge,CurrentObj)
             
-            if len(CurrentObj[0]) > self.BFSLvl:
+            if len(edge) > self.BFSLvl:
                 continue
             lNeighborObj = self.ExpandObjNeighbor(CurrentObj)
             lCoTypeObj = self.ExpandTypeNeighbor(CurrentObj)
             
-            lToAdd = [[list(CurrentObj[0] + [item[0]]), item[1]] for item in lNeighborObj+lCoTypeObj]
+            lToAdd = [[list(edge + [item[0]]), item[1]] for item in lNeighborObj+lCoTypeObj]
             
             print 'add [%d] node from neighbor\nadd [%d] node from co type' %(len(lNeighborObj),len(lCoTypeObj))
             BFSQue.extend(lToAdd)          
