@@ -183,7 +183,7 @@ class BfsQueryFreebaseC(cxBaseC):
         return lCoTypeObj
     
     
-    def BFS(self,query):
+    def BFS(self,qid,query):
         #typical bfs
         #initial que by query-search
         #keep que [path,obj] (path is [edge1,edge2] etc
@@ -219,7 +219,7 @@ class BfsQueryFreebaseC(cxBaseC):
                                               CurrentObj.GetId().encode('utf-8','ignore'),
                                        CurrentObj.GetName().encode('utf-8','ignore'))
             p += 1
-            self.ProcessPerObj(edge,CurrentObj)
+            self.ProcessPerObj(edge,CurrentObj,qid,query)
             
             if len(edge) >= self.BFSLvl:
                 continue
@@ -234,7 +234,7 @@ class BfsQueryFreebaseC(cxBaseC):
         print "bfs finished, total meet [%d] objects" %(len(BFSQue))
         return True
     
-    def ProcessPerObj(self,lPath,FbObj):
+    def ProcessPerObj(self,lPath,FbObj,qid,query):
         #api left for sub class to process a bfs'd result. like vote up a term in FbObj's name
 #         print "get obj[%s][%s] via [%s]" %(FbObj.GetId(),FbObj.GetName(),json.dumps(lPath))
         return True
@@ -247,7 +247,8 @@ def BfsQueryFreebaseUnitRun(ConfIn):
     BFSer = BfsQueryFreebaseC(ConfIn)
     
     for line in open(InName):
-        BFSer.BFS(line.strip().split('\t')[1])
+        qid,query = line.strip().split('\t')
+        BFSer.BFS(qid,query)
     BFSer.dump()
     return True
         
