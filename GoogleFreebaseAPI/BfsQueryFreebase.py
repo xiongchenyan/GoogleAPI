@@ -201,8 +201,9 @@ class BfsQueryFreebaseC(cxBaseC):
         p = 0
         while p < len(BFSQue):
             CurrentObj = BFSQue[p]
-            print 'now obj [%s][%s]' %(CurrentObj.GetId().encode('utf-8','ignore'),
-                                       CurrentObj.GetName().encode('utf-8','ignore'))
+            print 'now obj [%s] - [%s][%s]' %(json.dumps(CurrentObj[0]),
+                                              CurrentObj[1].GetId().encode('utf-8','ignore'),
+                                       CurrentObj[1].GetName().encode('utf-8','ignore'))
             p += 1
             self.ProcessPerObj(CurrentObj[0],CurrentObj[1])
             
