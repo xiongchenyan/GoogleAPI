@@ -187,11 +187,22 @@ class BfsQueryFreebaseC(cxBaseC):
                 #Neighbor Obj
                 #TypeNeighbor Obj
         
+        print "working on query [%s]" %(query)
+        
         lSearchObj = self.SearchQueryForInitObj(query)
         BFSQue = [[[item[0]],item[1]] for item in lSearchObj]
+        
+        print "start nodes [%d]:" %(len(BFSQue)) 
+        for node in BFSQue:
+            print "%s\t[%s][%s]" %(json.dumps(node[0]),
+                                   node[1].GetId().encode('utf-8','ignore'),
+                                   node[1].GetName().encode('utf-8','ignore'))
+        
         p = 0
         while p < len(BFSQue):
             CurrentObj = BFSQue[p]
+            print 'now obj [%s][%s]' %(CurrentObj.GetId().encode('utf-8','ignore'),
+                                       CurrentObj.GetName().encode('utf-8','ignore'))
             p += 1
             self.ProcessPerObj(CurrentObj[0],CurrentObj[1])
             
@@ -201,7 +212,10 @@ class BfsQueryFreebaseC(cxBaseC):
             lCoTypeObj = self.ExpandTypeNeighbor(CurrentObj)
             
             lToAdd = [[list(CurrentObj[0] + [item[0]]), item[1]] for item in lNeighborObj+lCoTypeObj]
+            
+            print 'add [%d] node from neighbor\nadd [%d] node from co type' %(len(lNeighborObj),len(lCoTypeObj))
             BFSQue.extend(lToAdd)          
+            print 'bfs que size [%d] at [%d]' %(len(BFSQue),p)
         
         return True
     
@@ -218,7 +232,7 @@ def BfsQueryFreebaseUnitRun(ConfIn):
     BFSer = BfsQueryFreebaseC(ConfIn)
     
     for line in open(InName):
-        BFSer.BFS(line.strip()[1])
+        BFSer.BFS(line.strip('\t')[1])
     BFSer.dump()
     return True
         
