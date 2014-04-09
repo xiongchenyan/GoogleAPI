@@ -73,13 +73,22 @@ class BfsQueryFreebaseC(cxBaseC):
     def load(self):
         #try to load dumped result in workdir, if exist
         if os.path.isfile(self.EdgeDumpName()):
-            self.hEdges = pickle.load(self.EdgeDumpName())
+            In = open(self.EdgeDumpName(),'rb')
+            self.hEdges = pickle.load(In)
+            In.close()
         if os.path.isfile(self.ObjListName()):
-            self.hSeenObj = pickle.load(self.ObjListName())           
+            In = open(self.ObjListName(),'rb')
+            self.hSeenObj = pickle.load(In) 
+            In.close()          
 
     def dump(self):
-        pickle.dump(self.hEdges,self.EdgeDumpName())
-        pickle.dump(self.hSeenObj,self.ObjListName())
+        out = open(self.EdgeDumpName(),'wb')
+        pickle.dump(self.hEdges,out)
+        out.close()
+        
+        out = open(self.ObjListName(),'wb')
+        pickle.dump(self.hSeenObj,out)
+        out.close()
         return True
     
     def EdgeDumpName(self):
