@@ -35,6 +35,11 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
         print "mql api url [%s]" %(url)
         response = json.loads(urllib.urlopen(url + "&cursor" + CursorStr).read())
 #         print "mql res:\n%s" %(json.dumps(response))
+
+        if not 'result' in response:
+            print "no result in mql quuery"
+            return []
+
         for result in response['result']:
             if 'id' in result:
                 lInstanceId.append(result['id'])
@@ -43,5 +48,5 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
             CursorIndex = response['cursor']
             if (not CursorIndex) | (CursorIndex == 'false'):
                 break    
-    return lInstanceId
+    return lInstanceId[:NumOfInstance]
             

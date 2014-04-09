@@ -108,6 +108,7 @@ class BfsQueryFreebaseC(cxBaseC):
         lLinkObj = []
         
         if query in self.hEdges:
+            print "query [%s] in edge cash" %(query)
             lLinkObj = [[item[0],FbApiObjectC(item[1],'')] for item in self.hEdges[query]]
             
         else:
@@ -125,6 +126,7 @@ class BfsQueryFreebaseC(cxBaseC):
             #filled
             return FbObj
         if FbObj.GetId() in self.hSeenObj:
+            print "obj [%s] dumped to dict already" %(FbObj.GetId())
             FbObj.load(self.ObjectCashDir)
             return FbObj
         self.hSeenObj[FbObj.GetId()] = True
@@ -140,7 +142,8 @@ class BfsQueryFreebaseC(cxBaseC):
         
         #check if this obj id in hEdge
             #Y: get all edges, discard type edge, and extract neighbor ids
-        if FbObj.GetId() in self.hEdges:            
+        if FbObj.GetId() in self.hEdges:    
+            print "obj [%s] in edge cash" %(FbObj.GetId())        
             lNeighborObj = [[item[0],FbApiObjectC(item[1],'')] for item in self.hEdges[FbObj.GetId()][:self.MaxNeighborExp]]
         
         #FbObj is a filled one.
@@ -160,7 +163,10 @@ class BfsQueryFreebaseC(cxBaseC):
         #return obj are full filled
         lCoTypeObj = []
         NotableType = FbObj.GetNotableType()
-        if  NotableType in self.hEdges:            
+        if "" == NotableType:
+            return []
+        if  NotableType in self.hEdges:     
+            print "Type [%s]  in edge cash" %(NotableType)        
             lCoTypeObj = [[item[0],FbApiObjectC(item[1],'')]
                           for item in self.hEdges[NotableType][:self.MaxCoTypeExp]]
         
