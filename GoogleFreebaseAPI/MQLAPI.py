@@ -41,7 +41,7 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
         
         if 'cursor' in response:
             CursorIndex = response['cursor']
-            if CursorIndex == 'false':
+            if (not CursorIndex) | (CursorIndex == 'false'):
                 break    
     return lInstanceId
             
