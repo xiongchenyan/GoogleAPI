@@ -165,9 +165,10 @@ class FbApiObjectC(object):
         return True
     
     def load(self,InDir):
-        In = open(InDir + "/" + self.GenerateFName())
+        In = open(InDir + "/" + self.GenerateFName(),'r')
         self.hBase = pickle.load(In)
         self.hTopic = pickle.load(In)
+        In.close()
         return True
         
      
