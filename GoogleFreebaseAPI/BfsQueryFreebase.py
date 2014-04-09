@@ -232,7 +232,7 @@ def BfsQueryFreebaseUnitRun(ConfIn):
     BFSer = BfsQueryFreebaseC(ConfIn)
     
     for line in open(InName):
-        BFSer.BFS(line.strip('\t')[1])
+        BFSer.BFS(line.strip().split('\t')[1])
     BFSer.dump()
     return True
         
