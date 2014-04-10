@@ -11,7 +11,7 @@ from APIBase import APIKey
 import json,urllib,random
 MqlUrl = 'https://www.googleapis.com/freebase/v1/mqlread'
 
-
+import time
 
 def CreateMqlPara():
     return {'key':random.choice(APIKey)
@@ -35,7 +35,7 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
         print "mql api url [%s]" %(url)
         response = json.loads(urllib.urlopen(url + "&cursor" + CursorStr).read())
 #         print "mql res:\n%s" %(json.dumps(response))
-
+        time.sleep(0.1)
         if not 'result' in response:
             print "no result in mql quuery"
             return []

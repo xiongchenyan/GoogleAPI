@@ -9,7 +9,7 @@ from APIBase import APIKey
 
 import json,urllib,random
 TopicUrl = 'https://www.googleapis.com/freebase/v1/topic'
-
+import time
 def CreateTopicPara():
     params = {
               'key': random.choice(APIKey),
@@ -26,6 +26,7 @@ def FetchFreebaseTopic(FbApiObj):
     url = TopicUrl +  Mid + "?" + urllib.urlencode(CreateTopicPara())
     print "topic api fetching url [%s]" %(url)
     topic = json.loads(urllib.urlopen(url).read())
+    time.sleep(0.1)
     if 'property' in topic:
         FbApiObj.hTopic = dict(FbApiObj.hTopic.items() + topic['property'].items())
     else:

@@ -8,7 +8,7 @@ from APIBase import APIKey,FbApiObjectC
 
 import json,urllib
 import random
-
+import time
 SearchUrl = 'https://www.googleapis.com/freebase/v1/search'
 
 def CreateSearchPara():
@@ -22,6 +22,7 @@ def SearchFreebase(query):
     url = SearchUrl + "?" + urllib.urlencode(params)
     print "search api url [%s]" %(url)
     response = json.loads(urllib.urlopen(url).read())
+    time.sleep(0.1)
     if not 'OK' in response['status']:
         print "search freebase failed, check your quota"
         return []
