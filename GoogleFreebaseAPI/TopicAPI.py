@@ -28,5 +28,7 @@ def FetchFreebaseTopic(FbApiObj):
     topic = json.loads(urllib.urlopen(url).read())
     if 'property' in topic:
         FbApiObj.hTopic = dict(FbApiObj.hTopic.items() + topic['property'].items())
+    else:
+        print "fill by topic api return res error [%s]" %(json.dumps(topic))
     return FbApiObj
     
