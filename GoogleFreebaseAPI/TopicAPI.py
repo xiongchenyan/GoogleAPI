@@ -39,7 +39,7 @@ def FetchFreebaseTopic(FbApiObj):
         break    
     topic = json.loads(data)
     
-    time.sleep(0.5)
+    time.sleep(0.1)
     if 'property' in topic:
         FbApiObj.hTopic = dict(FbApiObj.hTopic.items() + topic['property'].items())
     else:

@@ -48,7 +48,7 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
             break    
         response = json.loads(data)
                 
-        time.sleep(0.5)        
+        time.sleep(0.1)        
         
         
         if not 'result' in response:

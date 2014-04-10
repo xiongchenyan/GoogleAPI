@@ -33,7 +33,7 @@ def SearchFreebase(query):
             continue
         break    
     response = json.loads(data)
-    time.sleep(0.5)
+    time.sleep(0.1)
     if not 'OK' in response['status']:
         print "search freebase failed, check your quota"
         return []
