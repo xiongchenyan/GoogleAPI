@@ -21,8 +21,19 @@ def SearchFreebase(query):
     
     url = SearchUrl + "?" + urllib.urlencode(params)
     print "search api url [%s]" %(url)
-    response = json.loads(urllib.urlopen(url).read())
-    time.sleep(0.1)
+    cnt = 0
+    data = ""
+    while (cnt < 100):
+        try:
+            data = urllib.urlopen(url).read()
+        except IOError:
+            time.sleep(10)
+            print "IOError, wait [%d] time" %(cnt)
+            cnt += 1
+            continue
+        break    
+    response = json.loads(data)
+    time.sleep(0.5)
     if not 'OK' in response['status']:
         print "search freebase failed, check your quota"
         return []

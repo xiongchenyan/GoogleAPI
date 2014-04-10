@@ -25,8 +25,21 @@ def FetchFreebaseTopic(FbApiObj):
     
     url = TopicUrl +  Mid + "?" + urllib.urlencode(CreateTopicPara())
     print "topic api fetching url [%s]" %(url)
-    topic = json.loads(urllib.urlopen(url).read())
-    time.sleep(0.1)
+    
+    cnt = 0
+    data = ""
+    while (cnt < 100):
+        try:
+            data = urllib.urlopen(url).read()
+        except IOError:
+            time.sleep(10)
+            print "IOError, wait [%d] time" %(cnt)
+            cnt += 1
+            continue
+        break    
+    topic = json.loads(data)
+    
+    time.sleep(0.5)
     if 'property' in topic:
         FbApiObj.hTopic = dict(FbApiObj.hTopic.items() + topic['property'].items())
     else:

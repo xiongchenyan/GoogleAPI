@@ -33,9 +33,24 @@ def FetchTypeInstance(TypeName,NumOfInstance=100):
         if CursorIndex != "":
             CursorStr = "=" + CursorIndex
         print "mql api url [%s]" %(url)
-        response = json.loads(urllib.urlopen(url + "&cursor" + CursorStr).read())
-#         print "mql res:\n%s" %(json.dumps(response))
-        time.sleep(0.1)
+
+        
+        cnt = 0
+        data = ""
+        while (cnt < 100):
+            try:
+                data = urllib.urlopen(url + "&cursor" + CursorStr).read()
+            except IOError:
+                time.sleep(10)
+                print "IOError, wait [%d] time" %(cnt)
+                cnt += 1
+                continue
+            break    
+        response = json.loads(data)
+                
+        time.sleep(0.5)        
+        
+        
         if not 'result' in response:
             print "no result in mql quuery"
             return []
