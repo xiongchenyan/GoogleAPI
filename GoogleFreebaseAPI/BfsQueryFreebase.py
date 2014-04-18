@@ -144,16 +144,15 @@ class BfsQueryFreebaseC(cxBaseC):
             #Y: get all edges, discard type edge, and extract neighbor ids
         if FbObj.GetId() in self.hEdges:    
             print "obj [%s] in edge cash" %(FbObj.GetId())        
-            lNeighborObj = [[item[0],FbApiObjectC(item[1],'')] for item in self.hEdges[FbObj.GetId()][:self.MaxNeighborExp]]
+            lNeighborObj = [[item[0],item[1]] for item in self.hEdges[FbObj.GetId()][:self.MaxNeighborExp]]
         
         #FbObj is a filled one.
             #call function of FbObj to expanded to lNeighborObj
             #add edge-> id to hEdge[FbObj.GetId()]
         else:
-            lNeighborObj = deepcopy(FbObj.GetNeighbor())[:self.MaxNeighborExp]
-            self.hEdges[FbObj.GetId()] = [[item[0],item[1].GetId()] for item in lNeighborObj]
+            lNeighborObj = [[item[0], item[1].GetId()] for item in deepcopy(FbObj.GetNeighbor())[:self.MaxNeighborExp]]
+            self.hEdges[FbObj.GetId()] = list(lNeighborObj)
         
-        lNeighborObj = [[item[0],self.FillObj(item[1])] for item in lNeighborObj]        
         
         return lNeighborObj
     
@@ -167,7 +166,7 @@ class BfsQueryFreebaseC(cxBaseC):
             return []
         if  NotableType in self.hEdges:     
             print "Type [%s]  in edge cash" %(NotableType)        
-            lCoTypeObj = [[item[0],FbApiObjectC(item[1],'')]
+            lCoTypeObj = [[item[0],item[1]]
                           for item in self.hEdges[NotableType][:self.MaxCoTypeExp]]
         
         else:
@@ -176,10 +175,8 @@ class BfsQueryFreebaseC(cxBaseC):
             #constract cotype obj from id
             #add cotype_typename,cotype id to hedge
             lCoTypeId = FetchTypeInstance(NotableType,self.MaxCoTypeExp)
-            lCoTypeObj = [['cotype/'+NotableType,FbApiObjectC(objid,'')] for objid in lCoTypeId]
-            self.hEdges[NotableType] = [['cotype/'+NotableType,ObjId] for ObjId in lCoTypeId]
-            
-        lCoTypeObj = [[item[0],self.FillObj(item[1])] for item in lCoTypeObj]   
+            lCoTypeObj = [['cotype/'+NotableType,objid] for objid in lCoTypeId]
+            self.hEdges[NotableType] = list(lCoTypeObj)
         return lCoTypeObj
     
     
@@ -192,6 +189,10 @@ class BfsQueryFreebaseC(cxBaseC):
             #if lvl (len(path)) < self.BFSLVL, then expand this node via
                 #Neighbor Obj
                 #TypeNeighbor Obj
+                
+        #only keep the edge and obj id in que
+        #only when working on this obj, then fill it
+        #dump after a while
         
         print "working on query [%s]" %(query)
         
@@ -204,7 +205,7 @@ class BfsQueryFreebaseC(cxBaseC):
         
         else:
             lSearchObj = self.SearchQueryForInitObj(query)
-        BFSQue = [[[item[0]],item[1]] for item in lSearchObj]
+        BFSQue = [[[item[0]],item[1].GetId()] for item in lSearchObj]
         
         print "start nodes [%d]:" %(len(BFSQue)) 
         for node in BFSQue:
@@ -215,8 +216,12 @@ class BfsQueryFreebaseC(cxBaseC):
                                    node[1].GetDesp())
         
         p = 0
+        DumpCnt = 0
+        DumpFre = 5000
         while p < len(BFSQue):
-            edge,CurrentObj = BFSQue[p]
+            edge,CurrentObjId = BFSQue[p]
+            CurrentObj = FbApiObjectC(CurrentObjId,"")
+            CurrentObj = self.FillObj(CurrentObj)
             print 'now obj [%s] - [%s][%s]' %(json.dumps(edge),
                                               CurrentObj.GetId().encode('utf-8','ignore'),
                                        CurrentObj.GetName().encode('utf-8','ignore'))
@@ -225,14 +230,20 @@ class BfsQueryFreebaseC(cxBaseC):
             
             if len(edge) >= self.BFSLvl:
                 continue
-            lNeighborObj = self.ExpandObjNeighbor(CurrentObj)
-            lCoTypeObj = self.ExpandTypeNeighbor(CurrentObj)
+            lNeighborObjId = self.ExpandObjNeighbor(CurrentObj)
+            lCoTypeObjId = self.ExpandTypeNeighbor(CurrentObj)
             
-            lToAdd = [[list(edge + [item[0]]), item[1]] for item in lNeighborObj+lCoTypeObj]
+            lToAdd = [[list(edge + [item[0]]), item[1]] for item in lNeighborObjId+lCoTypeObjId]
             
-            print 'add [%d] node from neighbor\nadd [%d] node from co type' %(len(lNeighborObj),len(lCoTypeObj))
+            print 'add [%d] node from neighbor\nadd [%d] node from co type' %(len(lNeighborObjId),len(lCoTypeObjId))
             BFSQue.extend(lToAdd)          
             print 'bfs que size [%d] at [%d]' %(len(BFSQue),p)
+            
+            if len(BFSQue) / DumpFre > DumpCnt:
+                self.dump()
+                print "dumping for [%d] time" %(DumpCnt)
+                DumpCnt = len(BFSQue) / DumpFre
+            
         print "bfs finished, total meet [%d] objects" %(len(BFSQue))
         return True
     
