@@ -248,7 +248,8 @@ class BfsQueryFreebaseC(cxBaseC):
         print "get obj[%s][%s] via [%s]" %(FbObj.GetId(),FbObj.GetName(),json.dumps(lPath))
         return True
     
-      
+    def CleanUp(self):
+        self.dump()  
         
 def BfsQueryFreebaseUnitRun(ConfIn):
     conf = cxConf(ConfIn)
@@ -258,7 +259,7 @@ def BfsQueryFreebaseUnitRun(ConfIn):
     for line in open(InName):
         qid,query = line.strip().split('\t')
         BFSer.BFS(qid,query)
-    BFSer.dump()
+    BFSer.CleanUp()
     return True
         
         
