@@ -209,11 +209,7 @@ class BfsQueryFreebaseC(cxBaseC):
         
         print "start nodes [%d]:" %(len(BFSQue)) 
         for node in BFSQue:
-            print "%s\t[%s][%s][%s][%s]" %(json.dumps(node[0]),
-                                   node[1].GetId().encode('utf-8','ignore'),
-                                   node[1].GetName().encode('utf-8','ignore'),
-                                   node[1].GetNotableType(),
-                                   node[1].GetDesp())
+            print "%s\t[%s]" %(json.dumps(node[0]), node[1])
         
         p = 0
         DumpCnt = 0
