@@ -141,13 +141,13 @@ class FbApiObjectC(object):
         
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNeighborPath())
         for res in lDfsRes:
-            self.lLinkedObj.append([json.dumps(res.lPath),FbApiObjectC(res.hEnd['id'],res.hEnd['text'])])
+            self.lLinkedObj.append([res.lPath,FbApiObjectC(res.hEnd['id'],res.hEnd['text'])])
             
             
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNeighborCompoundPath())
         for res in lDfsRes:
             lPath = res.lPath[3:]
-            self.lLinkedObj.append([json.dumps(lPath),FbApiObjectC(res.hEnd['id'],res.hEnd['text'])])
+            self.lLinkedObj.append([lPath,FbApiObjectC(res.hEnd['id'],res.hEnd['text'])])
             
         return self.lLinkedObj
         
