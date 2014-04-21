@@ -7,7 +7,7 @@ filter fb dump
 '''
 
 import site
-site.addsitedir('/bos/usr4/cx/cxPylib')
+site.addsitedir('/bos/usr4/cx/PyCode/cxPyLib')
 import sys
 from FbDumpBasic import *
 from cxBase.base import cxConf
