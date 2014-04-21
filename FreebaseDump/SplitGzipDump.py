@@ -39,6 +39,6 @@ for line in gzip.open(sys.argv[1]):
         LastKey = key
         
     print >>f_out,line
-    
+    cnt += 1
 f_out.close()
         
