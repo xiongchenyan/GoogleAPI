@@ -164,13 +164,19 @@ class FbApiObjectC(object):
             out = open(FName,'w')
         except IOError:
             sys.stderr.write('dump obj [%s] file open failed' %(FName))
+            return False
         pickle.dump(self.hBase,out)
         pickle.dump(self.hTopic,out)
         out.close()
         return True
     
     def load(self,InDir):
-        In = open(InDir + "/" + self.GenerateFName(),'r')
+        FName = InDir + "/" + self.GenerateFName()
+        try:
+            In = open(FName,'r')
+        except IOError:
+            sys.stderr.write('load obj [%s] file open failed' %(FName))
+            return True
         self.hBase = pickle.load(In)
         self.hTopic = pickle.load(In)
         In.close()
