@@ -6,8 +6,8 @@ base of API's
 
 
 
-#APIKey = ['AIzaSyDPPpQkeRZSof6iSVLduy9ITh91Ub-CcIg','AIzaSyAspSw81ep-hspXStI4zCVt-lC-xNRD8b8']
-APIKey = ['AIzaSyAspSw81ep-hspXStI4zCVt-lC-xNRD8b8']
+APIKey = ['AIzaSyDPPpQkeRZSof6iSVLduy9ITh91Ub-CcIg','AIzaSyAspSw81ep-hspXStI4zCVt-lC-xNRD8b8']
+#APIKey = ['AIzaSyAspSw81ep-hspXStI4zCVt-lC-xNRD8b8']
 
 
 
@@ -15,7 +15,7 @@ from copy import deepcopy
 from TopicJsonTraverse import *
 import json
 import pickle
-
+import sys
 class FbApiObjectC(object):
     #two dict that record the raw return results from Search API and Topic API
     #only keey to hTopic?
@@ -29,6 +29,7 @@ class FbApiObjectC(object):
         self.Desp = ""
         self.lAlias = []
         self.lType = []
+        self.MaxFileNameLen = 200
         
         
     def __init__(self,Id="",name=""):
@@ -155,10 +156,14 @@ class FbApiObjectC(object):
     #pickle dump and load
      
     def GenerateFName(self):
-        return self.GetId().replace('/','_')
+        return self.GetId().replace('/','_')[:self.MaxFileNameLen]
     
     def dump(self,OutDir):
-        out = open(OutDir + "/" + self.GenerateFName(),'w')
+        FName = OutDir + "/" + self.GenerateFName()
+        try:
+            out = open(FName,'w')
+        except IOError:
+            sys.stderr.write('dump obj [%s] file open failed' %(FName))
         pickle.dump(self.hBase,out)
         pickle.dump(self.hTopic,out)
         out.close()
