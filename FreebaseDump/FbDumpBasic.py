@@ -12,9 +12,13 @@ def GetId(col):
     target = DiscardPrefix(col)
     if len(target) < 2:
         return ""
-    if (target[:len('m/')] == "m/") | (target[:len('en/')]=='en/'):
+    if (target[:len('/m/')] == "/m/") | (target[:len('/en/')]=='/en/'):
         return target
     return ""
+
+def IsId(col):
+    if "" != GetId(col):
+        return IsId
 
 def IsTypeEdge(edge):
     if edge == TypeEdge:
@@ -23,16 +27,18 @@ def IsTypeEdge(edge):
 def GetType(vCol):
     if IsTypeEdge(vCol[1]):
         Type = DiscardPrefix(vCol[2])
-        if Type == "common/topic":
+        if Type == "/common/topic":
             return ""
         return DiscardPrefix(vCol[2])
     return ""
 
 def DiscardPrefix(col):
+    if (col[0] != '<') | (col[1] !=">"):
+        return col    
     mid = col.strip("<").strip(">")
     vCol = mid.split("/")
     target = vCol[len(vCol)-1]
-    return target.replace('.','/')
+    return '/' + target.replace('.','/')
 
 
 
