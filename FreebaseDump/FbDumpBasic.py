@@ -8,6 +8,7 @@ TypeEdge = "<http://rdf.freebase.com/ns/type.object.type>"
 DespEdge = "<http://rdf.freebase.com/ns/common.topic.description>"
 NameEdge = "<http://www.w3.org/2000/01/rdf-schema#label>"
 AliasEdge = "<http://rdf.freebase.com/ns/common.topic.alias>"
+NotableEdge = "<http://rdf.freebase.com/ns/common/topic/notable_types>"
 def GetId(col):
     target = DiscardPrefix(col)
     if len(target) < 2:
@@ -43,6 +44,24 @@ def DiscardPrefix(col):
 
 
 
+def GetDomain(col):
+    raw = DiscardPrefix(col).strip('/')
+    vCol = raw.split('/')
+    return vCol[0]
+
+def GetNotableType(lObj):
+    if type(lObj) == list:
+        lvCol = lObj
+    else:
+        lvCol = [line.split('\t') for line in lObj]
+        
+    for vCol in lvCol:
+        if (vCol[1] == NotableEdge) | (vCol[1] == DiscardPrefix(NotableEdge)):
+            return DiscardPrefix(vCol[2])
+    return "" 
+        
+    
+
 
 def IsString(s):
     if s[0] != '\"':
@@ -62,10 +81,10 @@ def SegLanguageTag(s):
     else:
         return vCol[0],vCol[1]
     
-def GetDesp(lObj):
+def GetDesp(lvCol):
     #get desp
     desp = ""
-    for vCol in lObj:
-        if vCol[1] == DespEdge:
+    for vCol in lvCol:
+        if (vCol[1] == DespEdge) | (vCol[1] == DiscardPrefix(DespEdge)):
             desp,tag = SegLanguageTag(vCol[2])
     return desp
