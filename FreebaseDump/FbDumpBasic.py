@@ -8,7 +8,10 @@ TypeEdge = "<http://rdf.freebase.com/ns/type.object.type>"
 DespEdge = "<http://rdf.freebase.com/ns/common.topic.description>"
 NameEdge = "<http://www.w3.org/2000/01/rdf-schema#label>"
 AliasEdge = "<http://rdf.freebase.com/ns/common.topic.alias>"
-NotableEdge = "<http://rdf.freebase.com/ns/common/topic/notable_types>"
+NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
+InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
+
+
 def GetId(col):
     target = DiscardPrefix(col)
     if len(target) < 2:
@@ -44,6 +47,14 @@ def DiscardPrefix(col):
     return '/' + target.replace('.','/')
 
 
+
+
+def IsInstanceEdge(edge):
+    if edge == InstanceEdge:
+        return True
+    if edge == DiscardPrefix(InstanceEdge):
+        return True
+    return False
 
 
 def GetDomain(col):
