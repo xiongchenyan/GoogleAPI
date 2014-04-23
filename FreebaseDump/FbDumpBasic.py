@@ -34,6 +34,8 @@ def GetType(vCol):
     return ""
 
 def DiscardPrefix(col):
+    if len(col) < 2:
+        return col
     if (col[0] != '<') | (col[1] !=">"):
         return col    
     mid = col.strip("<").strip(">")
