@@ -15,6 +15,12 @@ import gzip
 from cxBase.KeyFileReader import *
 
 class FbDumpReaderC(KeyFileReaderC):
+    
+    
+    def Init(self):
+        super(FbDumpReaderC,self).Init()
+        self.UseGzip = True #always
+    
             
     def ReadNextKey(self):
         lvCol = super(FbDumpReaderC,self).ReadNextKey()
