@@ -17,7 +17,7 @@ from cxBase.KeyFileReader import *
 class FbDumpReaderC(KeyFileReaderC):
             
     def ReadNextKey(self):
-        lvCol = super(FbDumpReaderC,self).ReadNexKey()
+        lvCol = super(FbDumpReaderC,self).ReadNextKey()
         lvCol = [self.ProcessOneLine(vCol) for vCol in lvCol]
         return lvCol
         
