@@ -60,7 +60,10 @@ def IsInstanceEdge(edge):
 def GetDomain(col):
     raw = DiscardPrefix(col).strip('/')
     vCol = raw.split('/')
-    return vCol[0]
+    
+    if vCol[0] != 'cotype':    
+        return vCol[0]
+    return 'cotype' + vCol[1]
 
 def GetNotableType(lObj):
     if type(lObj) == list:

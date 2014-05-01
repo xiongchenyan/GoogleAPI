@@ -15,14 +15,18 @@ from Facc.FaccBase import *
 from cxBase.KeyFileReader import KeyFileReaderC
 from cxBase.WalkDirectory import WalkDir
 
+from cxBase.base import cxBaseC
 
-
-class FaccReaderC(object):
+class FaccReaderC(cxBaseC):
     #call KeyFileReader for each FaccDoc
     def Init(self):
         self.lFaccName = []
         self.Index = 0
         self.CurrentFaccReader = KeyFileReaderC()
+    
+    
+    def SetConf(self,ConfIn):
+        return
         
     def opendir(self,FaccDir):
         self.lFaccName = WalkDir(FaccDir)
