@@ -42,6 +42,7 @@ class FaccReaderC(cxBaseC):
         if self.Index >= len(self.lFaccName):
             return False
         self.CurrentFaccReader.close()
+        print "opening facc file [%d][%s]" %(self.Index,self.lFaccName[self.Index])
         self.CurrentFaccReader.open(self.lFaccName[self.Index])
         self.Index += 1
         return True
