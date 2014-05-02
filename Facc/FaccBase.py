@@ -24,9 +24,9 @@ class FaccAnnotationC(object):
             self.loads(data)
         
     def loads(self,line):
-        vCol = line.strip('\t')
+        vCol = line.strip().split('\t')
         if len(vCol) != 8:
-            print "[%s] not valid facc line" %(line)
+            print "[%s] [%d] col not valid facc line" %(line,len(vCol))
             return False
         self.DocNo = vCol[0]
         self.EnCoding = vCol[1]
