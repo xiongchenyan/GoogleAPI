@@ -148,6 +148,13 @@ class BfsQueryFreebaseC(cxBaseC):
                 path = item[0]
                 if type(path) == list:
                     path = path[0]
+                else:
+                    try:
+                        l = json.loads(path)
+                        if type(l) == list:
+                            path = l[0]
+                    except ValueError:
+                        path = path                        
                 lNeighborObj.append([path,item[1]])           
                     
         
