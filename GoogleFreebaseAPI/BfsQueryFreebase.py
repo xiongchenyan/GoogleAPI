@@ -143,8 +143,13 @@ class BfsQueryFreebaseC(cxBaseC):
         #check if this obj id in hEdge
             #Y: get all edges, discard type edge, and extract neighbor ids
         if FbObj.GetId() in self.hEdges:    
-            print "obj [%s] in edge cash" %(FbObj.GetId())        
-            lNeighborObj = [[item[0],item[1]] for item in self.hEdges[FbObj.GetId()][:self.MaxNeighborExp]]
+            print "obj [%s] in edge cash" %(FbObj.GetId())
+            for item in self.hEdges[FbObj.GetId()][:self.MaxNeighborExp]:
+                path = item[0]
+                if type(path) == list:
+                    path = path[0]
+                lNeighborObj.append([path,item[1]])           
+                    
         
         #FbObj is a filled one.
             #call function of FbObj to expanded to lNeighborObj
@@ -166,7 +171,7 @@ class BfsQueryFreebaseC(cxBaseC):
             return []
         if  NotableType in self.hEdges:     
             print "Type [%s]  in edge cash" %(NotableType)        
-            lCoTypeObj = [[item[0],item[1]]
+            lCoTypeObj = [[item[0].replace('//','/'),item[1]]
                           for item in self.hEdges[NotableType][:self.MaxCoTypeExp]]
         
         else:
@@ -175,7 +180,7 @@ class BfsQueryFreebaseC(cxBaseC):
             #constract cotype obj from id
             #add cotype_typename,cotype id to hedge
             lCoTypeId = FetchTypeInstance(NotableType,self.MaxCoTypeExp)
-            lCoTypeObj = [['cotype/'+NotableType,objid] for objid in lCoTypeId]
+            lCoTypeObj = [['cotype'+NotableType,objid] for objid in lCoTypeId]
             self.hEdges[NotableType] = list(lCoTypeObj)
         return lCoTypeObj
     
