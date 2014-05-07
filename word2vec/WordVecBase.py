@@ -12,6 +12,7 @@ from cxBase.base import cxConf
 from cxBase.Vector import VectorC
 from cxBase.KeyFileReader import KeyFileReaderC
 import ntpath
+from copy import deepcopy
 class Word2VecC(VectorC):
     def Init(self):
         VectorC.Init(self)
@@ -61,6 +62,15 @@ class Word2VecC(VectorC):
     def empty(self):
         if (self.word == "") & ({} == self.hDim):
             return True
+        return False
+    
+    
+    def __deepcopy__(self,memo):
+        res = Word2VecC()
+        res.word = deepcopy(self.word,memo)
+        res.hDim = deepcopy(self.hDim,memo)
+        return res
+        
         
 class Word2VecReaderC(KeyFileReaderC):
     def ReadNextKey(self):
