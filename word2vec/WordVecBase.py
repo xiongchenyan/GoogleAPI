@@ -18,7 +18,7 @@ class Word2VecC(VectorC):
         self.word = ""
         
     def __init__(self,InData={},word = ""):
-        VectorC.__init__(InData)
+        VectorC.__init__(self,InData)
         self.word = word
         if type(InData) == str:
             self.SetLine(InData)
