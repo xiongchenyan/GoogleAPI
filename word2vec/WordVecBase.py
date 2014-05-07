@@ -65,6 +65,15 @@ class Word2VecC(VectorC):
 class Word2VecReaderC(KeyFileReaderC):
     def ReadNextKey(self):
         lvCol = super(Word2VecReaderC,self).ReadNextKey()
+        if [] == lvCol:
+            return Word2VecC()
+        
         WordVec = Word2VecC('\t'.join(lvCol[0]))
+        return WordVec
+    
+    def next(self):
+        WordVec = self.ReadNextKey()
+        if WordVec.empty():
+            raise StopIteration
         return WordVec
         
