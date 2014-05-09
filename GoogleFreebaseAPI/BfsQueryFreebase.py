@@ -278,7 +278,7 @@ class BfsQueryFreebaseC(cxBaseC):
         return lToAdd
     
     
-    def CalculatedEdgeProb(self,lLinkedObj):
+    def CalculateEdgeProb(self,lLinkedObj):
         hEdgeProb = {} #prob = 1.0/|same edge cnt|
         for edge,ObjId in lLinkedObj:
             if not edge in hEdgeProb:
