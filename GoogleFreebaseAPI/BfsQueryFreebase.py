@@ -24,6 +24,14 @@ constrains:
 '''
 
 
+'''
+5/9/2014
+add probability for each path
+
+'''
+
+
+
 
 import site
 import os
@@ -36,6 +44,7 @@ from APIBase import *
 from MQLAPI import *
 from SearchAPI import *
 from TopicAPI import *
+import math
 
 class BfsQueryFreebaseC(cxBaseC):
     def Init(self):
@@ -217,7 +226,7 @@ class BfsQueryFreebaseC(cxBaseC):
         
         else:
             lSearchObj = self.SearchQueryForInitObj(query)
-        BFSQue = [[[item[0]],item[1].GetId()] for item in lSearchObj]
+        BFSQue = [[[item[0]],item[1].GetId(),math.log(1.0/float(len(lSearchObj)))] for item in lSearchObj]
         
         print "start nodes [%d]:" %(len(BFSQue)) 
         for node in BFSQue:
@@ -227,22 +236,25 @@ class BfsQueryFreebaseC(cxBaseC):
         DumpCnt = 0
         DumpFre = 5000
         while p < len(BFSQue):
-            edge,CurrentObjId = BFSQue[p]
+            path,CurrentObjId,prob = BFSQue[p]
+            #path is the [edge,edge,edge] from st node to Current
+            #prob is the multiplied prob, logged
             CurrentObj = FbApiObjectC(CurrentObjId,"")
             CurrentObj = self.FillObj(CurrentObj)
-            print 'now obj [%s] - [%s][%s]' %(json.dumps(edge),
+            print 'now obj [%s] - [%s][%s]' %(json.dumps(path),
                                               CurrentObj.GetId().encode('utf-8','ignore'),
                                        CurrentObj.GetName().encode('utf-8','ignore'))
             p += 1
-            self.ProcessPerObj(edge,CurrentObj,qid,query)
+            self.ProcessPerObj(path,CurrentObj,prob,qid,query)
             
-            if len(edge) >= self.BFSLvl:
+            if len(path) >= self.BFSLvl:
                 continue
             lNeighborObjId = self.ExpandObjNeighbor(CurrentObj)
             lCoTypeObjId = self.ExpandTypeNeighbor(CurrentObj)
             
-            lToAdd = [[list(edge + [item[0]]), item[1]] for item in lNeighborObjId+lCoTypeObjId]
-            
+            lToAdd = self.MakeToAddBFSQueObj(lNeighborObjId,path,prob)
+            lToAdd += self.MakeToAddBFSQueObj(lCoTypeObjId,path,prob)
+#             lToAdd = [[list(edge + [item[0]]), item[1]] for item in lNeighborObjId+lCoTypeObjId]
             print 'add [%d] node from neighbor\nadd [%d] node from co type' %(len(lNeighborObjId),len(lCoTypeObjId))
             BFSQue.extend(lToAdd)          
             print 'bfs que size [%d] at [%d]' %(len(BFSQue),p)
@@ -254,6 +266,31 @@ class BfsQueryFreebaseC(cxBaseC):
             
         print "bfs finished, total meet [%d] objects" %(len(BFSQue))
         return True
+    
+    def MakeToAddBFSQueObj(self,lLinkedObj,path,prob):
+        lToAdd = [] #path, objid, prob
+        #calculate the edge prob
+        hEdgeProb = self.CalculateEdgeProb(lLinkedObj)
+        for edge,ObjId in lLinkedObj:
+            NewPath = path + [edge]
+            NewProb = prob + hEdgeProb[edge]
+            lToAdd.append([NewPath,ObjId,NewProb])
+        return lToAdd
+    
+    
+    def CalculatedEdgeProb(self,lLinkedObj):
+        hEdgeProb = {} #prob = 1.0/|same edge cnt|
+        for edge,ObjId in lLinkedObj:
+            if not edge in hEdgeProb:
+                hEdgeProb[edge]= 0.0
+            hEdgeProb[edge] += 1.0
+        for item in hEdgeProb:
+            hEdgeProb[item] = math.log(1.0/ hEdgeProb[item])
+        return hEdgeProb
+        
+        
+        
+        
     
     def ProcessPerObj(self,lPath,FbObj,qid,query):
         #api left for sub class to process a bfs'd result. like vote up a term in FbObj's name
