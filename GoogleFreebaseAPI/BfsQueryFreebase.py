@@ -33,7 +33,9 @@ change edge default prob to (1/|edge in this type|) * (1/|edge type|)
 '''
 5/13/2014
 add process init object in order to get the query->obj edge in constructing subgraph
+update cach infor, only cach when update enough 
 '''
+
 
 
 import site
@@ -60,7 +62,7 @@ class BfsQueryFreebaseC(cxBaseC):
         self.MaxSearchRes = 5
         self.MaxCoTypeExp = 100
         self.MaxNeighborExp = 100
-        
+        self.UpdateCnt = 0
         return
     
     @staticmethod
@@ -142,6 +144,12 @@ class BfsQueryFreebaseC(cxBaseC):
             FbObj.load(self.ObjectCashDir)
             return FbObj
         self.hSeenObj[FbObj.GetId()] = True
+        self.UpdateCnt += 1
+        
+        #try load see if data is there
+        if FbObj.load(self.ObjectCashDir):
+            return FbObj
+        
         FbObj = FetchFreebaseTopic(FbObj)
         FbObj.dump(self.ObjectCashDir)
         return FbObj
@@ -176,7 +184,7 @@ class BfsQueryFreebaseC(cxBaseC):
         else:
             lNeighborObj = [[item[0], item[1].GetId()] for item in deepcopy(FbObj.GetNeighbor())[:self.MaxNeighborExp]]
             self.hEdges[FbObj.GetId()] = list(lNeighborObj)
-        
+            self.UpdateCnt += 1
         
         return lNeighborObj
     
@@ -201,6 +209,7 @@ class BfsQueryFreebaseC(cxBaseC):
             lCoTypeId = FetchTypeInstance(NotableType,self.MaxCoTypeExp)
             lCoTypeObj = [['cotype'+NotableType,objid] for objid in lCoTypeId]
             self.hEdges[NotableType] = list(lCoTypeObj)
+            self.UpdateCnt += 1
         return lCoTypeObj
     
     
@@ -272,10 +281,10 @@ class BfsQueryFreebaseC(cxBaseC):
             BFSQue.extend(lToAdd)          
             print 'bfs que size [%d] at [%d]' %(len(BFSQue),p)
             
-            if len(BFSQue) / DumpFre > DumpCnt:
+            if self.UpdateCnt / DumpFre > DumpCnt:
                 self.dump()
                 print "dumping for [%d] time" %(DumpCnt)
-                DumpCnt = len(BFSQue) / DumpFre
+                DumpCnt = self.UpdateCnt / DumpFre
             
         print "bfs finished, total meet [%d] objects" %(len(BFSQue))
         return True
