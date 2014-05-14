@@ -308,9 +308,9 @@ class BfsQueryFreebaseC(cxBaseC):
         
         
     
-    def ProcessPerObj(self,lPath,FbObj,qid,query):
+    def ProcessPerObj(self,lPath,FbObj,prob,qid,query):
         #api left for sub class to process a bfs'd result. like vote up a term in FbObj's name
-        print "get obj[%s][%s] via [%s]" %(FbObj.GetId(),FbObj.GetName(),json.dumps(lPath))
+#         print "get obj[%s][%s] via [%s]" %(FbObj.GetId(),FbObj.GetName(),json.dumps(lPath))
         return True
     
     def ProcessInitObj(self,path,CurrentObj,prob,qid,query):
