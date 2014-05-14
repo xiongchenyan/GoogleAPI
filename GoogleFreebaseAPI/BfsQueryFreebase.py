@@ -27,10 +27,13 @@ constrains:
 '''
 5/9/2014
 add probability for each path
-
+change edge default prob to (1/|edge in this type|) * (1/|edge type|)
 '''
 
-
+'''
+5/13/2014
+add process init object in order to get the query->obj edge in constructing subgraph
+'''
 
 
 import site
@@ -226,7 +229,17 @@ class BfsQueryFreebaseC(cxBaseC):
         
         else:
             lSearchObj = self.SearchQueryForInitObj(query)
-        BFSQue = [[[item[0]],item[1].GetId(),math.log(1.0/float(len(lSearchObj)))] for item in lSearchObj]
+        
+        BFSQue = []    
+        for item in lSearchObj:
+            path = [item[0]]
+            CurrentObj = item[1] #already fullilled in search query for init obj
+            prob = math.log(1.0/float(len(lSearchObj)))
+            BFSQue.append[path,CurrentObj.GetId(),prob]
+            
+            #call ProcessInitObj for inherited class
+            self.ProcessInitObj(path,CurrentObj,prob,qid,query)
+            
         
         print "start nodes [%d]:" %(len(BFSQue)) 
         for node in BFSQue:
@@ -279,13 +292,16 @@ class BfsQueryFreebaseC(cxBaseC):
     
     
     def CalculateEdgeProb(self,lLinkedObj):
-        hEdgeProb = {} #prob = 1.0/|same edge cnt|
+        hEdgeProb = {} #prob = 1.0/|same edge cnt| * (1.0/|total edge type|)
+        
         for edge,ObjId in lLinkedObj:
             if not edge in hEdgeProb:
                 hEdgeProb[edge]= 0.0
             hEdgeProb[edge] += 1.0
+            
+        TotalEdgeType = float(len(hEdgeProb))
         for item in hEdgeProb:
-            hEdgeProb[item] = math.log(1.0/ hEdgeProb[item])
+            hEdgeProb[item] = -math.log(hEdgeProb[item]) -math.log(TotalEdgeType)
         return hEdgeProb
         
         
@@ -295,6 +311,9 @@ class BfsQueryFreebaseC(cxBaseC):
     def ProcessPerObj(self,lPath,FbObj,qid,query):
         #api left for sub class to process a bfs'd result. like vote up a term in FbObj's name
         print "get obj[%s][%s] via [%s]" %(FbObj.GetId(),FbObj.GetName(),json.dumps(lPath))
+        return True
+    
+    def ProcessInitObj(self,path,CurrentObj,prob,qid,query):
         return True
     
     def CleanUp(self):
