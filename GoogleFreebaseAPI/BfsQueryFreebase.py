@@ -144,8 +144,8 @@ class BfsQueryFreebaseC(cxBaseC):
             return FbObj
         if FbObj.GetId() in self.hSeenObj:
             print "obj [%s] dumped to dict already" %(FbObj.GetId())
-            FbObj.load(self.ObjectCashDir)
-            return FbObj
+            if FbObj.load(self.ObjectCashDir):
+                return FbObj
         self.hSeenObj[FbObj.GetId()] = True
         self.UpdateCnt += 1
         

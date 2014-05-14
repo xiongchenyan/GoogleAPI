@@ -178,7 +178,7 @@ class FbApiObjectC(object):
             self.hTopic = pickle.load(In)
             In.close()
         except (IOError,EOFError):
-            sys.stderr.write('load obj [%s] file open failed' %(FName))
+            sys.stderr.write('load obj [%s] file open failed\n' %(FName))
             return False
         return True
         
