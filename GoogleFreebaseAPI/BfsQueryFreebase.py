@@ -235,7 +235,7 @@ class BfsQueryFreebaseC(cxBaseC):
             path = [item[0]]
             CurrentObj = item[1] #already fullilled in search query for init obj
             prob = math.log(1.0/float(len(lSearchObj)))
-            BFSQue.append[path,CurrentObj.GetId(),prob]
+            BFSQue.append([path,CurrentObj.GetId(),prob])
             
             #call ProcessInitObj for inherited class
             self.ProcessInitObj(path,CurrentObj,prob,qid,query)
