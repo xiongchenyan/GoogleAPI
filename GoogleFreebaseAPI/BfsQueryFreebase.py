@@ -63,6 +63,7 @@ class BfsQueryFreebaseC(cxBaseC):
         self.MaxCoTypeExp = 100
         self.MaxNeighborExp = 100
         self.UpdateCnt = 0
+        self.DumpCache = True
         return
     
     @staticmethod
@@ -80,7 +81,7 @@ class BfsQueryFreebaseC(cxBaseC):
         self.MaxSearchRes = int(conf.GetConf('maxsearchres',self.MaxSearchRes))
         self.MaxCoTypeExp = int(conf.GetConf('maxcotypeexp',self.MaxCoTypeExp))
         self.MaxNeighborExp = int(conf.GetConf('maxneighborexp',self.MaxNeighborExp))
-        
+        self.DumpCache = bool(int(conf.GetConf('dumpcache',1)))
         self.load()
         return True
     
@@ -97,6 +98,8 @@ class BfsQueryFreebaseC(cxBaseC):
             In.close()          
 
     def dump(self):
+        if not self.DumpCache:
+            return True
         out = open(self.EdgeDumpName(),'wb')
         pickle.dump(self.hEdges,out)
         out.close()
