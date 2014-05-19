@@ -13,7 +13,7 @@ from cxBase.base import cxBaseC,cxConf
 from IndriRelate.IndriPackedRes import *
 from Facc.FaccBase import *
 from Facc.FaccReader import *
-
+from Facc.FaccDoc import *
 class FaccDocMakerC(cxBaseC):
     def Init(self):
         self.CashDir = ""
