@@ -18,5 +18,6 @@ if 2 != len(sys.argv):
     FaccDocMakerC.ShowConf()
     sys.exit()
 
-FaccDocMakerC.Process()
+Maker = FaccDocMakerC()
+Maker.Process()
 print "finished"    
