@@ -31,6 +31,10 @@ class FaccReaderC(cxBaseC):
     def opendir(self,FaccDir):
         self.lFaccName = WalkDir(FaccDir)
         self.Index = 0
+    
+    def open(self,InName):
+        self.lFaccName = [InName]
+        self.Index = 0
         
     def close(self):
         self.CurrentFaccReader.close()
