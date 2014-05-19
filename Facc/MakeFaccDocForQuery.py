@@ -34,7 +34,7 @@ class FaccDocMakerC(cxBaseC):
         self.FaccDir = conf.GetConf('faccdir')
         self.OutDir = conf.GetConf('outdir')
         self.SERPDepth = int(conf.GetConf('serpdepth',self.SERPDepth))
-        
+        print "conf set [%s]" %(self.QueryIn)
         
     
     def LoadTargetDocNo(self):
