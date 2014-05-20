@@ -48,7 +48,7 @@ class FaccIdfC(cxBaseC):
                 if ObjId in self.hTargetObj:
                     if not ObjId in lInFacc:
                         lInFacc.append(ObjId)
-                        print "get obj [%s]" %(ObjId)
+#                         print "get obj [%s]" %(ObjId)
             
             for ObjId in lInFacc:
                 self.CtfCenter.insert(ObjId)
