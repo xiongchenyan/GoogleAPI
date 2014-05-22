@@ -41,6 +41,7 @@ def ProcessPerObj(lvCol,hType):
     TypeStr = ""
     Desp = GetDesp(lvCol)
     if "" == Desp:
+        print "[%s] not desp" %(lvCol[0][0])
         return "",""
     for vCol in lvCol:
         TypeStr = GetType(vCol)
