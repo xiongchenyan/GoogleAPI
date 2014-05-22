@@ -26,12 +26,12 @@ def LoadTargetCate(InName):
 
 
 def IsTargetType(domain, hType):
-    print "checking type [%s]" %(domain)
+#     print "checking type [%s]" %(domain)
     if not domain in hType:
-        print "not in"
+#         print "not in"
         return False
     hType[domain] -= 1
-    print "in, left [%d]" %(hType[domain])
+#     print "in, left [%d]" %(hType[domain])
     if hType[domain] == 0:
         del hType[domain]
     return True
@@ -41,7 +41,7 @@ def ProcessPerObj(lvCol,hType):
     TypeStr = ""
     Desp = GetDesp(lvCol)
     if "" == Desp:
-        print "[%s] not desp" %(lvCol[0][0])
+#         print "[%s] not desp" %(lvCol[0][0])
         return "",""
     for vCol in lvCol:
         TypeStr = GetType(vCol)
