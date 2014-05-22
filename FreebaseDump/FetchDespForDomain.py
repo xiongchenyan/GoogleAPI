@@ -65,9 +65,13 @@ hType = LoadTargetCate(InName)
 FbReader = FbDumpReaderC()
 FbReader.open(FbIn)
 
+ObjCnt = 0
 cnt = 0
 out = open(OutName,'w')
 for lvCol in FbReader:
+    ObjCnt += 1
+    if 0 == (ObjCnt % 1000):
+        print "read [%d] obj" %(ObjCnt)
     if len(hType) == 0:
         break
     TypeStr,Desp = ProcessPerObj(lvCol,hType)
