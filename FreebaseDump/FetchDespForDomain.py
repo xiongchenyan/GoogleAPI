@@ -13,7 +13,7 @@ site.addsitedir("/bos/usr0/cx/PyCode/GoogleAPI")
 
 from FreebaseDump.FbDumpReader import *
 from FreebaseDump.FbDumpBasic import *
-
+import json
 DespPerType = 10000
 
 def LoadTargetCate(InName):
@@ -21,13 +21,17 @@ def LoadTargetCate(InName):
     global DespPerType
     for line in open(InName):
         hType[line.strip()] = DespPerType
+    print "read targets \n%s" %(json.dumps(hType,indent=1))
     return hType
 
 
 def IsTargetType(domain, hType):
+    print "checking type [%s]" %(domain)
     if not domain in hType:
+        print "not in"
         return False
     hType[domain] -= 1
+    print "in, left [%d]" %(hType[domain])
     if hType[domain] == 0:
         del hType[domain]
     return True
