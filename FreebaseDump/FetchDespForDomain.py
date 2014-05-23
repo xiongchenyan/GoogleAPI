@@ -38,6 +38,8 @@ def IsTargetType(domain, hType):
 
 
 def ProcessPerObj(lvCol,hType):
+    if not IsId(lvCol[0][0]):
+        return "",""
     Desp = GetDesp(lvCol)
     print "get desp [%s] for [%s]" %(Desp,lvCol[0][0])
     if "" == Desp:
