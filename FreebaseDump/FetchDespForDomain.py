@@ -27,7 +27,8 @@ def LoadTargetCate(InName):
 
 def IsTargetType(domain, hType):
 #     print "checking type [%s]" %(domain)
-    if 0 == len(hType):
+    global GetAllCate
+    if GetAllCate:
         return True
     if not domain in hType:
 #         print "not in"
@@ -72,7 +73,9 @@ DespPerType = int(sys.argv[4])
 
 
 hType = LoadTargetCate(InName)
-
+GetAllCate = False
+if {} == hType:
+    GetAllCate = True
 FbReader = FbDumpReaderC()
 FbReader.open(FbIn)
 
@@ -83,7 +86,7 @@ for lvCol in FbReader:
     ObjCnt += 1
     if 0 == (ObjCnt % 1000):
         print "read [%d] obj" %(ObjCnt)
-    if len(hType) == 0:
+    if (not GetAllCate) & (len(hType) == 0):
         break
     lRes = ProcessPerObj(lvCol,hType)
     if [] == lRes:
