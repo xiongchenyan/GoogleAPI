@@ -38,8 +38,8 @@ def IsTargetType(domain, hType):
 
 
 def ProcessPerObj(lvCol,hType):
-    TypeStr = ""
     Desp = GetDesp(lvCol)
+    print "get desp [%s]" %(Desp)
     if "" == Desp:
 #         print "[%s] not desp" %(lvCol[0][0])
         return "",""
