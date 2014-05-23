@@ -39,22 +39,21 @@ def IsTargetType(domain, hType):
 
 def ProcessPerObj(lvCol,hType):
     if not IsId(lvCol[0][0]):
-        return "",""
+        return []
     Desp = GetDesp(lvCol)
 
     if "" == Desp:
 #         print "[%s] not desp" %(lvCol[0][0])
-        return "",""
+        return []
     print "get desp [%s] for [%s]" %(Desp,lvCol[0][0])
-    TypeStr = GetNotableType(lvCol)
-    
-#     for vCol in lvCol:
-#         TypeStr = GetType(vCol)
-#         if "" != TypeStr:
-#             break
-    if IsTargetType(TypeStr,hType):
-        return TypeStr,Desp
-    return "",""
+#     TypeStr = GetNotableType(lvCol)
+    lRes = []
+    for vCol in lvCol:
+        TypeStr = GetType(vCol)
+        if "" != TypeStr:
+            if IsTargetType(TypeStr,hType):
+                lRes.append([TypeStr,Desp])
+    return lRes
 
 
 import sys
@@ -84,14 +83,15 @@ for lvCol in FbReader:
         print "read [%d] obj" %(ObjCnt)
     if len(hType) == 0:
         break
-    TypeStr,Desp = ProcessPerObj(lvCol,hType)
-    if "" == Desp:
+    lRes = ProcessPerObj(lvCol,hType)
+    if [] == lRes:
         continue
     cnt += 1
     if 0 == (cnt % 100):
         print "get [%d] desp" %(cnt)
-    try:    
-        print >> out,TypeStr + "\t" + Desp
+    try:
+        for TypeStr,Desp in lRes:     
+            print >> out,TypeStr + "\t" + Desp
     except UnicodeDecodeError:
         print "a unicode decode error, discard this desp"
         
