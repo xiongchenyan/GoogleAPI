@@ -28,7 +28,7 @@ def LoadTargetCate(InName):
 def IsTargetType(domain, hType):
 #     print "checking type [%s]" %(domain)
     if not domain in hType:
-        print "not in"
+#         print "not in"
         return False
     hType[domain] -= 1
     print "[%s] in, left [%d]" %(domain, hType[domain])
