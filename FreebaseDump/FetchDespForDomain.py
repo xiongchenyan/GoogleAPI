@@ -26,12 +26,12 @@ def LoadTargetCate(InName):
 
 
 def IsTargetType(domain, hType):
-    print "checking type [%s]" %(domain)
+#     print "checking type [%s]" %(domain)
     if not domain in hType:
         print "not in"
         return False
     hType[domain] -= 1
-    print "in, left [%d]" %(hType[domain])
+    print "[%s] in, left [%d]" %(domain, hType[domain])
     if hType[domain] == 0:
         del hType[domain]
     return True
@@ -45,7 +45,7 @@ def ProcessPerObj(lvCol,hType):
     if "" == Desp:
 #         print "[%s] not desp" %(lvCol[0][0])
         return []
-    print "get desp [%s] for [%s]" %(Desp,lvCol[0][0])
+#     print "get desp [%s] for [%s]" %(Desp,lvCol[0][0])
 #     TypeStr = GetNotableType(lvCol)
     lRes = []
     for vCol in lvCol:
@@ -87,11 +87,11 @@ for lvCol in FbReader:
     if [] == lRes:
         continue
     cnt += 1
-    if 0 == (cnt % 100):
+    if 0 == (cnt % 10):
         print "get [%d] desp" %(cnt)
     try:
         for TypeStr,Desp in lRes:     
-            print >> out,TypeStr + "\t" + Desp
+            print >> out,TypeStr + "\t" + Desp.strip('"')
     except UnicodeDecodeError:
         print "a unicode decode error, discard this desp"
         
