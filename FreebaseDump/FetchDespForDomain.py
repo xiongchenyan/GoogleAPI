@@ -82,7 +82,7 @@ for lvCol in FbReader:
     TypeStr,Desp = ProcessPerObj(lvCol,hType)
     if "" == Desp:
         continue
-    cnt += 0
+    cnt += 1
     if 0 == (cnt % 100):
         print "get [%d] desp" %(cnt)
     try:    

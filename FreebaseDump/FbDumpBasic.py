@@ -25,9 +25,8 @@ def IsId(col):
         return IsId
 
 def IsTypeEdge(edge):
-    if edge == TypeEdge:
-        return True
-    return False
+    return DiscardPrefix(edge) == DiscardPrefix(TypeEdge)
+
 def GetType(vCol):
     if IsTypeEdge(vCol[1]):
         Type = DiscardPrefix(vCol[2])
@@ -35,6 +34,36 @@ def GetType(vCol):
             return ""
         return DiscardPrefix(vCol[2])
     return ""
+
+def IsNameEdge(edge):
+    return DiscardPrefix(edge) == DiscardPrefix(NameEdge)
+
+def GetName(lvCol):
+    name = ""
+    for vCol in lvCol:
+        if IsNameEdge(vCol[1]):
+            if not IsString(vCol[2]):
+                continue
+            name,en = SegLanguageTag(vCol[2])
+            if (en != "") &(en != 'en'):
+                name = ""
+    return name
+
+def IsAliasEdge(edge):
+    return DiscardPrefix(edge) == DiscardPrefix(AliasEdge)
+
+def GetAlias(vCol):
+    if not IsAliasEdge(vCol[1]):
+        return ""
+    if not IsString(vCol[2]):
+        return ""
+    alias,en = SegLanguageTag(vCol[2])
+    if (en != "") &(en != 'en'):
+        alias = ""
+    return alias
+    
+    
+
 
 def DiscardPrefix(col):
     if len(col) < 2:
@@ -50,11 +79,7 @@ def DiscardPrefix(col):
 
 
 def IsInstanceEdge(edge):
-    if edge == InstanceEdge:
-        return True
-    if edge == DiscardPrefix(InstanceEdge):
-        return True
-    return False
+    return DiscardPrefix(edge) == DiscardPrefix(InstanceEdge)
 
 
 def GetDomain(col):
@@ -103,4 +128,6 @@ def GetDesp(lvCol):
     for vCol in lvCol:
         if (vCol[1] == DespEdge) | (vCol[1] == DiscardPrefix(DespEdge)):
             desp,tag = SegLanguageTag(vCol[2])
+            if (tag != "") & (tag != "en"):
+                desp = ""
     return desp
