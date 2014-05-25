@@ -41,7 +41,8 @@ if 3 != len(sys.argv):
     print "2 para: dump + out"
     sys.exit()
     
-FbReader = FbDumpReaderC(sys.argv[1])
+FbReader = FbDumpReaderC()
+FbReader.open(sys.argv[1])\
 out = open(sys.argv[2],'w')
 
 cnt = 0
