@@ -42,8 +42,10 @@ if 3 != len(sys.argv):
     sys.exit()
     
 FbReader = FbDumpReaderC()
-FbReader.open(sys.argv[1])\
+FbReader.open(sys.argv[1])
 out = open(sys.argv[2],'w')
+
+
 
 cnt = 0
 for lvCol in FbReader:
