@@ -21,7 +21,7 @@ import json
 def SeparateCategory(edge):
     vCol = edge.strip('/').split('/')
     if len(vCol) < 2:
-        print "edge error [%s]" %(edge)
+        return ""
     return '/'+ vCol[0] + '/' + vCol[1]
 
 
@@ -30,6 +30,8 @@ def ProcessOneObj(lvCol):
     for vCol in lvCol:
         edge = vCol[1]
         cate = SeparateCategory(edge)
+        if "" == cate:
+            continue
         if not cate in hDomainCnt:
             hDomainCnt[cate] = 1
         else:
