@@ -20,6 +20,8 @@ import json
 
 def SeparateCategory(edge):
     vCol = edge.strip('/').split('/')
+    if len(vCol) < 2:
+        print "edge error [%s]" %(edge)
     return '/'+ vCol[0] + '/' + vCol[1]
 
 
