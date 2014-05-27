@@ -23,13 +23,19 @@ class CateAttCntDensityCenterC(cxBaseC):
     def MakeFromCnt(self,CntInName):
         #may out of mem, be aware (oom at cluster, not head)
         hCateCnt = {}
-        
+        LineCnt = 0
         for line in open(CntInName):
             name,cnt = line.strip().split('\t')
             if not name in hCateCnt:
                 hCateCnt[name] = [int(cnt)]
             else:
                 hCateCnt[name].append(int(cnt))
+            LineCnt += 1
+            if 0 == (LineCnt % 10000):
+                print "read [%d] line" %(LineCnt)
+                print "dict size:"
+                for item in hCateCnt:
+                    print "%s\t%d" %(item,len(hCateCnt))
         
         for item in hCateCnt:
             CDF = EmpiricalCDFC()
