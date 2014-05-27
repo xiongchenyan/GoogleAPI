@@ -48,7 +48,7 @@ class FbApiObjectC(object):
         APIObj.lAlias = deepcopy(self.lAlias,memo)
         APIObj.lType = deepcopy(self.lType,memo)
         return APIObj
-        
+    
         
     def GetId(self):
         return self.GetBaseField('mid')
@@ -154,6 +154,33 @@ class FbApiObjectC(object):
         
      
     #pickle dump and load
+    
+    def FormCategoryAttCnt(self):
+        
+        hCate = {}
+        #go through the json dict
+        #cate get from the item in self.hTopic
+        #cnt is the len(hTopic[item]['values'])
+        
+        for item in self.hTopic:
+            vCol = item.strip('/').split('/')
+            if len(vCol) < 2:
+                continue
+            domain = '/' + vCol[0] + '/' + vCol[1]
+            if 'values' in self.hTopic[item]:
+                cnt = len(self.hTopic[item]['values'])
+            else:
+                continue
+            
+            if not domain in hCate:
+                hCate[domain] = cnt
+            else:
+                hCate[domain] += cnt
+        return hCate
+            
+                
+                
+         
      
     def GenerateFName(self):
         return self.GetId().replace('/','_')[:self.MaxFileNameLen]
