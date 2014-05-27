@@ -35,7 +35,7 @@ class CateAttCntDensityCenterC(cxBaseC):
                 print "read [%d] line" %(LineCnt)
                 print "dict size:"
                 for item in hCateCnt:
-                    print "%s\t%d" %(item,len(hCateCnt))
+                    print "%s\t%d" %(item,len(hCateCnt[item]))
         
         for item in hCateCnt:
             CDF = EmpiricalCDFC()
