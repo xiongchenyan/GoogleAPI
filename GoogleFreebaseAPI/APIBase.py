@@ -187,10 +187,7 @@ class FbApiObjectC(object):
     
     @staticmethod
     def SegObjIdFromFName(FName):
-        vCol = FName.strip('_').split('_')
-        if len(vCol) < 2:
-            return ''
-        res = '/' + vCol[0] + '/' + '_'.join(vCol[1:])
+        res = '/m/' + FName[3:]
         return res
     
     
