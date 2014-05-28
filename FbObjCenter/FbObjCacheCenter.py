@@ -45,7 +45,7 @@ class FbObjCacheCenterC(cxBaseC):
     def CreateHash(self):
         lFName = WalkDir(self.WorkDir)
         for FName in lFName:
-            ObjId = ntpath.basename(FName).replace('_','/')
+            ObjId = FbApiObjectC.SegObjIdFromFName(ntpath.basename(FName))
             self.hObj[ObjId] = True
         print "total [%d] obj in [%s]" %(len(self.hObj),self.WorkDir)
         return True

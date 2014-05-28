@@ -185,6 +185,15 @@ class FbApiObjectC(object):
     def GenerateFName(self):
         return self.GetId().replace('/','_')[:self.MaxFileNameLen]
     
+    @staticmethod
+    def SegObjIdFromFName(FName):
+        vCol = FName.strip('_').split('_')
+        if len(vCol) < 2:
+            return ''
+        res = '/' + vCol[0] + '/' + '_'.join(vCol[1:])
+        return res
+    
+    
     def dump(self,OutDir):
         FName = OutDir + "/" + self.GenerateFName()
         try:
