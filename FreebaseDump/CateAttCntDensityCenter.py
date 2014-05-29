@@ -57,7 +57,8 @@ class CateAttCntDensityCenterC(cxBaseC):
                 vCol = line.strip().split('\t')
                 name = vCol[0]
                 CDF = EmpiricalCDFC()
-                CDF.loads('\t'.join(vCol[1:]))
+                if not CDF.loads('\t'.join(vCol[1:])):
+                    continue
                 self.hCateDensity[name] = CDF
         except IOError:
             print "file [%s] not exist for load cate att" %(InName)

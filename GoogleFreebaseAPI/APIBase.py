@@ -49,6 +49,9 @@ class FbApiObjectC(object):
         APIObj.lType = deepcopy(self.lType,memo)
         return APIObj
     
+    
+    def clear(self):
+        self.Init()
         
     def GetId(self):
         return self.GetBaseField('mid')
