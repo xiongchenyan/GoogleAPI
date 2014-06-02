@@ -64,5 +64,17 @@ class FbObjCacheCenterC(cxBaseC):
         return FbApiObj
         
     
-            
+    def FetchObjDesp(self,ObjId):
+        FbApiObj = self.FetchObj(ObjId)
+        return FbApiObj.GetDesp()
+    
+    def FetchObjName(self,ObjId):
+        return self.FetchObj(ObjId).GetName()
+    
+    def FetchObjNotableType(self,ObjId):
+        return self.FetchObj(ObjId).GetNotableType()
+    
+    
+        
+                
         
