@@ -32,10 +32,11 @@ class FbApiObjectC(object):
         self.MaxFileNameLen = 200
         
         
-    def __init__(self,Id="",name=""):
+    def __init__(self,Id="",name="",score = 0):
         self.Init()
         self.hBase['name'] = name
         self.hBase['mid'] = Id
+        self.SetScore(score)
         
         
     def __deepcopy__(self,memo):
@@ -66,6 +67,9 @@ class FbApiObjectC(object):
         if '' == self.GetBaseField('score'):
             return 0
         return float(self.GetBaseField('score'))
+    
+    def SetScore(self,score):
+        self.hBase['score'] = score
     
     def GetNotable(self):
         #notable may not be notable_type, could be notable_for (a object)
@@ -219,7 +223,16 @@ class FbApiObjectC(object):
         return True
         
      
-        
+    @staticmethod
+    def NormalizeObjRankScore(lObj):
+        Total = 0.0
+        for Obj in lObj:
+            Total += Obj.GetScore()
+            
+        if Total != 0:
+            for i in range(len(lObj)):
+                lObj[i].hBase['score'] /= Total   
+        return lObj
         
         
         

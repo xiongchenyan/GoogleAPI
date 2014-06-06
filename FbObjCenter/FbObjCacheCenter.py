@@ -28,7 +28,7 @@ class FbObjCacheCenterC(cxBaseC):
     
     @staticmethod
     def ShowConf():
-        print "workdir\nwritecache"
+        print "objcachedir\nwritecache"
         
     
     def GetDirForObj(self,ObjId):
