@@ -61,8 +61,11 @@ class FbApiObjectC(object):
         name = self.GetBaseField('name')
         if "" == name:
             name = self.GetNameViaTopic()
-        
-        name = name.encode('ascii','ignore')
+        try:
+            name = name.encode('ascii','replace')
+        except UnicodeDecodeError:
+            sys.stderr.write('encode error')
+            name = ""
         return name
     
     def GetScore(self):
