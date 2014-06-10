@@ -135,12 +135,20 @@ class FbApiObjectC(object):
             self.NotableType = res.hEnd['id'].encode('ascii','replace')
         return self.NotableType
     
-    def GetType(self):
-        if [] != self.lType:
-            return self.lType
-        lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitTypePath())
-        for res in lDfsRes:
-            self.lType.append(res.hEnd['id'].encode('ascii','replace'))
+    def GetType(self,Filter = False):
+        if [] == self.lType:
+            lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitTypePath())
+            for res in lDfsRes:
+                self.lType.append(res.hEnd['id'].encode('ascii','replace'))
+        if Filter:
+            lNew = []
+            for TypeStr in self.lType:
+                if TypeStr.startswith('/common'):
+                    continue
+                if TypeStr.startswith('/user'):
+                    continue
+                lNew.append(TypeStr)
+            self.lType = lNew 
         return self.lType
     
     def GetNeighbor(self):
