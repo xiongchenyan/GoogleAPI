@@ -60,7 +60,9 @@ class FbApiObjectC(object):
     def GetName(self):
         name = self.GetBaseField('name')
         if "" == name:
-            return self.GetNameViaTopic()
+            name = self.GetNameViaTopic()
+        
+        name = name.encode('ascii','ignore')
         return name
     
     def GetScore(self):
@@ -70,6 +72,9 @@ class FbApiObjectC(object):
     
     def SetScore(self,score):
         self.hBase['score'] = score
+    
+    def SetName(self,name):
+        self.hBase['name'] = name
     
     def GetNotable(self):
         #notable may not be notable_type, could be notable_for (a object)
@@ -116,7 +121,7 @@ class FbApiObjectC(object):
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,lConstrainPath)
         
         for res in lDfsRes:
-            self.lAlias.append(res.hEnd['value'].encode('ascii','replace'))
+            self.lAlias.append(res.hEnd['value'].encode('ascii','ignore'))
         return self.lAlias
     
     def GetDesp(self):
@@ -124,7 +129,7 @@ class FbApiObjectC(object):
             return self.Desp
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitDespPath())
         for res in lDfsRes:
-            self.Desp = res.hEnd['value'].encode('ascii','replace')
+            self.Desp = res.hEnd['value'].encode('ascii','ignore')
         return self.Desp
     
     def GetNotableType(self):
@@ -132,14 +137,14 @@ class FbApiObjectC(object):
             return self.NotableType
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNotableTypePath())
         for res in lDfsRes:
-            self.NotableType = res.hEnd['id'].encode('ascii','replace')
+            self.NotableType = res.hEnd['id'].encode('ascii','ignore')
         return self.NotableType
     
     def GetType(self,Filter = False):
         if [] == self.lType:
             lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitTypePath())
             for res in lDfsRes:
-                self.lType.append(res.hEnd['id'].encode('ascii','replace'))
+                self.lType.append(res.hEnd['id'].encode('ascii','ignore'))
         if Filter:
             lNew = []
             for TypeStr in self.lType:
