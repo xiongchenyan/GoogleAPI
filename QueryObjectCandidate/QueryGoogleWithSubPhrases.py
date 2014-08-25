@@ -74,7 +74,7 @@ class QueryGoogleWithSubPhrasesC(cxBaseC):
             print "searching for [%s]" %(phrase)
             lObj = self.FetchObjForPhrase(phrase)
             for Obj in lObj:
-                lResLine.append(qid + '\t' + self.hStemQ[qid]  + '\t' + Obj.GetId().encode('utf-8','ignore') + '\t%f'%(Obj.GetScore()) + '\t' + phrase)
+                lResLine.append(qid + '\t' + self.hStemQ[qid]  + '\t' + Obj.GetId().encode('utf-8','ignore') + '\t' + Obj.GetName().encode('utf-8','ignore')+ '\t%f'%(Obj.GetScore()) + '\t' + phrase)
         return lResLine
     
     def Process(self):
