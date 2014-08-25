@@ -19,7 +19,7 @@ from cxBase.base import cxBaseC
 from cxBase.Conf import cxConfC
 from GoogleFreebaseAPI.APIBase import *
 from GoogleFreebaseAPI.SearchAPI import *
-
+from cxBase.TextBase import *
 
 class QueryGoogleWithSubPhrasesC(cxBaseC):
     def Init(self):
@@ -49,9 +49,10 @@ class QueryGoogleWithSubPhrasesC(cxBaseC):
             self.hStemQ[qid] = query
     
     def FormSubPhrases(self,query):
-        vCol = query.split()
-        lSubPhrase = []
-        L = len(vCol) - 1
+        lSubPhrase = [query]
+        StopQuery = TextBaseC.DiscardStopWord(query)
+        vCol = StopQuery.split()
+        L = len(vCol)
         while L >= self.MinPhraseLen:
             for i in range(len(vCol) - L + 1):
                 lSubPhrase.append(' '.join(vCol[i:i + L]))
