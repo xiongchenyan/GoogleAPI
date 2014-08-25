@@ -35,7 +35,7 @@ class QueryGoogleWithSubPhrasesC(cxBaseC):
         self.InStemQuery = conf.GetConf('stemmedq',self.InQuery)
         self.MinPhraseLen = int(conf.GetConf('minphraselen',self.MinPhraseLen))
         self.OutName = conf.GetConf('out')
-        self.NumOfObjPerQ = int(conf.GetConf('numofobj'),self.NumOfObjPerQ)
+        self.NumOfObjPerQ = int(conf.GetConf('numofobj',self.NumOfObjPerQ))
         
     @staticmethod
     def ShowConf():
