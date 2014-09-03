@@ -36,6 +36,8 @@ def ProcessFaccAnaQ(hQ,InName,OutName):
             continue
         if IsAnaFlag:
             vCol = line.split('\t')
+            if len(vCol) < 5:
+                print 'line [%s] col num error [%d]<5' %(line,len(vCol))
             name = vCol[0]
             Mid = vCol[3]
             score = vCol[4]
