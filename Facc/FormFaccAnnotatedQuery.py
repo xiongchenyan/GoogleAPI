@@ -34,11 +34,12 @@ def ProcessFaccAnaQ(hQ,InName,OutName):
         if len(line) == 0:
             IsAnaFlag = False
             continue
-        vCol = line.split('\t')
-        name = vCol[0]
-        Mid = vCol[3]
-        score = vCol[4]
-        print >>out, ThisQid + '\t' +  hQ[ThisQid] + '\t' +  Mid + '\t' + name + '\t' + score
+        if IsAnaFlag:
+            vCol = line.split('\t')
+            name = vCol[0]
+            Mid = vCol[3]
+            score = vCol[4]
+            print >>out, ThisQid + '\t' +  hQ[ThisQid] + '\t' +  Mid + '\t' + name + '\t' + score
         
     out.close()
     
