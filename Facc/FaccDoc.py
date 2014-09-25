@@ -15,7 +15,7 @@ from Facc.FaccBase import *
         
 class FaccForDocC(object):
     def Init(self):
-        self.lFacc = []
+        self.lFacc = []   #contains FaccAnnotationC()
         self.DocNo = ""
         
     def __init__(self,lFacc = []):
