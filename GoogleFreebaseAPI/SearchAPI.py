@@ -34,8 +34,11 @@ def SearchFreebase(query):
         break    
     response = json.loads(data)
     time.sleep(0.1)
+    if not 'status' in response:
+        print 'search freebase failed:\n %s\n check your quota' %(data)
+        return []
     if not 'OK' in response['status']:
-        print "search freebase failed, check your quota"
+        print 'search freebase failed:\n %s\n check your quota' %(data)
         return []
     lObj = []
     for result in response['result']:
