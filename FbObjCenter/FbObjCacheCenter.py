@@ -83,6 +83,12 @@ class FbObjCacheCenterC(cxBaseC):
     def FetchObjType(self,ObjId):
         return self.FetchObj(ObjId).GetType()
     
+    def FetchObjAlias(self,ObjId):
+        return self.FetchObj(ObjId).GetAlias()
+    
+    def FetchObjNeighbor(self,ObjId):
+        return self.FetchObj(ObjId).GetNeighbor()
+    
     
     
         
