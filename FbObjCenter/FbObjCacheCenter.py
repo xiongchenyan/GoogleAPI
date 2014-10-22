@@ -18,6 +18,7 @@ class FbObjCacheCenterC(cxBaseC):
         self.WorkDir = ""
         self.WriteCache = True
         self.hObj = {}
+        self.LastObj = FbApiObjectC()
         
     def SetConf(self,ConfIn):
         conf = cxConf(ConfIn)
@@ -52,15 +53,20 @@ class FbObjCacheCenterC(cxBaseC):
     
     
     def FetchObj(self,ObjId):
+        if ObjId == self.LastObj.GetId():
+            return self.LastObj
+        
         FbApiObj = FbApiObjectC(ObjId)
         if ObjId in self.hObj: 
             FbApiObj.load(self.GetDirForObj(ObjId))
+            self.LastObj = FbApiObj
             return FbApiObj
         
         FbApiObj = FetchFreebaseTopic(FbApiObj)
         if self.WriteCache:
             self.hObj[ObjId] = True
             FbApiObj.dump(self.GetDirForObj(ObjId))
+        self.LastObj = FbApiObj
         return FbApiObj
         
     
@@ -73,6 +79,7 @@ class FbObjCacheCenterC(cxBaseC):
     
     def FetchObjNotableType(self,ObjId):
         return self.FetchObj(ObjId).GetNotableType()
+    
     
     
         
