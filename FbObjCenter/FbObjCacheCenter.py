@@ -80,6 +80,9 @@ class FbObjCacheCenterC(cxBaseC):
     def FetchObjNotableType(self,ObjId):
         return self.FetchObj(ObjId).GetNotableType()
     
+    def FetchObjType(self,ObjId):
+        return self.FetchObj(ObjId).GetType()
+    
     
     
         

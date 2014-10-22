@@ -143,7 +143,7 @@ class FbApiObjectC(object):
             self.NotableType = res.hEnd['id'].encode('ascii','ignore')
         return self.NotableType
     
-    def GetType(self,Filter = False):
+    def GetType(self,Filter = True):
         if [] == self.lType:
             lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitTypePath())
             for res in lDfsRes:
