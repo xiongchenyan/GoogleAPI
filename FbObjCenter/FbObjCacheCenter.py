@@ -23,7 +23,7 @@ class FbObjCacheCenterC(cxBaseC):
     def SetConf(self,ConfIn):
         conf = cxConf(ConfIn)
         self.WorkDir = conf.GetConf('objcachedir')
-        self.WriteCache = bool(conf.GetConf('writecache',self.WriteCache))
+        self.WriteCache = bool(int(conf.GetConf('writecache',self.WriteCache)))
         self.CreateHash()
         return True
     
