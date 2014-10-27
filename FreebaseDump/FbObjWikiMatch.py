@@ -58,9 +58,13 @@ class FbObjWikiMatchC(cxBaseC):
         Reader.open(self.FbDumpName)
         Ope = FbDumpOpeC()
         cnt = 0
+        ObjCnt = 0;
         for lvCol in Reader:
             ObjId = Ope.GetObjId(lvCol)
             lWikiUrl = Ope.GetWikiUrl(lvCol)
+            ObjCnt += 1
+            if 0 == (ObjCnt % 10000):
+                print "read [%d] raw obj" %(ObjCnt)
             if ([] == lWikiUrl) | ('' == ObjId):
                 continue
             hObjWiki[ObjId] = lWikiUrl
