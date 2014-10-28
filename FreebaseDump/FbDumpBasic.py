@@ -122,8 +122,8 @@ class FbDumpOpeC(object):
         lType = []
         for tar in lTar:
             Type = self.DiscardPrefix(tar)
-            if '/common' == Type[:len('/common')]:
-                continue          
+#             if '/common' == Type[:len('/common')]:
+#                 continue          
             lType.append(Type)
         return lType
     
