@@ -62,6 +62,7 @@ class FbObjWikiMatchC(cxBaseC):
         for lvCol in Reader:
             ObjId = Ope.GetObjId(lvCol)
             lWikiUrl = Ope.GetWikiUrl(lvCol)
+            lWikiUrl = [WikiUrl.lower() for WikiUrl in lWikiUrl]
             ObjCnt += 1
             if 0 == (ObjCnt % 10000):
                 print "read [%d] raw obj" %(ObjCnt)
@@ -92,6 +93,7 @@ class FbObjWikiMatchC(cxBaseC):
             In = open(self.DictDumpName)
             self.hObjWiki,self.hWikiObj = pickle.load(In)
             print 'load dict dump done'
+        WikiUrl = WikiUrl.lower()
         if WikiUrl in self.hWikiObj:
             return self.hWikiObj[WikiUrl]
         else:
