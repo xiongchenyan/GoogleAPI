@@ -19,7 +19,7 @@ NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
 InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
 WikiUrlEdge = "<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>"
 
-
+import json
 
 class FbDumpOpeC(object):
     def __init__(self):
@@ -74,6 +74,9 @@ class FbDumpOpeC(object):
         same, but only look for english strings
         '''
         lTar = FbDumpOpeC.FetchTargetsWithEdge(lvCol, Edge)
+        
+        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lvCol))
+        
         lStr = []
         for tar in lTar:
             if not FbDumpOpeC.IsString(tar):
@@ -81,6 +84,7 @@ class FbDumpOpeC(object):
             text,tag = FbDumpOpeC.SegLanguageTag(tar)
             if (tag == "") | (tar == 'en'):
                 lStr.append(text)
+        print 'and text [%s]' %(json.dumps(lStr))
         return lStr
     
     
