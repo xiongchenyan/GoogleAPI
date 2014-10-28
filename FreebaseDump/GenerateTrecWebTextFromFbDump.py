@@ -61,7 +61,7 @@ if 3 != len(sys.argv):
     
 reader = FbDumpReaderC()
 reader.open(sys.argv[1])
-out = open(sys.argv[2])
+out = open(sys.argv[2],'w')
 
 cnt = 0
 for lvCol in reader:
