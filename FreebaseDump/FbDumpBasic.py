@@ -29,7 +29,7 @@ class FbDumpOpeC(object):
         self.AliasEdge = "<http://rdf.freebase.com/ns/common.topic.alias>"
         self.NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
         self.InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
-        self.WikiUrlEdge = "<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>"
+        self.lWikiUrlEdge = ["<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>","<http://rdf.freebase.com/ns/common.topic.topical_webpage>"]
         
     @staticmethod
     def GetObjId(lvCol):
@@ -66,6 +66,8 @@ class FbDumpOpeC(object):
         for vCol in lvCol:
             if vCol[1] == Edge:
                 lTar.append(vCol[2])
+        print 'curent obj:%s' %(json.dumps(lvCol))
+        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lTar))
         return lTar
     
     @staticmethod
@@ -73,18 +75,16 @@ class FbDumpOpeC(object):
         '''
         same, but only look for english strings
         '''
-        lTar = FbDumpOpeC.FetchTargetsWithEdge(lvCol, Edge)
-        print 'curent obj:%s' %(json.dumps(lvCol))
-        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lTar))
+        lTar = FbDumpOpeC.FetchTargetsWithEdge(lvCol, Edge)        
         
         lStr = []
         for tar in lTar:
             if not FbDumpOpeC.IsString(tar):
                 continue
             text,tag = FbDumpOpeC.SegLanguageTag(tar)
-            if (tag == "") | (tar == 'en'):
+            if (tag == "") | (tag == 'en'):
                 lStr.append(text)
-        print 'and text [%s]' %(json.dumps(lStr))
+        print 'get text [%s]' %(json.dumps(lStr))
         return lStr
     
     
@@ -101,14 +101,15 @@ class FbDumpOpeC(object):
         return '\n'.join(self.FetchTargetStringWithEdge(lvCol, self.DespEdge))
     
     def GetWikiUrl(self,lvCol):
-        lTar = self.FetchTargetsWithEdge(lvCol, self.WikiUrlEdge)
         lWikiUrl = []
-        for tar in lTar:
-            if not 'http' in tar:
-                continue
-            if not 'en.wikipedia' in tar:
-                continue
-            lWikiUrl.append(tar.strip('<').strip('>'))
+        for edge in self.lWikiUrlEdge:
+            lTar = self.FetchTargetsWithEdge(lvCol, edge)
+            for tar in lTar:
+                if not 'http' in tar:
+                    continue
+                if not 'en.wikipedia' in tar:
+                    continue
+                lWikiUrl.append(tar.strip('<').strip('>'))
         return lWikiUrl
     
     def GetType(self,lvCol):
@@ -133,10 +134,10 @@ class FbDumpOpeC(object):
     def IsString(s):
         if s[0] != '\"':
             return False
-        if s[len(s) - 1] == '\"':
+        if s[-1] == '\"':
             return True
         vCol = s.split('@')
-        if vCol[0][len(vCol[0])-1] == '\"':
+        if vCol[0][-1] == '\"':
             return True
         return False
     
