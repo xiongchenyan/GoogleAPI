@@ -66,8 +66,7 @@ class FbDumpOpeC(object):
         for vCol in lvCol:
             if vCol[1] == Edge:
                 lTar.append(vCol[2])
-        print 'curent obj:%s' %(json.dumps(lvCol))
-        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lTar))
+
         return lTar
     
     @staticmethod
@@ -76,7 +75,8 @@ class FbDumpOpeC(object):
         same, but only look for english strings
         '''
         lTar = FbDumpOpeC.FetchTargetsWithEdge(lvCol, Edge)        
-        
+        print 'curent obj:%s' %(json.dumps(lvCol))
+        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lTar))
         lStr = []
         for tar in lTar:
             if not FbDumpOpeC.IsString(tar):
@@ -104,12 +104,16 @@ class FbDumpOpeC(object):
         lWikiUrl = []
         for edge in self.lWikiUrlEdge:
             lTar = self.FetchTargetsWithEdge(lvCol, edge)
+            if [] != lTar:
+                print 'wiki target %s' %(json.dumps(lTar))
+            
             for tar in lTar:
                 if not 'http' in tar:
                     continue
                 if not 'en.wikipedia' in tar:
                     continue
                 lWikiUrl.append(tar.strip('<').strip('>'))
+            print 'wikiurl: %s' %(json.dumps(lWikiUrl))
         return lWikiUrl
     
     def GetType(self,lvCol):
