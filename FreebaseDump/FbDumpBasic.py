@@ -79,7 +79,7 @@ class FbDumpOpeC(object):
             if not FbDumpOpeC.IsString(tar):
                 continue
             text,tag = FbDumpOpeC.SegLanguageTag(tar)
-            if tag == "" | tar == 'en':
+            if (tag == "") | (tar == 'en'):
                 lStr.append(text)
         return lStr
     
