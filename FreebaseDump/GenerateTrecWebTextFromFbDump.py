@@ -40,8 +40,11 @@ def MakeTextForOneObj(lvCol):
     lName = Ope.GetName(lvCol)
     lAlias = Ope.GetAlias(lvCol)
     desp = Ope.GetDesp(lvCol)
-    
+    lType = Ope.GetType(lvCol)
     if ("" == desp) | ([] == lName):
+        return ""
+    
+    if not '/common/topic' in lType:
         return ""
     
     res = MakeTrecWebHead(ObjId)
