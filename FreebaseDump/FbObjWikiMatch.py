@@ -65,7 +65,10 @@ class FbObjWikiMatchC(cxBaseC):
             ObjCnt += 1
             if 0 == (ObjCnt % 10000):
                 print "read [%d] raw obj" %(ObjCnt)
-            if ([] == lWikiUrl) | ('' == ObjId):
+            if  ('' == ObjId):
+                continue
+            if ([] == lWikiUrl):
+                print "[%s] has no wiki url" %('\n'.join(Ope.GetName(lvCol)))
                 continue
             hObjWiki[ObjId] = lWikiUrl
             cnt += 1
