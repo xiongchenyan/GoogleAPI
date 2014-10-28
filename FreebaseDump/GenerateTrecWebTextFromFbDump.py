@@ -29,7 +29,7 @@ def MakeTrecWebHead(MachineId):
 #     res = ""
     res = "<DOC>\n<DOCNO>" + Mid + "</DOCNO>\n"
     res += "<DOCHDR>\nhttp://rdf.freebase.com/ns/" + MachineId + "\n</DOCHDR>\n"
-    res += "<MachineId>\nMachineId" + Mid + "\n</MachineId>"
+    res += "<MachineId>\nMachineId" + Mid + "\n</MachineId>\n"
     return res
 
 
@@ -49,7 +49,7 @@ def MakeTextForOneObj(lvCol):
     res += "<name>\n%s</name>\n" %('\n'.join(lName))
     res += "<alias>\n%s</alias>\n" %('\n'.join(lAlias))
     res += "<desp>\n%s</desp>\n" %(desp)    
-    res += '\n</DOC>'
+    res += '</DOC>'
     return res
 
 
