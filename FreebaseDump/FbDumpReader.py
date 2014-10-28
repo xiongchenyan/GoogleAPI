@@ -31,7 +31,7 @@ class FbDumpReaderC(KeyFileReaderC):
         if len(vCol) < 3:
             return []
 #         print "processing %s" %(json.dumps(vCol))
-        vCol = [DiscardPrefix(col) for col in vCol[:3]]      
+#        vCol = [DiscardPrefix(col) for col in vCol[:3]]      
         return vCol
         
     

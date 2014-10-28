@@ -74,8 +74,8 @@ class FbDumpOpeC(object):
         same, but only look for english strings
         '''
         lTar = FbDumpOpeC.FetchTargetsWithEdge(lvCol, Edge)
-        
-        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lvCol))
+        print 'curent obj:%s' %(json.dumps(lvCol))
+        print 'edge [%s] get targets [%s]' %(Edge,json.dumps(lTar))
         
         lStr = []
         for tar in lTar:
