@@ -113,6 +113,7 @@ class FbDumpOpeC(object):
                 if not 'en.wikipedia' in tar:
                     continue
                 lWikiUrl.append(tar.strip('<').strip('>'))
+        if [] != lWikiUrl:
             print 'wikiurl: %s' %(json.dumps(lWikiUrl))
         return lWikiUrl
     
