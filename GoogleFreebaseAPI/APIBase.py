@@ -112,7 +112,7 @@ class FbApiObjectC(object):
             print "Error: [%s] not support for obj field" %(field)
             return       
         
-        return getattr(self,"Get" + field)
+        return getattr(self,"Get" + field)(self)
         
         
     def GetName(self):
