@@ -57,16 +57,7 @@ class FbApiObjectC(object):
     def GetId(self):
         return self.GetBaseField('mid')
     
-    def GetName(self):
-        name = self.GetBaseField('name')
-        if "" == name:
-            name = self.GetNameViaTopic()
-        try:
-            name = name.encode('ascii','replace')
-        except UnicodeDecodeError:
-            sys.stderr.write('encode error')
-            name = ""
-        return name
+
     
     def GetScore(self):
         if '' == self.GetBaseField('score'):
@@ -79,18 +70,13 @@ class FbApiObjectC(object):
     def SetName(self,name):
         self.hBase['name'] = name
     
-    def GetNotable(self):
-        #notable may not be notable_type, could be notable_for (a object)
-        if "" == self.GetBaseField('notable'):
-            return {}
-        return self.GetBaseField('notable')
+
         
     
     def GetBaseField(self,Field):
         if not Field in self.hBase:
             return ""
-        return self.hBase[Field]
-        
+        return self.hBase[Field]        
     
     
     
@@ -112,9 +98,39 @@ class FbApiObjectC(object):
         self.hBase['name'] = name
         return name
         
+    
+    def GetField(self,field):
+        '''
+        The unique api to support field name -> results
+        field supported:
+            name, alias, desp, notabletype,type,neighbor
+        please note that the result types differ
+        '''
+        lSupportedField = ['Name','NotableType','Alias','Type','Neighbor']
+        field = field.title()
+        if not field in lSupportedField:
+            print "Error: [%s] not support for obj field" %(field)
+            return       
+        
+        return getattr(self,"Get" + field)
         
         
+    def GetName(self):
+        name = self.GetBaseField('name')
+        if "" == name:
+            name = self.GetNameViaTopic()
+        try:
+            name = name.encode('ascii','replace')
+        except UnicodeDecodeError:
+            sys.stderr.write('encode error')
+            name = ""
+        return name
         
+    def GetNotable(self):
+        #notable may not be notable_type, could be notable_for (a object)
+        if "" == self.GetBaseField('notable'):
+            return {}
+        return self.GetBaseField('notable')    
         
     def GetAlias(self):
         if [] != self.lAlias:

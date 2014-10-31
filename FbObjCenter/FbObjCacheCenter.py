@@ -70,24 +70,26 @@ class FbObjCacheCenterC(cxBaseC):
         return FbApiObj
         
     
+    def FetchObjField(self,ObjId,field):
+        return self.FetchObj(ObjId).GetField(field)
+    
     def FetchObjDesp(self,ObjId):
-        FbApiObj = self.FetchObj(ObjId)
-        return FbApiObj.GetDesp()
+        return self.FetchObjField(ObjId, 'Desp')
     
     def FetchObjName(self,ObjId):
-        return self.FetchObj(ObjId).GetName()
+        return self.FetchObjField(ObjId, 'Name')
     
     def FetchObjNotableType(self,ObjId):
-        return self.FetchObj(ObjId).GetNotableType()
+        return self.FetchObjField(ObjId, 'NotableType')
     
     def FetchObjType(self,ObjId):
-        return self.FetchObj(ObjId).GetType()
+        return self.FetchObjField(ObjId, 'Type')
     
     def FetchObjAlias(self,ObjId):
-        return self.FetchObj(ObjId).GetAlias()
+        return self.FetchObjField(ObjId, 'Alias')
     
     def FetchObjNeighbor(self,ObjId):
-        return self.FetchObj(ObjId).GetNeighbor()
+        return self.FetchObjField(ObjId, 'Neighbor')
     
     
     
