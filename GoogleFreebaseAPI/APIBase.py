@@ -106,7 +106,7 @@ class FbApiObjectC(object):
             name, alias, desp, notabletype,type,neighbor
         please note that the result types differ
         '''
-        lSupportedField = ['Name','NotableType','Alias','Type','Neighbor']
+        lSupportedField = ['Name','NotableType','Alias','Type','Neighbor','Desp']
         field = field.title()
         if not field in lSupportedField:
             print "Error: [%s] not support for obj field" %(field)
