@@ -92,7 +92,9 @@ class FbDumpOpeC(object):
     
     def GetName(self,lvCol):
         lStr = self.FetchTargetStringWithEdge(lvCol, self.NameEdge)
-        return lStr
+        if [] == lStr:
+            return ""
+        return lStr[0]
     
     def GetAlias(self,lvCol):
         return self.FetchTargetStringWithEdge(lvCol, self.AliasEdge)
@@ -129,7 +131,9 @@ class FbDumpOpeC(object):
     
     def GetNotable(self,lvCol):
         lTar = self.FetchTargetsWithEdge(lvCol, self.NotableEdge)
-        return [self.DiscardPrefix(item) for item in lTar]
+        if [] == lTar:
+            return ""
+        return self.DiscardPrefix(lTar[0]) 
         
     
     
