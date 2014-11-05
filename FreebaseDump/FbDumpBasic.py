@@ -35,7 +35,7 @@ class FbDumpOpeC(object):
     def GetObjId(lvCol):
         if lvCol == []:
             return ""
-        return FbDumpOpeC.GetId(lvCol[0][0])        
+        return FbDumpOpeC.GetIdForCol(lvCol[0][0])        
     
     @staticmethod
     def DiscardPrefix(col):
@@ -49,7 +49,7 @@ class FbDumpOpeC(object):
         return '/' + target.replace('.','/')
     
     @staticmethod
-    def GetId(col):
+    def GetIdForCol(col):
         target = FbDumpOpeC.DiscardPrefix(col)
         if len(target) < 2:
             return ""
