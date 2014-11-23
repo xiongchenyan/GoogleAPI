@@ -89,6 +89,10 @@ class FbObjCacheCenterC(cxBaseC):
         return self.FetchObjField(ObjId, 'Alias')
     
     def FetchObjNeighbor(self,ObjId):
+        '''
+        return a list,
+            each item: item[0] path, item[1] FbApiObjectC()
+        '''
         return self.FetchObjField(ObjId, 'Neighbor')
     
     
