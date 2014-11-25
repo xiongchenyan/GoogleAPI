@@ -90,9 +90,10 @@ class FbObjWikiMatchC(cxBaseC):
         
     def MatchWikiToObj(self,WikiUrl):
         if {} == self.hWikiObj:
-            In = open(self.DictDumpName)
-            print 'start load dict dump at [%s]' %(self.DictDumpName)
-            self.hObjWiki,self.hWikiObj = pickle.load(In)
+            name = self.DictDumpName + '_wiki'
+            In = open(name)
+            print 'start load dict dump at [%s]' %(name)
+            self.hWikiObj = pickle.load(In)
             print 'load dict dump done'
         WikiUrl = WikiUrl.lower()
         if WikiUrl in self.hWikiObj:
@@ -102,8 +103,10 @@ class FbObjWikiMatchC(cxBaseC):
         
     def MatchObjToWiki(self,ObjId):
         if {} == self.hWikiObj:
-            In = open(self.DictDumpName)
-            self.hObjWiki,self.hWikiObj = pickle.load(In)
+            name = self.DictDumpName+"_obj"
+            In = open(self.DictDumpName+"_obj")
+            print "start loading dict dump at [%s]" %(name) 
+            self.hObjWiki = pickle.load(In)
             print 'load dict dump done'
         if ObjId in self.hObjWiki:
             return self.hObjWiki[ObjId]
