@@ -35,7 +35,7 @@ class FaccDataCenterC(cxBaseC):
         return lFaccDoc
     
     
-    def FetchAllAnnotation(self):
+    def FetchAllAnnotation(self,hTargetDocNo={}):
         hDocObj = {}  #doc"\t"objid -< facc score (mostly <0.99 though)
         
         
@@ -45,11 +45,16 @@ class FaccDataCenterC(cxBaseC):
             lFaccDoc = FaccForDocC().ReadFaccDocs(fname)
             for FaccDoc in lFaccDoc:
                 DocNo = FaccDoc.DocNo
+                if {} != hTargetDocNo:
+                    if not DocNo in hTargetDocNo:
+                        continue
                 for FaccAna in FaccDoc.lFacc:
                     ObjId = FaccAna.ObjId
                     score = FaccAna.Prob
                     hDocObj[DocNo + '\t' + ObjId] = score
         return hDocObj
+    
+    
                     
                 
     
