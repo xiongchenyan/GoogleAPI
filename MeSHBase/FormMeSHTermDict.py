@@ -13,6 +13,7 @@ dict out
 
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
+site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 import sys
 
 from cxBase.Conf import cxConfC
