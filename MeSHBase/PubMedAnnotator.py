@@ -103,7 +103,8 @@ class PubMedAnnotatorC(cxBaseC):
         lTermWithAna = ToParseQ.split('\t')
         for TermAna in lTermWithAna:
             if "[MeSH Terms]" == TermAna[-12:]:
-                lTerm.append(TermAna[:-12].strip('\"'))
+                term = TermAna[:-12].replace("(","").replace(")","").strip('\"')
+                lTerm.append(term)
         return lTerm
             
         
