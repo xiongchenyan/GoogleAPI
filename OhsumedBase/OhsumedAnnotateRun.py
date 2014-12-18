@@ -54,8 +54,9 @@ for line in open(InName):
                 hTermScore[key] = score
             else:
                 hTermScore[key] += score
-                
-    for key,score in hTermScore.items():
+    lItem = hTermScore.items()
+    lItem.sort(key=lambda item:item[1],reverse=True)            
+    for key,score in lItem:
         print >>out, qid + '\t' + query + '\t' + key + '\tohsumed\t%f' %(score)
         
 out.close()
