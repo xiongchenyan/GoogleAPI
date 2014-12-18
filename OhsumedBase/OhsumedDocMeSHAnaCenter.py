@@ -22,7 +22,7 @@ from cxBase.Conf import cxConfC
 from cxBase.base import cxBaseC
 from cxBase.TextBase import TextBaseC
 from MeSHBase.MeSHTermCenter import MeSHTermCenterC
-
+import json
 class OhsumedDocMeSHAnaCenterC(cxBaseC):
     def Init(self):
         cxBaseC.Init(self)
@@ -70,6 +70,7 @@ class OhsumedDocMeSHAnaCenterC(cxBaseC):
                         continue
                     lTermWithUI.append([UI,term])
                 self.hDocToMeSh[DocNo] = lTermWithUI
+                print "doc [%s] ana:\n%s" %(DocNo,json.dumps(lTermWithUI,indent=1))
                 cnt += 1
                 if 0 == (cnt % 1000):
                     print "[%d] doc finished" %(cnt)
