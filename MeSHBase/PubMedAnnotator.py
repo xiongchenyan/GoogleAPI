@@ -74,7 +74,7 @@ class PubMedAnnotatorC(cxBaseC):
         #looking for searchdetails_term, then get those in between ("pubmed">) (</textarea>)
         st = data.index('searchdetails_term')
         RawQSt = data[st:].index("pubmed\">") + st + len('pubmed\">')
-        RawQEd = data[RawQSt:].indeX("</textarea>") + RawQSt
+        RawQEd = data[RawQSt:].index("</textarea>") + RawQSt
         RawQ = data[RawQSt:RawQEd]
         
         return RawQ
