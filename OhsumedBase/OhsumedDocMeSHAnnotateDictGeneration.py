@@ -23,7 +23,7 @@ from OhsumedBase.OhsumedDocMeSHAnaCenter import OhsumedDocMeSHAnaCenterC
 
 if 2 != len(sys.argv):
     OhsumedDocMeSHAnaCenterC.ShowConf()
-    print "docin\nout\nmeshtermdict"
+    print "docin\nout\nmeshtermdict\mtargetdocno"
     sys.exit()
     
 
@@ -31,9 +31,13 @@ conf = cxConfC(sys.argv[1])
 DocInName = conf.GetConf('docin')
 OutName = conf.GetConf('out')
 MeshTermDictInName = conf.GetConf('meshtermdict')
+TargetDocNoName = conf.GetConf('tagetdocno')
+
+lDocNo = open(TargetDocNoName).read().splitlines()
+hTargetDocNo = dict(zip(lDocNo,[0] * len(lDocNo)))
 
 AnaCenter = OhsumedDocMeSHAnaCenterC(sys.argv[1])
-AnaCenter.FormDocMeSHDict(DocInName, MeshTermDictInName)
+AnaCenter.FormDocMeSHDict(DocInName, MeshTermDictInName,hTargetDocNo)
 
 print "dumping dict"
 pickle.dump(AnaCenter.hDocToMeSh,open(OutName,'wb'))
