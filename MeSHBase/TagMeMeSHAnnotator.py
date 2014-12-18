@@ -20,6 +20,7 @@ from MeSHBase.MeSHTermCenter import MeSHTermCenterC
 from cxBase.Conf import cxConfC
 from cxBase.base import cxBaseC
 from cxBase.TextBase import TextBaseC
+import json
 class TagMeMeSHAnnotatorC(cxBaseC):
     def Init(self):
         cxBaseC.Init(self)
@@ -49,11 +50,13 @@ class TagMeMeSHAnnotatorC(cxBaseC):
             if Spot != Entity:
                 lTerm.append(Spot)
             for term in lTerm:
+                term = term.encode('ascii','ignore')
                 UI = self.MeSHMapper.MapTerm(term)
                 if UI == "":
                     print "tagged [%s] not found in MeSH" %(term)
                     continue
                 lTermWithUI.append([UI,term])
+        print "[%s] TagMeSh:\n%s" %(query,json.dumps(lTermWithUI))
         return lTermWithUI
         
     
