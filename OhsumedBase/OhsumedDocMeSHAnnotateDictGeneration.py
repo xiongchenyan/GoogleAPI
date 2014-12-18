@@ -31,7 +31,7 @@ conf = cxConfC(sys.argv[1])
 DocInName = conf.GetConf('docin')
 OutName = conf.GetConf('out')
 MeshTermDictInName = conf.GetConf('meshtermdict')
-TargetDocNoName = conf.GetConf('tagetdocno')
+TargetDocNoName = conf.GetConf('targetdocno')
 
 lDocNo = open(TargetDocNoName).read().splitlines()
 hTargetDocNo = dict(zip(lDocNo,[0] * len(lDocNo)))
