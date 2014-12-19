@@ -1,8 +1,21 @@
 '''
-Created on May 27, 2014
-
+Created on Dec 19, 2014 11:28:33 AM
 @author: cx
+
+what I do:
+the root class of 
+FbObjCacheCenterC
+MeSHObjCacheCenterC (TBD)
+
+main function is to provide different fields for a obj, looking up by id
+I actively keep and update a cache directory to facilitate the look up process 
+what's my input:
+obj id
+what's my output:
+target fields, as required
+
 '''
+
 
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
@@ -10,15 +23,13 @@ site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 
 from cxBase.base import cxBaseC,cxConf
 from cxBase.WalkDirectory import WalkDir
-from GoogleFreebaseAPI.APIBase import *
-from GoogleFreebaseAPI.TopicAPI  import *
 import os,ntpath
-class FbObjCacheCenterC(cxBaseC):
+class ObjCacheCenterC(cxBaseC):
     def Init(self):
         self.WorkDir = ""
         self.WriteCache = True
         self.hObj = {}
-        self.LastObj = FbApiObjectC()
+        self.LastObj = ""    #to be defined by subclasses
         
     def SetConf(self,ConfIn):
         conf = cxConf(ConfIn)
@@ -46,28 +57,18 @@ class FbObjCacheCenterC(cxBaseC):
     def CreateHash(self):
         lFName = WalkDir(self.WorkDir)
         for FName in lFName:
-            ObjId = FbApiObjectC.SegObjIdFromFName(ntpath.basename(FName))
+            ObjId = self.SegObjIdFromFName(FName)
             self.hObj[ObjId] = True
         print "total [%d] obj in [%s]" %(len(self.hObj),self.WorkDir)
         return True
     
+    def SegObjIdFromFName(self,FName):
+        return ntpath.basename(FName)
+    
     
     def FetchObj(self,ObjId):
-        if ObjId == self.LastObj.GetId():
-            return self.LastObj
-        
-        FbApiObj = FbApiObjectC(ObjId)
-        if ObjId in self.hObj: 
-            FbApiObj.load(self.GetDirForObj(ObjId))
-            self.LastObj = FbApiObj
-            return FbApiObj
-        
-        FbApiObj = FetchFreebaseTopic(FbApiObj)
-        if self.WriteCache:
-            self.hObj[ObjId] = True
-            FbApiObj.dump(self.GetDirForObj(ObjId))
-        self.LastObj = FbApiObj
-        return FbApiObj
+        print "call my subclass"
+        return
         
     
     def FetchObjField(self,ObjId,field):
