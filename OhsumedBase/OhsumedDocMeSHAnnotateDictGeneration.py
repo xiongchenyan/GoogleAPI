@@ -33,8 +33,11 @@ OutName = conf.GetConf('out')
 MeshTermDictInName = conf.GetConf('meshtermdict')
 TargetDocNoName = conf.GetConf('targetdocno')
 
-lDocNo = open(TargetDocNoName).read().splitlines()
-hTargetDocNo = dict(zip(lDocNo,[0] * len(lDocNo)))
+hTargetDocNo = {}
+
+if TargetDocNoName != "":
+    lDocNo = open(TargetDocNoName).read().splitlines()
+    hTargetDocNo = dict(zip(lDocNo,[0] * len(lDocNo)))
 
 AnaCenter = OhsumedDocMeSHAnaCenterC(sys.argv[1])
 AnaCenter.FormDocMeSHDict(DocInName, MeshTermDictInName,hTargetDocNo)
