@@ -107,12 +107,16 @@ class FbApiObjectC(object):
         please note that the result types differ
         '''
         lSupportedField = ['Name','NotableType','Alias','Type','Neighbor','Desp']
-        field = field.title()
-        if not field in lSupportedField:
+        lLowerField = [field.lower() for field in lSupportedField]
+        hFieldNameMapping = dict(zip(lLowerField,lSupportedField))
+        
+        field = field.Lower()
+        
+        if not field in hFieldNameMapping:
             print "Error: [%s] not support for obj field" %(field)
             return       
         
-        return getattr(self,"Get" + field)()
+        return getattr(self,"Get" + hFieldNameMapping[field])()
         
         
     def GetName(self):

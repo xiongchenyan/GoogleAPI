@@ -33,7 +33,9 @@ class MeSHTermC(object):
             res = []
         if field == 'type':
             res = []
-            
+        if field == 'neighbor':
+            res = []
+                
         if field in self.hBase:
             res = self.hBase[field]
             
