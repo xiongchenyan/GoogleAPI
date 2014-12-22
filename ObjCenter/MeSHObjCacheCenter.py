@@ -78,9 +78,10 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
             self.hMeSH = json.load(open(self.MeSHTermDictIn))
         
         MeSHTerm = MeSHTermC()
+        MeSHTerm.hBase['id'] = ObjId
         if ObjId in self.hMeSH:
             MeSHTerm = MeSHTermC(self.hMeSH[ObjId])
-        
+            
         return MeSHTerm
    
                 

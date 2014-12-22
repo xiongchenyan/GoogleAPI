@@ -30,6 +30,8 @@ class FbObjCacheCenterC(ObjCacheCenterC):
             return self.LastObj
         
         FbApiObj = FbApiObjectC(ObjId)
+        if ObjId == 'query':
+            return FbApiObj
         if ObjId in self.hObj: 
             FbApiObj.load(self.GetDirForObj(ObjId))
             self.LastObj = FbApiObj
