@@ -28,18 +28,20 @@ class MeSHTermC(object):
         '''
         return corresponding field
         '''
-        res = ""
-        if field == 'alias':
+        field = field.lower()
+        lListValueField = ['alias','type','neighbor']
+        hListValueField = dict(zip(lListValueField,range(len(lListValueField))))
+        
+        if field in hListValueField:
             res = []
-        if field == 'type':
-            res = []
-        if field == 'neighbor':
-            res = []
-                
+        else:
+            res = ""
+            
         if field in self.hBase:
             res = self.hBase[field]
-            
         return res
+    
+    
     def __deepcopy__(self,memo):
         APIObj = MeSHTermC()
         APIObj.hBase = deepcopy(self.hBase,memo)
