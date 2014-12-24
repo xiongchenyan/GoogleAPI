@@ -77,6 +77,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
     
     def FetchObj(self,ObjId):
         if {} == self.hMeSH:
+            print "loading meshtermdict in from [%s]" %(self.MeSHTermDictIn)
             self.hMeSH = json.load(open(self.MeSHTermDictIn))
         
         MeSHTerm = MeSHTermC()
