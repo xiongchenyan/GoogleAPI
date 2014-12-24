@@ -25,7 +25,6 @@ from cxBase.base import cxBaseC,cxConf
 from ObjCenter.ObjCacheCenter import ObjCacheCenterC
 from MeSHBase.MeSHTerm import MeSHTermC
 import ntpath
-import json
 import pickle
 class MeSHObjCacheCenterC(ObjCacheCenterC):
     def Init(self):
@@ -78,7 +77,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
     def FetchObj(self,ObjId):
         if {} == self.hMeSH:
             print "loading meshtermdict in from [%s]" %(self.MeSHTermDictIn)
-            self.hMeSH = json.load(open(self.MeSHTermDictIn))
+            self.hMeSH = pickle.load(open(self.MeSHTermDictIn))
         
         MeSHTerm = MeSHTermC()
         MeSHTerm.hBase['id'] = ObjId
