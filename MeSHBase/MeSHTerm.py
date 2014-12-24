@@ -56,20 +56,18 @@ class MeSHTermC(object):
             if not '=' in line:
                 continue
             vCol = line.split('=')
-            head = vCol[0].strip(' ')
-            content = ' '.join(vCol[1:]).strip(' ')
-            head = head.strip(' ')
-            content = content.strip(' ')
+            head = vCol[0].strip()
+            content = ' '.join(vCol[1:]).strip()
             if head == 'MH':
                 self.hBase['name'] = content
             if head == 'MS':
                 self.hBase['desp'] = content
             if head == 'ENTRY':
-                self.lField.append(['alias',content])
                 if not 'alias' in self.hBase:
-                    self.hBase['alias'] = [content]
+                    alias = content.split('|')[0]
+                    self.hBase['alias'] = [alias]
                 else:
-                    self.hBase['alias'].append(content)
+                    self.hBase['alias'].append(alias)
             if head == 'UI':
                 self.hBase['id'] = content
         return True

@@ -52,7 +52,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
         lLine = []
         for line in open(RawMeSHInName):
             line = line.strip()
-            if line == '*NewRecord':
+            if line == '*NEWRECORD':
                 MeSHTerm = MeSHTermC()
                 MeSHTerm.SegFromRawLines(lLine)
                 self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm.hBase
