@@ -63,8 +63,8 @@ class MeSHTermC(object):
             if head == 'MS':
                 self.hBase['desp'] = content
             if head == 'ENTRY':
+                alias = content.split('|')[0]
                 if not 'alias' in self.hBase:
-                    alias = content.split('|')[0]
                     self.hBase['alias'] = [alias]
                 else:
                     self.hBase['alias'].append(alias)

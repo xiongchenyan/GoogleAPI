@@ -35,6 +35,7 @@ for line in open(sys.argv[1]):
         if 0 == (cnt % 1000):
             print 'processed [%d] doc' %(cnt)
     lLines.append(line)
-    
+TrecDoc = TrecWebDocC(lLines)
+print >>out, TrecDoc.dumps()    
 out.close()
 print "finished"

@@ -61,7 +61,9 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
                     print "generating dict, processed [%d] term" %(cnt)
                 lLine = []
             lLine.append(line)
-            
+        MeSHTerm = MeSHTermC()
+        MeSHTerm.SegFromRawLines(lLine)
+        self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm.hBase    
         pickle.dump(self.hMeSH, open(self.MeSHTermDictIn,'wb'))
         print "generated, dump to [%s]" %(self.MeSHTermDictIn)
         return
