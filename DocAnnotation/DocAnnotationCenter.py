@@ -44,11 +44,12 @@ class DocAnnotationCenterC(cxBaseC):
                     
         
     def FillDoc(self,doc):
-        if {} == self.DictPath:
+        if {} == self.hDocAna:
             if "" != self.DictPath:
                 print "loading docanadict from [%s]" %(self.DictPath)
                 self.hDocAna = pickle.load(open(self.DictPath))
                 self.AddDefaultAnaScore()
+                print "doc ana dict prepared"
                 
         DocNo = doc.DocNo
         if DocNo in self.hDocAna:
