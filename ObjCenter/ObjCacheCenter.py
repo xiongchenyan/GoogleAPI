@@ -34,6 +34,7 @@ class ObjCacheCenterC(cxBaseC):
     def SetConf(self,ConfIn):
         conf = cxConf(ConfIn)
         self.WorkDir = conf.GetConf('objcachedir') + '/'
+        print "set obj cachedir to [%s]" %(self.WorkDir)
         self.WriteCache = bool(int(conf.GetConf('writecache',self.WriteCache)))
         self.CreateHash()
         return True
@@ -50,7 +51,7 @@ class ObjCacheCenterC(cxBaseC):
         OneDir = mid[0]
         TwoDir = mid[1]
         res = self.WorkDir + "/%s/%s/" %(OneDir,TwoDir)
-        print "caching obj to [%s]" %(res)
+        print "caching obj to [%s][%s]" %(self.WorkDir,res)
         if not os.path.isdir(res):
             os.makedirs(res)
         return res
