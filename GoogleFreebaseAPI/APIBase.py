@@ -124,8 +124,8 @@ class FbApiObjectC(object):
         if "" == name:
             name = self.GetNameViaTopic()
         try:
-            name = name.decode('utf-8').encode('ascii','replace')
-        except UnicodeDecodeError:
+            name = name.encode('ascii','replace')
+        except UnicodeEncodeError,UnicodeDecodeError:
             sys.stderr.write('encode error')
             name = ""
         return name
@@ -163,7 +163,7 @@ class FbApiObjectC(object):
             return self.NotableType
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNotableTypePath())
         for res in lDfsRes:
-            self.NotableType = res.hEnd['id'].decode('utf-8').encode('ascii','ignore')
+            self.NotableType = res.hEnd['id'].encode('ascii','ignore')
         return self.NotableType
     
     def GetType(self,Filter = True):
