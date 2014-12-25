@@ -50,6 +50,7 @@ class ObjCacheCenterC(cxBaseC):
         OneDir = mid[0]
         TwoDir = mid[1]
         res = self.WorkDir + "/%s/%s/" %(OneDir,TwoDir)
+        print "caching obj to [%s]" %(res)
         if not os.path.isdir(res):
             os.makedirs(res)
         return res
