@@ -181,6 +181,7 @@ class FbApiObjectC(object):
     
     def GetNeighbor(self):
         if [] != self.lLinkedObj:
+            print "Get Neighbor res: %s" %(json.dumps(self.lLinkedObj))   
             return self.lLinkedObj
         
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNeighborPath())
@@ -192,7 +193,7 @@ class FbApiObjectC(object):
         for res in lDfsRes:
             path = res.lPath[3]
             self.lLinkedObj.append([path,FbApiObjectC(res.hEnd['id'],res.hEnd['text'])])
-            
+        print "Get Neighbor res: %s" %(json.dumps(self.lLinkedObj))    
         return self.lLinkedObj
         
      
