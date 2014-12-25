@@ -124,7 +124,7 @@ class FbApiObjectC(object):
         if "" == name:
             name = self.GetNameViaTopic()
         try:
-            name = name.encode('ascii','replace')
+            name = name.decode('utf-8').encode('ascii','replace')
         except UnicodeDecodeError:
             sys.stderr.write('encode error')
             name = ""
@@ -144,7 +144,7 @@ class FbApiObjectC(object):
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,lConstrainPath)
         
         for res in lDfsRes:
-            self.lAlias.append(res.hEnd['value'].encode('ascii','ignore'))
+            self.lAlias.append(res.hEnd['value'].decode('utf-8').encode('ascii','ignore'))
         return self.lAlias
     
     def GetDesp(self):
@@ -152,15 +152,15 @@ class FbApiObjectC(object):
             return self.Desp
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitDespPath())
         for res in lDfsRes:
-            self.Desp = res.hEnd['value'].encode('ascii','ignore')
-        return self.Desp.encode('ascii','ignore')
+            self.Desp = res.hEnd['value'].decode('utf-8').encode('ascii','ignore')
+        return self.Desp
     
     def GetNotableType(self):
         if "" != self.NotableType:
             return self.NotableType
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitNotableTypePath())
         for res in lDfsRes:
-            self.NotableType = res.hEnd['id'].encode('ascii','ignore')
+            self.NotableType = res.hEnd['id'].decode('utf-8').encode('ascii','ignore')
         return self.NotableType
     
     def GetType(self,Filter = True):
