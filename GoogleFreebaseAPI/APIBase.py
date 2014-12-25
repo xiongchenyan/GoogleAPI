@@ -110,7 +110,7 @@ class FbApiObjectC(object):
         lLowerField = [field.lower() for field in lSupportedField]
         hFieldNameMapping = dict(zip(lLowerField,lSupportedField))
         
-        field = field.Lower()
+        field = field.lower()
         
         if not field in hFieldNameMapping:
             print "Error: [%s] not support for obj field" %(field)
