@@ -144,7 +144,7 @@ class FbApiObjectC(object):
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,lConstrainPath)
         
         for res in lDfsRes:
-            self.lAlias.append(res.hEnd['value'].decode('utf-8').encode('ascii','ignore'))
+            self.lAlias.append(res.hEnd['value'].encode('ascii','ignore'))
         return self.lAlias
     
     def GetDesp(self):
@@ -152,7 +152,10 @@ class FbApiObjectC(object):
             return self.Desp
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitDespPath())
         for res in lDfsRes:
-            self.Desp = res.hEnd['value'].decode('utf-8').encode('ascii','ignore')
+            try:
+                self.Desp = res.hEnd['value'].encode('ascii','ignore')
+            except UnicodeEncodeError:
+                self.Desp = ""
         return self.Desp
     
     def GetNotableType(self):
