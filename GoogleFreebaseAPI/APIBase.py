@@ -107,7 +107,7 @@ class FbApiObjectC(object):
         please note that the result types differ
         '''
         lSupportedField = ['Name','NotableType','Alias','Type','Neighbor','Desp']
-        lLowerField = [field.lower() for field in lSupportedField]
+        lLowerField = [item.lower() for item in lSupportedField]
         hFieldNameMapping = dict(zip(lLowerField,lSupportedField))
         
         field = field.lower()
