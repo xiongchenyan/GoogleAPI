@@ -153,7 +153,7 @@ class FbApiObjectC(object):
         lDfsRes = FreebaseTopicApiJsonDfs(self.hTopic,InitDespPath())
         for res in lDfsRes:
             self.Desp = res.hEnd['value'].encode('ascii','ignore')
-        return self.Desp
+        return self.Despen.code('ascii','ignore')
     
     def GetNotableType(self):
         if "" != self.NotableType:
