@@ -115,7 +115,7 @@ class FbApiObjectC(object):
         if not field in hFieldNameMapping:
             print "Error: [%s] not support for obj field" %(field)
             return       
-        
+        print "using getattr [%s]" %("Get" +  hFieldNameMapping[field])
         return getattr(self,"Get" + hFieldNameMapping[field])()
         
         
