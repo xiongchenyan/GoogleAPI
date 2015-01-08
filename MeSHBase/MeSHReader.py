@@ -28,7 +28,10 @@ class MeSHReaderC(KeyFileReaderC):
         cnt = 0
         for line in self.InFile:
             if '*NEWRECORD' in line:
-                break
+                if lvCol == []:
+                    continue
+                else:
+                    break
             vCol = line.strip().split(self.Spliter)
             
             if [] == vCol:
