@@ -28,7 +28,7 @@ DumpCnt = 0
 for ObjId in CacheCenter.hObj.keys():
     ApiObj = CacheCenter.FetchObj(ObjId)
     if {} == ApiObj.hTopic:
-        ApiObj = FetchFreebaseTopic(ObjId)
+        ApiObj = FetchFreebaseTopic(ApiObj)
         ApiObj.dump(CacheCenter.GetDirForObj(ObjId))
         print '[%s] dumped [%d]' %(ObjId,DumpCnt)
         DumpCnt += 1
