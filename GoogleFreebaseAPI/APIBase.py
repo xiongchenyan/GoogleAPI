@@ -21,7 +21,7 @@ class FbApiObjectC(object):
     #only keey to hTopic?
     #and lots of different measure the extract the information from dict, and set attributes
     def Init(self):
-        self.hBase = {'id':'','name':'','score':0,'notable':{}}
+        self.hBase = {'mid':'','id':'','name':'','score':0,'notable':{}}
         self.hTopic = {}
         
         self.NotableType = ""
