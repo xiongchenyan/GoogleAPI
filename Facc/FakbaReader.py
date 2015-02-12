@@ -1,9 +1,14 @@
 '''
-Created on Apr 22, 2014
-read facc from dir
-input: facc dir
-do: each time a lFaccAnnotationC
+Created on Feb 12, 2015 11:58:52 AM
 @author: cx
+
+what I do:
+I read Fakba directory
+what's my input:
+Fakba annotation dir
+what's my output:
+lFaccbase for each files 
+
 '''
 
 
@@ -12,17 +17,17 @@ site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 
 from Facc.FaccBase import *
-from cxBase.KeyFileReader import KeyFileReaderC
+from cxBase.SeparatorlineFileReader import SeparatorlineFileReaderC
 from cxBase.WalkDirectory import WalkDir
 
 from cxBase.base import cxBaseC
 
-class FaccReaderC(cxBaseC):
+class FakbaReaderC(cxBaseC):
     #call KeyFileReader for each FaccDoc
     def Init(self):
         self.lFaccName = []
         self.Index = 0
-        self.CurrentFaccReader = KeyFileReaderC()
+        self.CurrentReader = SeparatorlineFileReaderC()
     
     
         
@@ -35,7 +40,7 @@ class FaccReaderC(cxBaseC):
         self.Index = 0
         
     def close(self):
-        self.CurrentFaccReader.close()
+        self.CurrentReader.close()
         self.Index = 0
         self.lFaccName = []
         
@@ -43,22 +48,22 @@ class FaccReaderC(cxBaseC):
     def MoveToNextFile(self):
         if self.Index >= len(self.lFaccName):
             return False
-        self.CurrentFaccReader.close()
-        print "opening facc file [%d][%s]" %(self.Index,self.lFaccName[self.Index])
-        self.CurrentFaccReader.open(self.lFaccName[self.Index])
+        self.CurrentReader.close()
+        print "opening fakba file [%d][%s]" %(self.Index,self.lFaccName[self.Index])
+        self.CurrentReader.open(self.lFaccName[self.Index])
         self.Index += 1
         return True
         
-    def ReadNextFacc(self):
-        if self.CurrentFaccReader.empty():
+    def ReadNext(self):
+        if self.CurrentReader.empty():
             if not self.MoveToNextFile():
                 return []
             
-        lvCol = self.CurrentFaccReader.ReadNextKey()
+        lvCol = self.CurrentReader.ReadNextFile()
         if [] == lvCol:
             if not self.MoveToNextFile():
                 return []
-            lvCol = self.CurrentFaccReader.ReadNextKey()
+            lvCol = self.CurrentReader.ReadNextFile()
             
         if [] == lvCol:
             return []
@@ -75,9 +80,10 @@ class FaccReaderC(cxBaseC):
         return self
     
     def next(self):
-        lFacc = self.ReadNextFacc()
+        lFacc = self.ReadNext()
         if [] == lFacc:
             raise StopIteration
         return lFacc
             
+
 

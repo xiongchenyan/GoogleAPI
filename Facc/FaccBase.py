@@ -38,9 +38,15 @@ class FaccAnnotationC(object):
         
     def loads(self,line):
         vCol = line.strip().split('\t')
-        if len(vCol) != 8:
-            print "[%s] [%d] col not valid facc line" %(line,len(vCol))
-            return False
+        if len(vCol) == 8:
+            return self.LoadsFacc(vCol)
+        if len(vCol) == 7:
+            return self.LoadsFakba(vCol)
+        
+        print "[%s] [%d] col not valid facc/fakba line" %(line,len(vCol))
+        return False
+    
+    def LoadsFacc(self,vCol):
         self.DocNo = vCol[0]
         self.EnCoding = vCol[1]
         self.entity = vCol[2]
@@ -50,7 +56,16 @@ class FaccAnnotationC(object):
         self.ContextProb = float(vCol[6])
         self.ObjId = vCol[7]
         return True
-    
+        
+    def LoadsFakba(self,vCol):
+        self.DocNo,self.entity,self.st,self.ed,self.Prob,self.ContextProb,self.ObjId = vCol[:7]
+        self.st = int(self.st)
+        self.ed = int(self.ed)
+        self.Prob = float(self.Prob)
+        self.ContextProb = float(self.ContextProb)
+        return True
+        
+        
     def dumps(self):
         res = self.DocNo + "\t" + self.EnCoding + "\t" + self.entity
         res += "\t%d\t%d\t%f\t%f\t" %(self.st,self.ed,self.Prob,self.ContextProb)
