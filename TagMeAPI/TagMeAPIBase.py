@@ -58,7 +58,12 @@ class TagMeAPIBaseC(object):
         hPara['include_abstract'] = True
         
         url = self.TagUrl + '?' + urllib.urlencode(hPara)
-        response = json.loads(self.FetchUrlData(url))
+        data = self.FetchUrlData(url)
+        try:
+            response = json.loads(data)
+        except ValueError:
+            print "json load [%s] failed" %(data)
+            return []
         if not 'annotations' in response:
             return []
         return response['annotations']
