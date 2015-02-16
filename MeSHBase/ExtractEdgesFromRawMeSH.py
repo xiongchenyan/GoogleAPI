@@ -85,8 +85,10 @@ def SegCapitalPhrase(desp):
         else:
             if CurrentTerm != "":
                 lTerm.append(CurrentTerm.strip())
+                CurrentTerm = ""
     if "" != CurrentTerm:
         lTerm.append(CurrentTerm.strip())
+        CurrentTerm = ""
     return lTerm
             
         
