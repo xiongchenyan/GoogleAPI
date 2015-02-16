@@ -38,14 +38,10 @@ def FormTreeNoMapping(InName):
     for lvCol in Reader:
         lItem = [vCol[:2] for vCol in lvCol if len(vCol) > 1]
         hItem = dict(lItem)
-        try:
-            ID = hItem['UI']
-            TreeNO = hItem['MN']
-            print 'ID[%s] Tree [%s]' %(ID,TreeNO)
-        except KeyError:
-            print json.dumps(hItem)
-            sys.exit()
-            
+        if (not 'UI' in hItem) | (not 'MN' in hItem):
+            continue
+        ID = hItem['UI']
+        TreeNO = hItem['MN']
                 
         hTreeNoMeSH[TreeNO] = ID        
     Reader.close()    
@@ -81,9 +77,13 @@ def FatherTreeNO(TreeNo):
 def ProcessOneMeSH(lvCol,hTreeNoMeSH,hTermID):
     lTriple = []
     hItem = dict([vCol[:2] for vCol in lvCol if len(vCol) > 1])
-    desp  =hItem['MS']
-    ID = hItem['UI']
-    TreeNo = hItem['MN']
+
+    try:
+        desp  =hItem['MS']
+        ID = hItem['UI']
+        TreeNo = hItem['MN']
+    except KeyError:
+        return []
     
     FatherNo =FatherTreeNO(TreeNo)
     if (FatherNo != '') & (FatherNo in hTreeNoMeSH):
