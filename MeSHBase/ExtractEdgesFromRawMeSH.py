@@ -27,6 +27,7 @@ import json
 import sys,pickle
 from cxBase.Conf import cxConfC
 from cxBase.SeparatorlineFileReader import SeparatorlineFileReaderC
+from cxBase.TextBase import TextBaseC
 
 def FormTreeNoMapping(InName):
     hTreeNoMeSH = {}   #treeno (MN)->MeSHId (UI)
@@ -74,6 +75,22 @@ def FatherTreeNO(TreeNo):
         return ""
     return FatherNo
 
+def SegCapitalPhrase(desp):
+    lTerm = []
+    CurrentTerm = ""
+    for term in desp.split():
+        term = TextBaseC.DiscardNonAlphaNonDigit(term)
+        if term.isupper():
+            CurrentTerm += term.lower() + ' '
+        else:
+            if CurrentTerm != "":
+                lTerm.append(CurrentTerm.strip())
+    if "" != CurrentTerm:
+        lTerm.append(CurrentTerm.strip())
+    return lTerm
+            
+        
+
 def ProcessOneMeSH(lvCol,hTreeNoMeSH,hTermID):
     lTriple = []
     hItem = dict([vCol[:2] for vCol in lvCol if len(vCol) > 1])
@@ -93,15 +110,16 @@ def ProcessOneMeSH(lvCol,hTreeNoMeSH,hTermID):
         
         
     print 'ID[%s] desp [%s]' %(ID,desp)
-    for term in desp.split():
-        if term.isupper():
-            term = term.lower()
-            if term in hTermID:
-                AnaId = hTermID[term]
-                lTriple.append([ID,'Contain',AnaId])
-                lTriple.append([AnaId,'AnaTo',ID])
-            else:
-                print term + ' not in term id dict'
+    lTerm = SegCapitalPhrase(desp)
+    print 'get terms: ' + json.dumps(lTerm)
+    for term in lTerm:
+        term = term.lower()
+        if term in hTermID:
+            AnaId = hTermID[term]
+            lTriple.append([ID,'Contain',AnaId])
+            lTriple.append([AnaId,'AnaTo',ID])
+        else:
+            print term + ' not in term id dict'
     
     return lTriple
     
