@@ -79,7 +79,7 @@ def ProcessOneMeSH(lvCol,hTreeNoMeSH,hTermID):
     hItem = dict([vCol[:2] for vCol in lvCol if len(vCol) > 1])
 
     try:
-        desp  =hItem['MS']
+        desp  = hItem['MS']
         ID = hItem['UI']
         TreeNo = hItem['MN']
     except KeyError:
@@ -91,12 +91,17 @@ def ProcessOneMeSH(lvCol,hTreeNoMeSH,hTermID):
         lTriple.append([ID,'IsSub',FatherId])
         lTriple.append([FatherId,'IsSuper',ID])
         
+        
+    print 'ID[%s] desp [%s]' %(ID,desp)
     for term in desp.split():
         if term.isupper():
+            term = term.lower()
             if term in hTermID:
                 AnaId = hTermID[term]
                 lTriple.append([ID,'Contain',AnaId])
                 lTriple.append([AnaId,'AnaTo',ID])
+            else:
+                print term + ' not in term id dict'
     
     return lTriple
     
