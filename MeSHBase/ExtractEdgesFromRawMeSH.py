@@ -23,7 +23,8 @@ MeSHId\tedge type\t MeSH Id: a->b
 import site
 site.addsitedir("/bos/usr0/cx/PyCode/cxPyLib")
 site.addsitedir("/bos/usr0/cx/PyCode/GoogleAPI")
-
+import json
+import sys,pickle
 from cxBase.Conf import cxConfC
 from cxBase.SeparatorlineFileReader import SeparatorlineFileReaderC
 
@@ -37,8 +38,15 @@ def FormTreeNoMapping(InName):
     for lvCol in Reader:
         lItem = [vCol[:2] for vCol in lvCol if len(vCol) > 1]
         hItem = dict(lItem)
-        ID = hItem['UI']
-        TreeNO = hItem['MN']
+        try:
+            ID = hItem['UI']
+            TreeNO = hItem['MN']
+            print 'ID[%s] Tree [%s]' %(ID,TreeNO)
+        except KeyError:
+            print json.dumps(hItem)
+            sys.exit()
+            
+                
         hTreeNoMeSH[TreeNO] = ID        
     Reader.close()    
     return hTreeNoMeSH
@@ -94,7 +102,7 @@ def ProcessOneMeSH(lvCol,hTreeNoMeSH,hTermID):
     
     
     
-import sys,pickle
+
 
 if 2 != len(sys.argv):
     print 'conf\nin\nout\ntermdictin\n'
