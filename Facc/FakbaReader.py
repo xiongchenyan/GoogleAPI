@@ -27,7 +27,7 @@ class FakbaReaderC(cxBaseC):
     def Init(self):
         self.lFaccName = []
         self.Index = 0
-        self.CurrentReader = SeparatorlineFileReaderC()
+        self.CurrentReader = SeparatorlineFileReaderC(SeparatorPre='trec',KeepSepLine=True)
     
     
         
