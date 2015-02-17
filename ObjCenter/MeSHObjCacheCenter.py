@@ -70,7 +70,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
             if line == '*NEWRECORD':
                 MeSHTerm = MeSHTermC()
                 MeSHTerm.SegFromRawLines(lLine)
-                self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm.hBase
+                self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm
                 cnt += 1
                 if 0 == (cnt % 100):
                     print "generating dict, processed [%d] term" %(cnt)
