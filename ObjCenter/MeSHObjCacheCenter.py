@@ -89,6 +89,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
         read MeSHEdgeInName,
         get to each obj's neighbors, fetch its MeSHTerm in self.hMeSH, and put in
         '''
+        print 'start fill edge for [%d] mesh term' %(len(self.hMeSH))
         Reader = KeyFileReaderC()
         Reader.open(MeSHEdgeInName)
         for lvCol in Reader:
@@ -103,6 +104,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
                     continue
                 DstNode = self.hMeSH[vCol[2]]
                 lNeighbor.append([vCol[1],DstNode])
+            print '[%s] get [%d] neighbor' %(ID,len(lNeighbor))
             if not 'neighbor' in self.hMeSH[ID].hBase:
                 self.hMeSH[ID].hBase['neighbor'] = lNeighbor
             else:

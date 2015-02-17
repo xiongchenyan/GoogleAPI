@@ -23,12 +23,13 @@ import sys
 
 if 2 != len(sys.argv):
     MeSHObjCacheCenterC.ShowConf()
-    print "in"
+    print "in\nedgein"
     sys.exit()
     
 CacheCenter = MeSHObjCacheCenterC(sys.argv[1])
 conf = cxConfC(sys.argv[1])
 InName = conf.GetConf('in')
+EdgeInName = conf.GetConf('edgein')
 
-CacheCenter.FormMeSHTermDict(InName)
+CacheCenter.FormMeSHTermDict(InName,EdgeInName)
 print "finished"
