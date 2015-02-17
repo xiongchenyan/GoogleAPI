@@ -14,6 +14,17 @@ what's my output:
 
 
 '''
+'''
+Feb 17 2015: (to support MeSH Annotation features in Obj-doc)
+Add neighbor fields in MeShTermDict
+    pre read from MeSHEdge data, form neighbor dict
+        Neighbor field format needs to be consistant with Fb's
+    for each MeSH term, fetch its neighbors in MeSH Dict, add to its hBase{}
+    And dump to dict
+        (check how to pickle dump class?) (OMG I can just do it?)
+Modify the pickle dump from hBase to MeSHTermC() directly, 
+    thus the loaded dict directly contains the MeSHTermC()
+'''
 
 
 import site
@@ -23,6 +34,7 @@ site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 
 from cxBase.base import cxBaseC,cxConf
 from ObjCenter.ObjCacheCenter import ObjCacheCenterC
+from cxBase.KeyFileReader import KeyFileReaderC
 from MeSHBase.MeSHTerm import MeSHTermC
 import ntpath
 import pickle
@@ -38,12 +50,16 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
         
         
     
-    def FormMeSHTermDict(self,RawMeSHInName):
+    def FormMeSHTermDict(self,RawMeSHInName,MeSHEdgeInName):
         '''
         generate the MeSHTerm dict
         load each record
             seg to MeSHTermC
             add hBase to hMeSH
+        Feb 17:
+        load mesh edge, all edges for each record are grouped together.
+            make its neighbor formats
+            add to its MeSHTerm's fields
         dump
         '''
         
@@ -62,11 +78,37 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
             lLine.append(line)
         MeSHTerm = MeSHTermC()
         MeSHTerm.SegFromRawLines(lLine)
-        self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm.hBase    
+        self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm
+        self.FillNeighbors(MeSHEdgeInName)    
         pickle.dump(self.hMeSH, open(self.MeSHTermDictIn,'wb'))
         print "generated, dump to [%s]" %(self.MeSHTermDictIn)
         return
+    
+    def FillNeighbors(self,MeSHEdgeInName):
+        '''
+        read MeSHEdgeInName,
+        get to each obj's neighbors, fetch its MeSHTerm in self.hMeSH, and put in
+        '''
+        Reader = KeyFileReaderC()
+        Reader.open(MeSHEdgeInName)
+        for lvCol in Reader:
+            if [] == lvCol:
+                continue
+            ID = lvCol[0][0]
+            if not ID in self.hMeSH:
+                continue
+            lNeighbor = []
+            for vCol in lvCol:
+                if not vCol[2] in self.hMeSH:
+                    continue
+                DstNode = self.hMeSH[vCol[2]]
+                lNeighbor.append([vCol[1],DstNode])
+            if not 'neighbor' in self.hMeSH[ID].hBase:
+                self.hMeSH[ID].hBase['neighbor'] = lNeighbor
+            else:
+                self.hMeSH[ID].hBase['neighbor'] += lNeighbor         
         
+        return    
         
     
     
@@ -82,7 +124,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
         MeSHTerm = MeSHTermC()
         MeSHTerm.hBase['id'] = ObjId
         if ObjId in self.hMeSH:
-            MeSHTerm = MeSHTermC(self.hMeSH[ObjId])
+            MeSHTerm = self.hMeSH[ObjId]
             
         return MeSHTerm
    
