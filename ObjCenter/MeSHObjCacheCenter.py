@@ -38,6 +38,7 @@ from cxBase.KeyFileReader import KeyFileReaderC
 from MeSHBase.MeSHTerm import MeSHTermC
 import ntpath
 import pickle
+import sys
 class MeSHObjCacheCenterC(ObjCacheCenterC):
     def Init(self):
         ObjCacheCenterC.Init(self)
@@ -79,7 +80,8 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
         MeSHTerm = MeSHTermC()
         MeSHTerm.SegFromRawLines(lLine)
         self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm
-        self.FillNeighbors(MeSHEdgeInName)    
+        self.FillNeighbors(MeSHEdgeInName) 
+        sys.setrecursionlimit(10000)   
         pickle.dump(self.hMeSH, open(self.MeSHTermDictIn,'wb'))
         print "generated, dump to [%s]" %(self.MeSHTermDictIn)
         return
@@ -121,6 +123,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
     def FetchObj(self,ObjId):
         if {} == self.hMeSH:
             print "loading meshtermdict in from [%s]" %(self.MeSHTermDictIn)
+            sys.setrecursionlimit(10000)
             self.hMeSH = pickle.load(open(self.MeSHTermDictIn))
         
         MeSHTerm = MeSHTermC()
