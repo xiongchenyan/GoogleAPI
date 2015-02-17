@@ -81,7 +81,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
         MeSHTerm.SegFromRawLines(lLine)
         self.hMeSH[MeSHTerm.GetField('id')] = MeSHTerm
         self.FillNeighbors(MeSHEdgeInName) 
-        sys.setrecursionlimit(10000)   
+        sys.setrecursionlimit(100000)   
         pickle.dump(self.hMeSH, open(self.MeSHTermDictIn,'wb'))
         print "generated, dump to [%s]" %(self.MeSHTermDictIn)
         return
@@ -123,7 +123,7 @@ class MeSHObjCacheCenterC(ObjCacheCenterC):
     def FetchObj(self,ObjId):
         if {} == self.hMeSH:
             print "loading meshtermdict in from [%s]" %(self.MeSHTermDictIn)
-            sys.setrecursionlimit(10000)
+            sys.setrecursionlimit(100000)
             self.hMeSH = pickle.load(open(self.MeSHTermDictIn))
         
         MeSHTerm = MeSHTermC()
