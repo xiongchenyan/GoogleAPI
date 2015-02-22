@@ -58,11 +58,16 @@ class FaccAnnotationC(object):
         return True
         
     def LoadsFakba(self,vCol):
+        if len(vCol) < 7:
+            return False 
         self.DocNo,self.entity,self.st,self.ed,self.Prob,self.ContextProb,self.ObjId = vCol[:7]
-        self.st = int(self.st)
-        self.ed = int(self.ed)
-        self.Prob = float(self.Prob)
-        self.ContextProb = float(self.ContextProb)
+        try:
+            self.st = int(self.st)
+            self.ed = int(self.ed)
+            self.Prob = float(self.Prob)
+            self.ContextProb = float(self.ContextProb)
+        except ValueError:
+            return False
         return True
         
         

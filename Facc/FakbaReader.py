@@ -83,7 +83,8 @@ class FakbaReaderC(cxBaseC):
         lFacc = self.ReadNext()
         if [] == lFacc:
             raise StopIteration
-        return lFacc
+        lRes = [facc for facc in lFacc if facc.ObjId != ""]
+        return lRes
             
 
 
