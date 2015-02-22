@@ -69,21 +69,21 @@ class FakbaReaderC(cxBaseC):
             return []
         
         #now things is in lvCol
-        lFacc = []
+        lFakba = []
         for line in ['\t'.join(vCol) for vCol in lvCol]:
-            FaccAna = FaccAnnotationC(line)
-            lFacc.append(FaccAna)
+            FakbaAna = FaccAnnotationC(line,'fakba')
+            lFakba.append(FakbaAna)
             
-        return lFacc
+        return lFakba
     
     def __iter__(self):
         return self
     
     def next(self):
-        lFacc = self.ReadNext()
-        if [] == lFacc:
+        lFakba = self.ReadNext()
+        if [] == lFakba:
             raise StopIteration
-        lRes = [facc for facc in lFacc if facc.ObjId != ""]
+        lRes = [fakba for fakba in lFakba if fakba.ObjId != ""]
         return lRes
             
 
