@@ -31,7 +31,10 @@ class DocAnnotationCenterC(cxBaseC):
     def SetConf(self, ConfIn):
         cxBaseC.SetConf(self, ConfIn)
         self.DictPath = self.conf.GetConf('docanadict')
-        
+    @staticmethod
+    def ShowConf():
+        cxBaseC.ShowConf()
+        print 'docanadict'    
     
     def AddDefaultAnaScore(self):
         for key,lAna in self.hDocAna.items():
