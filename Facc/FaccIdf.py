@@ -5,6 +5,11 @@ output: mid\tidf prob
 @author: cx
 '''
 
+'''
+Feb 22
+if in is not given, will count all objects in facc annotation
+'''
+
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
@@ -33,6 +38,8 @@ class FaccIdfC(cxBaseC):
         
         
     def LoadTargetObj(self):
+        if "" == self.InTargetObj:
+            return
         for line in open(self.InTargetObj):
             self.hTargetObj[line.strip()] = True
             
@@ -45,7 +52,7 @@ class FaccIdfC(cxBaseC):
             lInFacc = []
             for Facc in lFacc:
                 ObjId  = Facc.ObjId
-                if ObjId in self.hTargetObj:
+                if (ObjId in self.hTargetObj) | (len(self.hTargetObj) == 0):
                     if not ObjId in lInFacc:
                         lInFacc.append(ObjId)
 #                         print "get obj [%s]" %(ObjId)
