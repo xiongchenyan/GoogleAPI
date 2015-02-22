@@ -59,7 +59,7 @@ class FaccAnnotationC(object):
             self.Prob = float(vCol[5])
             self.ContextProb = float(vCol[6])
         except ValueError:
-            print "facc line %s parse error" %(json.dumps(vCol))
+            print "facc line parse error"
             self.ObjId = "" #sign of failure
             return False
         self.ObjId = vCol[7]
@@ -75,7 +75,7 @@ class FaccAnnotationC(object):
             self.Prob = float(self.Prob)
             self.ContextProb = float(self.ContextProb)
         except ValueError:
-            print "fakba line %s parse error" %(json.dumps(vCol))
+            print "fakba line  parse error"
             self.ObjId = ""   #sign of failure
             return False
         return True
