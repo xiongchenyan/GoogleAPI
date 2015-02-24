@@ -15,6 +15,7 @@ site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 
 from Facc.FaccReader import FaccReaderC
+from Facc.FakbaReader import FakbaReaderC
 from Facc.FaccBase import *
 from IndriRelate.CtfLoader import *
 from cxBase.base import cxBaseC,cxConf
@@ -26,9 +27,10 @@ class FaccIdfC(cxBaseC):
         self.hTargetObj = {}
         self.CtfCenter = TermCtfC()
         self.OutName = ""
+        self.InType = 'facc'
     @staticmethod
     def ShowConf():
-        print "faccdir\nin\nout"
+        print "faccdir\nin\nout\ninputtype facc|fakba"
         
     def SetConf(self,ConfIn):
         conf = cxConf(ConfIn)
@@ -46,7 +48,10 @@ class FaccIdfC(cxBaseC):
         return True
     
     def ReadFaccDf(self):
-        Reader = FaccReaderC()
+        if self.InType == 'facc':
+            Reader = FaccReaderC()
+        else:
+            Reader = FakbaReaderC()
         Reader.opendir(self.FaccDir)
         for lFacc in Reader:
             lInFacc = []
