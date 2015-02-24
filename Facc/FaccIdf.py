@@ -37,6 +37,7 @@ class FaccIdfC(cxBaseC):
         self.FaccDir = conf.GetConf('faccdir')
         self.InTargetObj = conf.GetConf('in')
         self.OutName = conf.GetConf('out')
+        self.InType = conf.GetConf('fakba')
         
         
     def LoadTargetObj(self):
