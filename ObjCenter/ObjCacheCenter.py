@@ -23,7 +23,7 @@ site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 
 from cxBase.base import cxBaseC,cxConf
 from cxBase.WalkDirectory import WalkDir
-import os,ntpath
+import os,ntpath,sys
 class ObjCacheCenterC(cxBaseC):
     def Init(self):
         self.WorkDir = ""
@@ -47,6 +47,9 @@ class ObjCacheCenterC(cxBaseC):
     def GetDirForObj(self,ObjId):
         #create a 2 level directory for ObjId
         vCol = ObjId.strip('/').split('/')
+        if len(vCol) < 2:
+            print "ObjId [%s] format error"
+            sys.exit()
         mid = vCol[1]
         OneDir = mid[0]
         TwoDir = mid[1]
