@@ -74,8 +74,8 @@ for lvCol in FbReader:
     if 0 == (cnt % 10):
         print "get [%d] desp" %(cnt)
     try:
-        for Name,Mid,Desp in lRes:     
-            print >> out,Name + "\t" + Mid + Desp.strip('"')
+        Name,Mid,Desp  = lRes     
+        print >> out,Name + "\t" + Mid + Desp.strip('"')
     except UnicodeDecodeError:
         print "a unicode decode error, discard this desp"
         
