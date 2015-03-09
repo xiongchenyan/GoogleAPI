@@ -27,9 +27,12 @@ out = open(sys.argv[2],'w')
 cnt = 0
 for line in open(sys.argv[1]):
     vCol = line.strip().split('\t')
+    if len(vCol) < 3:
+        continue
     name = vCol[0].strip('"')
     mid = vCol[1]
     desp = vCol[2]
+    
     lSentence = sent_detector.tokenize(desp)
     llTokens = []
     for sentence in lSentence[:3]:
