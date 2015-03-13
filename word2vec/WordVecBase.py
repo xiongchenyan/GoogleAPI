@@ -26,8 +26,9 @@ class Word2VecC(VectorC):
         
     
     def SetLine(self,line):
-        word,vec = line.strip().split('\t')
-        vec = [float(col) for col in vec.split()]
+        vCol = line.strip().split()
+        word = vCol[0]
+        vec = [float(col) for col in vCol[1:]]
         self.hDim = dict(zip(range(len(vec)),vec))
         self.word = word
         return True
