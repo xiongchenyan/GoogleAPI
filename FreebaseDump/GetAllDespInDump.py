@@ -32,15 +32,20 @@ def ProcessPerObj(lvCol):
     if not IsId(lvCol[0][0]):
         return []
     Desp = GetDesp(lvCol)
-
+    
+    Name = GetName(lvCol)
+    Mid = GetId(lvCol[0][0])
+    
+    if Mid == '/m/09c7w0':
+        print '[%s] dump lines\n%s' %(Mid,json.dumps(lvCol))
+    
     if "" == Desp:
 #         print "[%s] not desp" %(lvCol[0][0])
         return []
 #     print "get desp [%s] for [%s]" %(Desp,lvCol[0][0])
 #     TypeStr = GetNotableType(lvCol)
 
-    Name = GetName(lvCol)
-    Mid = GetId(lvCol[0][0])
+    
     return Name,Mid,Desp
     
     

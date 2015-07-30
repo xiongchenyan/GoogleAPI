@@ -39,8 +39,9 @@ class ObjCacheCenterC(cxBaseC):
         self.CreateHash()
         return True
     
-    @staticmethod
-    def ShowConf():
+    @classmethod
+    def ShowConf(cls):
+        print cls.__name__
         print "objcachedir\nwritecache"
         
     
