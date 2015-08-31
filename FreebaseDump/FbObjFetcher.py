@@ -112,7 +112,7 @@ if __name__ == '__main__':
     root.addHandler(ch)       
 
         
-    Processor = FbObjFetcherC()
+    Processor = FbObjFetcherC(sys.argv[1])
     Processor.Process()        
         
         
