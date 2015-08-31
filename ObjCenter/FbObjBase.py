@@ -29,7 +29,7 @@ class FbObjC(object):
         
     def Init(self):
         self.lSupportedField = ['name','notabletype','alias','type','Neighbor','desp','id','score','wikiid']
-        self.hData = zip(self.lSupportedField,[None] * len(self.lSupportedField))
+        self.hData = dict(zip(self.lSupportedField,[None] * len(self.lSupportedField)))
         self.FbDumpParser = FbDumpOpeC()
         
     def FormFromDumpData(self,lvCol):
