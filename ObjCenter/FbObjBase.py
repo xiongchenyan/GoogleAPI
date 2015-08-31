@@ -35,7 +35,7 @@ class FbObjC(object):
     def FormFromDumpData(self,lvCol):
         
         self.hData['id'] = self.FbDumpParser.GetObjId(lvCol)
-        self.hData['name'] = self.FbDumpParser.GetName(self, lvCol)
+        self.hData['name'] = self.FbDumpParser.GetName(lvCol)
         self.hData['desp'] = self.FbDumpParser.GetDesp(lvCol)
         self.hData['NotableType'] = self.FbDumpParser.GetNotable(lvCol)
         self.hData['alias'] = self.FbDumpParser.GetAlias(lvCol)
