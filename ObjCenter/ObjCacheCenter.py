@@ -15,7 +15,11 @@ what's my output:
 target fields, as required
 
 '''
-
+'''
+Aug 31, 2015
+no longer create obj hash 
+no longer create cache, every obj has to be prefilled through offline processing.
+'''
 
 import site
 site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
@@ -27,22 +31,22 @@ import os,ntpath,sys
 class ObjCacheCenterC(cxBaseC):
     def Init(self):
         self.WorkDir = ""
-        self.WriteCache = True
-        self.hObj = {}
+#         self.WriteCache = True
+#         self.hObj = {}
         self.LastObj = ""    #to be defined by subclasses
         
     def SetConf(self,ConfIn):
         conf = cxConf(ConfIn)
         self.WorkDir = conf.GetConf('objcachedir') + '/'
-        print "set obj cachedir to [%s]" %(self.WorkDir)
-        self.WriteCache = bool(int(conf.GetConf('writecache',self.WriteCache)))
-        self.CreateHash()
+#         print "set obj cachedir to [%s]" %(self.WorkDir)
+#         self.WriteCache = bool(int(conf.GetConf('writecache',self.WriteCache)))
+#         self.CreateHash()
         return True
     
     @classmethod
     def ShowConf(cls):
         print cls.__name__
-        print "objcachedir\nwritecache"
+        print "objcachedir"
         
     
     def GetDirForObj(self,ObjId):
@@ -60,13 +64,13 @@ class ObjCacheCenterC(cxBaseC):
             os.makedirs(res)
         return res
     
-    def CreateHash(self):
-        lFName = WalkDir(self.WorkDir)
-        for FName in lFName:
-            ObjId = self.SegObjIdFromFName(FName)
-            self.hObj[ObjId] = True
-        print "total [%d] obj in [%s]" %(len(self.hObj),self.WorkDir)
-        return True
+#     def CreateHash(self):
+#         lFName = WalkDir(self.WorkDir)
+#         for FName in lFName:
+#             ObjId = self.SegObjIdFromFName(FName)
+#             self.hObj[ObjId] = True
+#         print "total [%d] obj in [%s]" %(len(self.hObj),self.WorkDir)
+#         return True
     
     def SegObjIdFromFName(self,FName):
         return ntpath.basename(FName)
