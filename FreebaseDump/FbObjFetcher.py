@@ -37,7 +37,7 @@ class FbObjFetcherC(cxBaseC):
     def Init(self):
         cxBaseC.Init(self)
         self.DumpInName = ""
-        self.hTargetObjId = {}
+        self.sTargetObjId = {}
         self.TargetIdInName = ""
         self.ObjCenter = FbObjCacheCenterC()
         
@@ -45,7 +45,8 @@ class FbObjFetcherC(cxBaseC):
         cxBaseC.SetConf(self, ConfIn)
         self.DumpInName = self.conf.GetConf('fbdumpin')
         self.TargetIdInName = self.conf.GetConf('targetidin')
-        self.hTargetObjId = open(self.TargetIdInName).read().splitlines()
+        self.sTargetObjId = set(open(self.TargetIdInName).read().splitlines())
+        logging.info('[%d] target obj',len(self.sTargetObjId))
         self.ObjCenter.SetConf(ConfIn)
         
     @staticmethod
@@ -66,11 +67,11 @@ class FbObjFetcherC(cxBaseC):
             FbObj = FbObjC()
             FbObj.FormFromDumpData(lvCol)
             
-            if (FbObj.GetId() in self.hTargetObjId) | (FbObj.GetWikiId() in self.hTargetObjId):
+            if (FbObj.GetId() in self.sTargetObjId) | (FbObj.GetWikiId() in self.sTargetObjId):
                 self.ObjCenter.DumpObj(FbObj)
                 logging.info('dumpped obj [%s][%s]',FbObj.GetId(),FbObj.GetName())
                 FindCnt += 1
-            if FbObj.GetWikiId() in self.hTargetObjId:
+            if FbObj.GetWikiId() in self.sTargetObjId:
                 hWikiIdObjInfo[FbObj.GetWikiId()] = [FbObj.GetId(),FbObj.GetName()]
                 
                 
@@ -79,7 +80,7 @@ class FbObjFetcherC(cxBaseC):
                 logging.info('processed [%d] obj, dumped [%d]',cnt,FindCnt)
         
         self.WriteWikiObjInfo(hWikiIdObjInfo)                
-        logging.info('finished [%d/%d] find',FindCnt,len(self.hTargetObjId))
+        logging.info('finished [%d/%d] find',FindCnt,len(self.sTargetObjId))
         return True
     
     def WriteWikiObjInfo(self,hWikiIdObjInfo):
