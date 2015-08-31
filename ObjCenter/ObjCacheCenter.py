@@ -49,6 +49,10 @@ class ObjCacheCenterC(cxBaseC):
         print "objcachedir"
         
     
+    def DumpObj(self,FbObj):
+        OutDir = self.GetDirForObj(FbObj.GetId())
+        FbObj.dump(OutDir)
+    
     def GetDirForObj(self,ObjId):
         #create a 2 level directory for ObjId
         vCol = ObjId.strip('/').split('/')
