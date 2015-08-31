@@ -180,7 +180,7 @@ class FbDumpOpeC(object):
         if (len(vCol) < 2):
             return s,""
         else:
-            return vCol[0],vCol[1]
+            return vCol[0].strip('"'),vCol[1]
     
     
     
