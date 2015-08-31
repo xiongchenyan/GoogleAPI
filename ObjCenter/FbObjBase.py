@@ -31,6 +31,7 @@ class FbObjC(object):
         self.lSupportedField = ['name','notabletype','alias','type','Neighbor','desp','id','score','wikiid']
         self.hData = dict(zip(self.lSupportedField,[None] * len(self.lSupportedField)))
         self.FbDumpParser = FbDumpOpeC()
+        self.MaxFileNameLen = 100
         
     def FormFromDumpData(self,lvCol):
         
