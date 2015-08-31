@@ -34,7 +34,7 @@ class FbObjC(object):
         
     def FormFromDumpData(self,lvCol):
         
-        self.hData['objid'] = self.FbDumpParser.GetObjId(lvCol)
+        self.hData['id'] = self.FbDumpParser.GetObjId(lvCol)
         self.hData['name'] = self.FbDumpParser.GetName(self, lvCol)
         self.hData['desp'] = self.FbDumpParser.GetDesp(lvCol)
         self.hData['NotableType'] = self.FbDumpParser.GetNotable(lvCol)
@@ -107,6 +107,6 @@ class FbObjC(object):
         try:
             self.hData = pickle.load(open(FName,'r'))
         except Exception:
-            logging.error('load obj [%s] file open failed\n', FName)
+            logging.error('load obj [%s] file open failed, please make sure this obj has been prepared\n', FName)
             raise Exception
         return True
