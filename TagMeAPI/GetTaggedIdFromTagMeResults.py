@@ -22,7 +22,7 @@ out = open(sys.argv[2],'w')
 
 for line in open(sys.argv[1]):
     line = line.strip()
-    vCol = line.split('#')[-1].split('\t')
+    vCol = line.split('#')[-1].strip().split('\t')
     
     for i in range(len(vCol)):
         if 0 == (i % 6):
