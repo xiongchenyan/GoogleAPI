@@ -28,37 +28,32 @@ site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 from cxBase.base import cxBaseC,cxConf
 from cxBase.WalkDirectory import WalkDir
 from ObjCenter.ObjCacheCenter import ObjCacheCenterC
-from GoogleFreebaseAPI.APIBase import *
-from GoogleFreebaseAPI.TopicAPI  import *
+# from GoogleFreebaseAPI.APIBase import *
+# from GoogleFreebaseAPI.TopicAPI  import *
+from FbObjBase import FbObjC
 import os,ntpath
 class FbObjCacheCenterC(ObjCacheCenterC):
     def Init(self):
         ObjCacheCenterC.Init(self)
-        self.LastObj = FbApiObjectC()
+        self.LastObj = FbObjC()
         
     
     
     def SegObjIdFromFName(self,FName):
-        return FbApiObjectC.SegObjIdFromFName(ntpath.basename(FName))  
+        return FbObjC.SegObjIdFromFName(ntpath.basename(FName))  
     
     def FetchObj(self,ObjId):
         if ObjId == self.LastObj.GetId():
             return self.LastObj
         
-        FbApiObj = FbApiObjectC(ObjId)
+        FbObj = FbObjC()
+        FbObj.hData['id'] = ObjId
         if ObjId == 'query':
-            return FbApiObj
-        if ObjId in self.hObj: 
-            FbApiObj.load(self.GetDirForObj(ObjId))
-            self.LastObj = FbApiObj
-            return FbApiObj
+            return FbObj
         
-        FbApiObj = FetchFreebaseTopic(FbApiObj)
-        if self.WriteCache:
-            self.hObj[ObjId] = True
-            FbApiObj.dump(self.GetDirForObj(ObjId))
-        self.LastObj = FbApiObj
-        return FbApiObj
+        FbObj.load(self.GetDirForObj(ObjId))  #will through not found cache exception
+        self.LastObj = FbObj
+        return FbObj
    
                 
         
