@@ -28,7 +28,7 @@ class FbObjC(object):
         
         
     def Init(self):
-        self.lSupportedField = ['name','notabletype','alias','type','Neighbor','desp','id','score']
+        self.lSupportedField = ['name','notabletype','alias','type','Neighbor','desp','id','score','wikiid']
         self.hData = zip(self.lSupportedField,[None] * len(self.lSupportedField))
         self.FbDumpParser = FbDumpOpeC()
         
@@ -42,6 +42,7 @@ class FbObjC(object):
         self.hData['neighbor'] = self.FbDumpParser.GetNeighbor(lvCol)
         self.hData['type'] = self.FbDumpParser.GetType(lvCol)
         self.hData['score'] = 0
+        self.hData['wikiid'] = self.FbDumpParser.GetWikiId(lvCol)
         
         return True
     
@@ -83,6 +84,9 @@ class FbObjC(object):
     
     def GenerateFName(self):
         return self.GetId().replace('/','_')[:self.MaxFileNameLen]
+    
+    def GetWikiId(self):
+        return self.GetField('wikiid')
     
     @staticmethod
     def SegObjIdFromFName(FName):
