@@ -61,7 +61,7 @@ class FbObjFetcherC(cxBaseC):
         reader.open(self.DumpInName)
         cnt = 0
         FindCnt = 0
-        hWikiIdObjId = {}
+        hWikiIdObjInfo = {}
         for lvCol in reader:
             FbObj = FbObjC()
             FbObj.FormFromDumpData(lvCol)
@@ -71,17 +71,27 @@ class FbObjFetcherC(cxBaseC):
                 logging.info('dumpped obj [%s][%s]',FbObj.GetId(),FbObj.GetName())
                 FindCnt += 1
             if FbObj.GetWikiId() in self.hTargetObjId:
-                hWikiIdObjId[FbObj.GetWikiId()] = [FbObj.GetId(),FbObj.GetName()]
+                hWikiIdObjInfo[FbObj.GetWikiId()] = [FbObj.GetId(),FbObj.GetName()]
                 
                 
             cnt += 1
             if 0 == (cnt % 10000):
                 logging.info('processed [%d] obj, dumped [%d]',cnt,FindCnt)
         
-        pickle.dump(hWikiIdObjId,self.ObjCenter.WorkDir + '/WikiObjId.pickle')
-                
+        self.WriteWikiObjInfo(hWikiIdObjInfo)                
         logging.info('finished [%d/%d] find',FindCnt,len(self.hTargetObjId))
         return True
+    
+    def WriteWikiObjInfo(self,hWikiIdObjInfo):
+        out = open(self.ObjCenter.WorkDir + '/WikiIdObjInfo','a')
+        for key,item in hWikiIdObjInfo.items():
+            print >>out, key + '\t' + '\t'.join(item)
+            
+        out.close()
+        logging.info('wiki obj infor added to %s/WikiIdObjInfo',self.ObjCenter.WorkDir )
+        return
+            
+            
         
         
     
