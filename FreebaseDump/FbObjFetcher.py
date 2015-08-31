@@ -30,6 +30,7 @@ from FbDumpBasic import FbDumpOpeC
 from cxBase.base import cxBaseC
 from cxBase.Conf import cxConfC
 import logging
+import pickle
 
 class FbObjFetcherC(cxBaseC):
     
@@ -60,6 +61,7 @@ class FbObjFetcherC(cxBaseC):
         reader.open(self.DumpInName)
         cnt = 0
         FindCnt = 0
+        hWikiIdObjId = {}
         for lvCol in reader:
             FbObj = FbObjC()
             FbObj.FormFromDumpData(lvCol)
@@ -68,9 +70,15 @@ class FbObjFetcherC(cxBaseC):
                 self.ObjCenter.DumpObj(FbObj)
                 logging.info('dumpped obj [%s][%s]',FbObj.GetId(),FbObj.GetName())
                 FindCnt += 1
+            if FbObj.GetWikiId() in self.hTargetObjId:
+                hWikiIdObjId[FbObj.GetWikiId()] = [FbObj.GetId(),FbObj.GetName()]
+                
+                
             cnt += 1
             if 0 == (cnt % 10000):
                 logging.info('processed [%d] obj, dumped [%d]',cnt,FindCnt)
+        
+        pickle.dump(hWikiIdObjId,self.ObjCenter.WorkDir + '/WikiObjId.pickle')
                 
         logging.info('finished [%d/%d] find',FindCnt,len(self.hTargetObjId))
         return True
