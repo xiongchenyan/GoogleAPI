@@ -10,7 +10,7 @@ site.addsitedir('/bos/usr0/cx/PyCode/cxPyLib')
 site.addsitedir('/bos/usr0/cx/PyCode/cxMachineLearning')
 site.addsitedir('/bos/usr0/cx/PyCode/GoogleAPI')
 
-from CateAttCntDensityCenter import *
+from FreebaseDumpProcesses.CateAttCntDensityCenter import *
 import sys
 
 if 3 != len(sys.argv):

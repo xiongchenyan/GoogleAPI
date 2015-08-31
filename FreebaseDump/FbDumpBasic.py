@@ -11,6 +11,15 @@ Added get wiki url func
 and reconstructed them as a class
 '''
 
+'''
+Aug 31, 2014,
+to not using Google Freebase API (might be depreciated very soon)
+    support form FbObj from dump
+    support fetch wiki en id, in order to match given wikipedia id
+    
+'''
+
+
 TypeEdge = "<http://rdf.freebase.com/ns/type.object.type>"
 DespEdge = "<http://rdf.freebase.com/ns/common.topic.description>"
 NameEdge = "<http://www.w3.org/2000/01/rdf-schema#label>"
@@ -18,7 +27,7 @@ AliasEdge = "<http://rdf.freebase.com/ns/common.topic.alias>"
 NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
 InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
 WikiUrlEdge = "<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>"
-
+WikiEnIdEdge = '<http://rdf.freebase.com/key/key.wikipedia.en_id>'
 import json
 
 class FbDumpOpeC(object):
@@ -30,7 +39,7 @@ class FbDumpOpeC(object):
         self.NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
         self.InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
         self.lWikiUrlEdge = ["<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>","<http://rdf.freebase.com/ns/common.topic.topical_webpage>"]
-        
+        self.WikiEnIdEdge = '<http://rdf.freebase.com/key/key.wikipedia.en_id>'
     @staticmethod
     def GetObjId(lvCol):
         if lvCol == []:
@@ -101,6 +110,21 @@ class FbDumpOpeC(object):
     
     def GetDesp(self,lvCol):
         return '\n'.join(self.FetchTargetStringWithEdge(lvCol, self.DespEdge))
+    
+    def GetWikiId(self,lvCol):
+        lWikiId = self.FetchTargetStringWithEdge(lvCol, self.WikiEnIdEdge)
+        if [] == lWikiId:
+            return ""
+        return lWikiId[0]
+    
+    def GetNeighbor(self,lvCol):
+        lNeighbor = []
+        for vCol in lvCol:
+            NeighborId = self.GetIdForCol(vCol[2])
+            if "" != NeighborId:
+                NeighborEdge = self.DiscardPrefix(vCol[1])
+                lNeighbor.append([NeighborEdge,NeighborId])
+        return lNeighbor
     
     def GetWikiUrl(self,lvCol):
         lWikiUrl = []
