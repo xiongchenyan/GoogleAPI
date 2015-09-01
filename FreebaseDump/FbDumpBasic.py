@@ -39,7 +39,7 @@ class FbDumpOpeC(object):
         self.NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
         self.InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
         self.lWikiUrlEdge = ["<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>","<http://rdf.freebase.com/ns/common.topic.topical_webpage>"]
-        self.WikiEnIdEdge = '<http://rdf.freebase.com/key/key.wikipedia.en_id>'
+        self.WikiEnIdEdge = '<http://rdf.freebase.com/key/wikipedia.en_id>'
     @staticmethod
     def GetObjId(lvCol):
         if lvCol == []:
