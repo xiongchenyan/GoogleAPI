@@ -75,8 +75,10 @@ class FbObjFetcherC(cxBaseC):
             if FbObj.GetWikiId() in self.sTargetObjId:
                 hWikiIdObjInfo[FbObj.GetWikiId()] = [FbObj.GetId(),FbObj.GetName()]
                 sFetchedId.add(FbObj.GetWikiId())
+                logging.info('as wiki target [%s]',FbObj.GetWikiId())
             if FbObj.GetId() in self.sTargetObjId:
                 sFetchedId.add(FbObj.GetId())
+                logging.info('as fb target [%s]',FbObj.GetId())
                 
             cnt += 1
             if 0 == (cnt % 10000):
