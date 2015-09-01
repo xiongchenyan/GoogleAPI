@@ -27,7 +27,7 @@ AliasEdge = "<http://rdf.freebase.com/ns/common.topic.alias>"
 NotableEdge = "<http://rdf.freebase.com/ns/common.topic.notable_types>"
 InstanceEdge = "<http://rdf.freebase.com/ns/type.type.instance>"
 WikiUrlEdge = "<http://rdf.freebase.com/ns/common.topic.topic_equivalent_webpage>"
-WikiEnIdEdge = '<http://rdf.freebase.com/key/key.wikipedia.en_id>'
+WikiEnIdEdge = '<http://rdf.freebase.com/key/wikipedia.en_id>'
 import json
 
 class FbDumpOpeC(object):
