@@ -177,10 +177,11 @@ class FbDumpOpeC(object):
     @staticmethod     
     def SegLanguageTag(s):
         vCol = s.split("@")
-        if (len(vCol) < 2):
-            return s,""
-        else:
-            return vCol[0].strip('"'),vCol[1]
+        lang = ""
+        text = vCol[0].strip('"')
+        if (len(vCol) >= 2):
+            lang = vCol[1]
+        return text,lang
     
     
     

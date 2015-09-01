@@ -63,6 +63,7 @@ class FbObjFetcherC(cxBaseC):
         cnt = 0
         FindCnt = 0
         hWikiIdObjInfo = {}
+        sFetchedId = set()
         for lvCol in reader:
             FbObj = FbObjC()
             FbObj.FormFromDumpData(lvCol)
@@ -73,15 +74,27 @@ class FbObjFetcherC(cxBaseC):
                 FindCnt += 1
             if FbObj.GetWikiId() in self.sTargetObjId:
                 hWikiIdObjInfo[FbObj.GetWikiId()] = [FbObj.GetId(),FbObj.GetName()]
-                
+                sFetchedId.add(FbObj.GetWikiId())
+            if FbObj.GetId() in self.sTargetObjId:
+                sFetchedId.add(FbObj.GetId())
                 
             cnt += 1
             if 0 == (cnt % 10000):
                 logging.info('processed [%d] obj, dumped [%d]',cnt,FindCnt)
         
-        self.WriteWikiObjInfo(hWikiIdObjInfo)                
+        self.WriteWikiObjInfo(hWikiIdObjInfo)
+        self.WriteNoFoundId(sFetchedId)                
         logging.info('finished [%d/%d] find',FindCnt,len(self.sTargetObjId))
         return True
+    
+    def WriteNoFoundId(self,sFetchedId):
+        out = open(self.TargetIdInName + '_NotFound','w')
+        sFailed = self.sTargetObjId - sFetchedId
+        print >>out, '\n'.join(list(sFailed))
+        
+        out.close()
+        logging.warn('[%d]/%d] not found',len(sFailed),len(self.sTargetObjId))
+        return
     
     def WriteWikiObjInfo(self,hWikiIdObjInfo):
         out = open(self.ObjCenter.WorkDir + '/WikiIdObjInfo','a')
