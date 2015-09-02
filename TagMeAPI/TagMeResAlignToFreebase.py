@@ -42,8 +42,7 @@ def AlignOneLine(line, hWikiFb):
         WikiId = vTargetCol[0]
         if WikiId in hWikiFb:
             FbId,FbName = hWikiFb[WikiId]
-            
-        vRes.extend(vTargetCol + [FbId,FbName])
+            vRes.extend(vTargetCol + [FbId,FbName])
         
     return '\t'.join([DocNo] + vRes)
 
