@@ -21,7 +21,7 @@ import logging
 def LoadWikiFbDict(InName):
     lvCol = [line.split('\t') for line in open(InName).read().splitlines()]
     
-    lItems = [[item[0],'\t'.join(item[1:])] for item in lvCol]
+    lItems = [[item[0],item[1:]] for item in lvCol]
     hWikiFb = dict(lItems)
     return hWikiFb
 
