@@ -110,7 +110,7 @@ class FbObjC(object):
     def load(self,InDir):
         FName = InDir + "/" + self.GenerateFName()
         try:
-            self.hData = pickle.load(open(FName,'r'))
+            self.hData = pickle.load(open(FName))
         except Exception:
             logging.error('load obj [%s] file open failed, please make sure this obj has been prepared\n', FName)
             raise Exception
