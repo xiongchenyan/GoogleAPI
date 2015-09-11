@@ -55,7 +55,7 @@ def CountObjSurfacePairs(InDir,OutDir):
         
         if len(TotalCount) >=  MaxKeyPerFile:
             OutName = OutDir + '/%d' %(OutCnt)
-            logging.info('counter too large [%d], dumpping to [%s]', OutName)
+            logging.info('counter too large [%d], dumpping to [%s]', len(TotalCount), OutName)
             out = open(OutName,'w')
             l = TotalCount.items()
             l.sort(key=lambda item:item[0])
@@ -65,6 +65,7 @@ def CountObjSurfacePairs(InDir,OutDir):
                 
             out.close()
             logging.info('dumpped')
+            TotalCount.clear()
             OutCnt += 1
     
     logging.info('counted, total [%d] tmp file',OutCnt)        
