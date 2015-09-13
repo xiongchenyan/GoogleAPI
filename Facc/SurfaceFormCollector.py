@@ -32,7 +32,7 @@ def ReadAllPairs(InName):
     lvCol = [line.split('\t') for line in open(InName).read().splitlines()]
     global InType
     if 'facc' == InType:
-        lPair = [vCol[2] + '\t' + vCol[7] for vCol in lvCol]
+        lPair = [vCol[2] + '\t' + vCol[7] for vCol in lvCol if len(vCol) > 8]
     else:
         lPair = [vCol[0] + '\t' + vCol[-1] for vCol in lvCol if len(vCol) > 5]
 
@@ -90,7 +90,7 @@ def MergeToFinalOut(TempDir,TempCnt,OutName):
         if CurrentKeyCnt[0] != key:
             print >>out, '%s\t%d' %(CurrentKeyCnt[0],CurrentKeyCnt[1])
             TotalPairCnt += 1
-            CurrentKeyCnt = key,cnt
+            CurrentKeyCnt = [key,cnt]
         else:
             CurrentKeyCnt[1] += cnt
             
