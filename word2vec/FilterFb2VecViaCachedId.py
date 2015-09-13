@@ -25,12 +25,12 @@ def GetAllObjIdInCache(InDir):
     return sObjId
 
 
-def FilterWord2Vec(InName,OutName,sObjId):
+def FilterWord2Vec(InName,OutName,sTerm):
     ResCnt = 0
     
-    print 'checking how many to keep, target [%d]' %(len(sObjId))
+    print 'checking how many to keep, target [%d]' %(len(sTerm))
     for line in open(InName):
-        if line.strip().split()[0] in sObjId:
+        if line.strip().split()[0] in sTerm:
             ResCnt += 1
             
     print 'keep [%d] fb2vec' %(ResCnt)            
@@ -43,23 +43,24 @@ def FilterWord2Vec(InName,OutName,sObjId):
             print >> out,'%d\t%s' %(ResCnt, line.split()[-1])
             continue
         
-        if line.split()[0] in sObjId:
+        if line.split()[0] in sTerm:
             print >>out, line
         
     out.close()
     print 'dummped'
     return
 
-
-import sys
-
-if 4 != len(sys.argv):
-    print 'I filter out fb2vec to only keep those in cache dir'
-    print '3para: fb2vec in + obj cache + out'
-    sys.exit()
     
+if __name__ == '__main__':
+    import sys
     
-sObjId = GetAllObjIdInCache(sys.argv[2])
-FilterWord2Vec(sys.argv[1], sys.argv[3], sObjId)
+    if 4 != len(sys.argv):
+        print 'I filter out fb2vec to only keep those in cache dir'
+        print '3para: fb2vec in + obj cache + out'
+        sys.exit()
+        
+        
+    sObjId = GetAllObjIdInCache(sys.argv[2])
+    FilterWord2Vec(sys.argv[1], sys.argv[3], sObjId)
 
         
