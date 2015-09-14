@@ -32,7 +32,7 @@ def ReadAllPairs(InName):
     lvCol = [line.split('\t') for line in open(InName).read().splitlines()]
     global InType
     if 'facc' == InType:
-        lPair = [vCol[2] + '\t' + vCol[7] for vCol in lvCol if len(vCol) > 8]
+        lPair = [vCol[2] + '\t' + vCol[7] for vCol in lvCol if len(vCol) >= 8]
     else:
         lPair = [vCol[0] + '\t' + vCol[-1] for vCol in lvCol if len(vCol) > 5]
 
