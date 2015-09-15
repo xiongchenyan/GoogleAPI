@@ -73,7 +73,7 @@ class FbDumpOpeC(object):
         '''
         lTar = []
         for vCol in lvCol:
-            if vCol[1] == Edge:
+            if (vCol[1] == Edge) | (FbDumpOpeC.DiscardPrefix(vCol[1]) == FbDumpOpeC.DiscardPrefix(Edge)):
                 lTar.append(vCol[2])
 
         return lTar
