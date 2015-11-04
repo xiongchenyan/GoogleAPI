@@ -28,7 +28,7 @@ def LoadWikiFbDict(InName):
 
 
 def AlignOneLine(line, hWikiFb):
-    DocNo,DocText = line.split()[0:2]
+    DocNo,DocText = line.split('\t')[0:2]
     vTagMeCol = line.split('#')[-1].strip().split('\t')
     
     vRes = []
