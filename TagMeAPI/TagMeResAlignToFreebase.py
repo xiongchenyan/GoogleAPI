@@ -28,8 +28,7 @@ def LoadWikiFbDict(InName):
 
 
 def AlignOneLine(line, hWikiFb):
-    DocNo = line.split()[0]
-    
+    DocNo,DocText = line.split()[0:2]
     vTagMeCol = line.split('#')[-1].strip().split('\t')
     
     vRes = []
@@ -44,7 +43,7 @@ def AlignOneLine(line, hWikiFb):
             FbId,FbName = hWikiFb[WikiId]
             vRes.extend(vTargetCol + [FbId,FbName])
         
-    return '\t'.join([DocNo] + vRes)
+    return '\t'.join([DocNo,DocText] + vRes)
 
 
 def Process(TaggedDataIn, WikiFbInforIn,OutName):
