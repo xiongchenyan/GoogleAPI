@@ -44,7 +44,7 @@ def AlignOneLine(line, hWikiFb):
             FbId,FbName = hWikiFb[WikiId]
             vRes.extend(vTargetCol + [FbId,FbName])
         
-    return '\t'.join(DocData + vRes)
+    return DocData + '\t#\t' + '\t'.join(vRes)
 
 
 def Process(TaggedDataIn, WikiFbInforIn,OutName):
