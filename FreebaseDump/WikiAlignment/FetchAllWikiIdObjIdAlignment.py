@@ -17,8 +17,7 @@ site.addsitedir("/bos/usr0/cx/PyCode/cxPyLib")
 site.addsitedir("/bos/usr0/cx/PyCode/GoogleAPI")
 
 from ObjCenter.FbObjBase import FbObjC
-from FbDumpReader import FbDumpReaderC
-from FbDumpBasic import FbDumpOpeC
+from FreebaseDump.FbDumpReader import FbDumpReaderC
 
 
 
